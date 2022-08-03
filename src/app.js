@@ -1,6 +1,6 @@
 import React from "react";
-import { AppHeader } from "./components/app-header/app-header";
-import styles from './styles.module.css'
+import { AppHeader } from "./components/app-header/app-header.js";
+import styles from "./styles.module.css";
 
 // import { Logo } from '@ya.praktikum/react-developer-burger-ui-components'
 
