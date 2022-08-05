@@ -16,7 +16,7 @@ class AppHeader extends React.Component {
   render() {
     return (
       <header className={`pb-4 pt-4 ${styles.header}`}>
-        <div className={styles.header_linkContainer}>
+        <nav className={styles.header_linkContainer}>
           <NavigationLink icon={<BurgerIcon type="primary" />}>
             <p className="text text_type_main-default ml-2">Конструктор</p>
           </NavigationLink>
@@ -25,7 +25,7 @@ class AppHeader extends React.Component {
               Лента заказов
             </p>
           </NavigationLink>
-        </div>
+        </nav>
 
         <NavigationLink icon={<ProfileIcon type="secondary" />}>
           <p className="text text_type_main-default text_color_inactive ml-2">
