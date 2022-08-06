@@ -1,0 +1,19 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 100px;
+}
+
+.totalPriceContainer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 40px;
+  margin-top: 40px;
+}
+
+.priceContainer {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}

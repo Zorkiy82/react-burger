@@ -1,11 +1,11 @@
 import React from "react";
 import { AppHeader } from "./components/app-header/app-header.js";
-import { IngredientCard } from "./components/ingredient-card/ingredient-card";
-import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
+import { BurgerIngredients } from "./components/burger-ingredients/burger-ingredients.js";
+import { BurgerConstructor } from "./components/burger-constructor/burger-constructor.js";
 import styles from "./styles.module.css";
-import {initialData} from "./utils/data"
+import { initialData } from "./utils/data";
 
-// import { Logo } from '@ya.praktikum/react-developer-burger-ui-components'
+let mainArr = initialData.filter((item) => item.type !== "bun");
 
 function App() {
   return (
@@ -13,42 +13,21 @@ function App() {
       <AppHeader />
       <main className={styles.main}>
         <section>
-        <p className="text text_type_main-large mt-10 mb-5">Соберите бургер</p>
-          <div style={{ display: "flex" }}>
-            <Tab value="one" active="one">
-              Булки
-            </Tab>
-            <Tab value="two" active="">
-              Соусы
-            </Tab>
-            <Tab value="three" active="">
-              Начинки
-            </Tab>
-          </div>
+          <p className="text text_type_main-large mt-10 mb-5">
+            Соберите бургер
+          </p>
 
-          <div className={ styles.ingridientsContainer }>
-          <p className="text text_type_main-medium mt-10 mb-6">Булки</p>
-          {initialData.map(item=><IngredientCard {...item} />)}
-
-
-          {/* <IngredientCard {...initialData[0]} />
-          <IngredientCard {...initialData[1]} />
-          <IngredientCard {...initialData[2]} /> */}
-          <p className="text text_type_main-medium mt-10 mb-6">Соусы</p>
-          <p className="text text_type_main-medium mt-10 mb-6">Начинки</p>
-
-          </div>
+          <BurgerIngredients initialData={initialData} />
         </section>
 
-        <section>
-          <p>text</p>
-          <p>text</p>
-          <p>text</p>
-          <p>text</p>
-          <p>text</p>
-          <p>text</p>
-          <p>text</p>
-          <p>text</p>
+        <section className="pl-4">
+          <BurgerConstructor
+            {...{
+              top: initialData[0],
+              main: mainArr,
+              bottom: initialData[0],
+            }}
+          />
         </section>
       </main>
     </div>

@@ -1,9 +1,9 @@
 .header{
   position: relative;
+  box-sizing: border-box;
   display: flex;
   justify-content: space-between;
   width: 1280px;
-  border: 1px solid green;
 }
 
 .header_logo{

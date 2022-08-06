@@ -1,0 +1,18 @@
+.scrollbarContainer {
+  box-sizing: border-box;
+  width: 100%;
+  height: calc(100vh - 106px - 196px);
+  overflow-x: auto;
+}
+
+.scrollbarContainer::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scrollbarContainer::-webkit-scrollbar-track {
+  background-color: #2f2f37;
+}
+
+.scrollbarContainer::-webkit-scrollbar-thumb {
+  background-color: #8585ad;
+}
