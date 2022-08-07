@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types';
+import { ingredientPropTypes } from "../../utils/constants.js"
 import { TabBar } from "../tab-bar/tab-bar.js";
 import { CardList } from "../card-list/card-list.js";
 import styles from "./burger-ingredients.module.css";
@@ -48,22 +49,6 @@ class BurgerIngredients extends React.Component {
     );
   }
 }
-
-const ingredientPropTypes = PropTypes.shape({
-  _id: PropTypes.string,
-  name: PropTypes.string,
-  type: PropTypes.string,
-  proteins: PropTypes.number,
-  fat: PropTypes.number,
-  carbohydrates: PropTypes.number,
-  calories: PropTypes.number,
-  price: PropTypes.number,
-  image: PropTypes.string,
-  image_mobile: PropTypes.string,
-  image_large: PropTypes.string,
-  __v: PropTypes.number,
-});
-
 
 BurgerIngredients.propTypes = {
   initialData: PropTypes.arrayOf(ingredientPropTypes)

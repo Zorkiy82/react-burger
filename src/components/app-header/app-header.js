@@ -9,10 +9,6 @@ import {
 import { NavigationLink } from "../navigation-link/navigation-link";
 
 class AppHeader extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  // }
-
   render() {
     return (
       <header className={`pb-4 pt-4 ${styles.header}`}>
