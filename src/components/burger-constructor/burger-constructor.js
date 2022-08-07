@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import styles from "./burger-constructor.module.css";
 import { ConstructorCard } from "../constructor-card/constructor-card";
 import { IngredientsList } from "../ingredients-list/ingredients-list";
@@ -54,5 +55,26 @@ class BurgerConstructor extends React.Component {
     );
   }
 }
+
+const ingredientPropTypes = PropTypes.shape({
+  _id: PropTypes.string,
+  name: PropTypes.string,
+  type: PropTypes.string,
+  proteins: PropTypes.number,
+  fat: PropTypes.number,
+  carbohydrates: PropTypes.number,
+  calories: PropTypes.number,
+  price: PropTypes.number,
+  image: PropTypes.string,
+  image_mobile: PropTypes.string,
+  image_large: PropTypes.string,
+  __v: PropTypes.number,
+});
+
+BurgerConstructor.propTypes = {
+  main: PropTypes.arrayOf(ingredientPropTypes),
+  top: ingredientPropTypes,
+  bottom: ingredientPropTypes,
+};
 
 export { BurgerConstructor };
