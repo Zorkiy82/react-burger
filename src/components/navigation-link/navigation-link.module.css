@@ -1,0 +1,7 @@
+.navigationLink {
+  display: flex;
+  box-sizing: border-box;
+  border-radius: 40px;
+  text-decoration: none;
+  color: #f2f2f3;
+}
