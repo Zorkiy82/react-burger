@@ -5,27 +5,23 @@ import {
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-class ConstructorCard extends React.Component {
-  render() {
-    return (
-      <li
-        className={`${styles.card} ${!this.props.isLocked ? "mr-2" : "mr-4"}`}
-      >
-        {!this.props.isLocked ? (
-          <DragIcon type="primary" />
-        ) : (
-          <div
-            style={{
-              width: "24px",
-              height: "24px",
-            }}
-          ></div>
-        )}
+function ConstructorCard(props) {
+  return (
+    <li className={`${styles.card} ${!props.isLocked ? "mr-2" : "mr-4"}`}>
+      {!props.isLocked ? (
+        <DragIcon type="primary" />
+      ) : (
+        <div
+          style={{
+            width: "24px",
+            height: "24px",
+          }}
+        ></div>
+      )}
 
-        <ConstructorElement {...this.props} />
-      </li>
-    );
-  }
+      <ConstructorElement {...props} />
+    </li>
+  );
 }
 
 export { ConstructorCard };

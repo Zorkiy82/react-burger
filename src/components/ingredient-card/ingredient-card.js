@@ -5,22 +5,20 @@ import {
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-class IngredientCard extends React.Component {
-  render() {
-    return (
-      <li className={styles.card}>
-        <img src={this.props.image} className={styles.image} />
+function IngredientCard(props) {
+  return (
+    <li className={styles.card}>
+      <img src={props.image} className={styles.image} />
 
-        <div className={styles.praiceContainer}>
-          <p className="text text_type_digits-default">{this.props.price}</p>
-          <CurrencyIcon type="primary" />
-        </div>
+      <div className={styles.praiceContainer}>
+        <p className="text text_type_digits-default">{props.price}</p>
+        <CurrencyIcon type="primary" />
+      </div>
 
-        <p className="text text_type_main-small">{this.props.name}</p>
-        <Counter count={1} size="default" />
-      </li>
-    );
-  }
+      <p className="text text_type_main-small">{props.name}</p>
+      <Counter count={1} size="default" />
+    </li>
+  );
 }
 
 export { IngredientCard };
