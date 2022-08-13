@@ -1,0 +1,32 @@
+.modal {
+  display: block;
+  position: relative;
+  width: 720px;
+  min-height: 100px;
+  background: #1c1c21;
+  border: 1px solid rgba(76, 76, 255, 0.2);
+  border-radius: 40px;
+  box-shadow: 0px 24px 32px rgba(0, 0, 0, 0.04),
+    0px 16px 24px rgba(0, 0, 0, 0.04), 0px 4px 8px rgba(0, 0, 0, 0.04),
+    0px 0px 1px rgba(0, 0, 0, 0.04);
+}
+
+.closeButton {
+  border: none;
+  width: 24px;
+  height: 24px;
+  background-image: url('../../images/close-button-icon.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 18px;
+
+  padding: 0;
+  background-color: transparent;
+  position: absolute;
+  top: 60px;
+  right: 40px;
+}
+
+.closeButton:hover {
+  opacity: 0.8;
+}

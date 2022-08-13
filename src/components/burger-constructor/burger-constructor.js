@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styles from "./burger-constructor.module.css";
-import { ingredientPropTypes } from "../../utils/constants.js";
+import { IngredientPropTypes } from "../../utils/constants.js";
 import { ConstructorCard } from "../constructor-card/constructor-card";
 import { IngredientsList } from "../ingredients-list/ingredients-list";
 import {
@@ -52,9 +52,9 @@ function BurgerConstructor(props) {
 }
 
 BurgerConstructor.propTypes = {
-  main: PropTypes.arrayOf(ingredientPropTypes),
-  top: ingredientPropTypes,
-  bottom: ingredientPropTypes,
+  main: PropTypes.arrayOf(IngredientPropTypes),
+  top: IngredientPropTypes,
+  bottom: IngredientPropTypes,
 };
 
 export { BurgerConstructor };

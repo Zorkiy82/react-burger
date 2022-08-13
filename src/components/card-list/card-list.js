@@ -5,7 +5,7 @@ import styles from "./card-list.module.css";
 function CardList(props) {
 
     return (
-      <ul className={styles.cardList}>
+      <ul className={styles.cardList} >
         {props.data.map((item) => (
           <IngredientCard key={item._id} {...item} />
         ))}

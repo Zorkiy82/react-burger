@@ -1,22 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { ingredientPropTypes } from "../../utils/constants.js";
+import { IngredientPropTypes } from "../../utils/constants.js";
 import { TabBar } from "../tab-bar/tab-bar.js";
 import { CardList } from "../card-list/card-list.js";
+
 import styles from "./burger-ingredients.module.css";
 
 function BurgerIngredients(props) {
-  const bunList = props.initialData.filter(
-    (value) => value.type === "bun"
-  );
+  const bunList = props.initialData.filter((value) => value.type === "bun");
 
-  const sauceList = props.initialData.filter(
-    (value) => value.type === "sauce"
-  );
+  const sauceList = props.initialData.filter((value) => value.type === "sauce");
 
-  const mainList = props.initialData.filter(
-    (value) => value.type === "main"
-  );
+  const mainList = props.initialData.filter((value) => value.type === "main");
 
   return (
     <>
@@ -46,7 +41,7 @@ function BurgerIngredients(props) {
 }
 
 BurgerIngredients.propTypes = {
-  initialData: PropTypes.arrayOf(ingredientPropTypes),
+  initialData: PropTypes.arrayOf(IngredientPropTypes),
 };
 
 export { BurgerIngredients };
