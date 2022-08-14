@@ -4,14 +4,12 @@ import styles from "./modal-overlay.module.css";
 import { ModalRoot } from "../../utils/constants.js";
 
 function ModalOverlay(props) {
-
   React.useEffect(() => {
     window.addEventListener("keydown", handleKeydownEsc);
 
     return () => {
       window.removeEventListener("keydown", handleKeydownEsc);
     };
-
   });
 
   function handleMouseDown(evt) {

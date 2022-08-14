@@ -1,5 +1,7 @@
 import React from "react";
+import PropTypes from "prop-types";
 import styles from "./ingredient-details.module.css";
+import { IngredientPropTypes } from "../../utils/constants.js";
 
 function IngredientDetails(props) {
   return (
@@ -55,5 +57,7 @@ function IngredientDetails(props) {
     </div>
   );
 }
+
+IngredientDetails.propTypes = {IngredientPropTypes};
 
 export { IngredientDetails };

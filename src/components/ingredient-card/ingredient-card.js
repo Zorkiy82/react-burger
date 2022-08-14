@@ -10,23 +10,21 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
 function IngredientCard(props) {
-
-  const [ modalIsVisible,setModalIsVisible] = React.useState(false);
+  const [modalIsVisible, setModalIsVisible] = React.useState(false);
 
   const modalWindow = (
     <ModalOverlay onClose={handleCloseModal}>
       <Modal>
-        <IngredientDetails {...props}/>
+        <IngredientDetails {...props} />
       </Modal>
     </ModalOverlay>
   );
 
-  function handleOpenModal(){
+  function handleOpenModal() {
     setModalIsVisible(true);
-    console.log(props);
   }
 
-  function handleCloseModal(){
+  function handleCloseModal() {
     setModalIsVisible(false);
   }
 
@@ -41,7 +39,7 @@ function IngredientCard(props) {
 
       <p className="text text_type_main-small">{props.name}</p>
       <Counter count={1} size="default" />
-      {modalIsVisible && (modalWindow)}
+      {modalIsVisible && modalWindow}
     </li>
   );
 }

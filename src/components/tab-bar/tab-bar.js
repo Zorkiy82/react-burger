@@ -17,6 +17,6 @@ function TabBar() {
       </Tab>
     </div>
   );
-};
+}
 
 export { TabBar };

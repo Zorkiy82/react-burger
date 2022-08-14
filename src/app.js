@@ -2,18 +2,17 @@ import React from "react";
 import { AppHeader } from "./components/app-header/app-header.js";
 import { BurgerIngredients } from "./components/burger-ingredients/burger-ingredients.js";
 import { BurgerConstructor } from "./components/burger-constructor/burger-constructor.js";
-// import { Modal } from "./components/modal/modal.js"
 import { ApiUrl } from "./utils/constants.js";
 import styles from "./styles.module.css";
 
 function App() {
-  const [ingredientsDataArray, setIngredientsDataArray] =
-    React.useState([]);
+  const [ingredientsDataArray, setIngredientsDataArray] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
   const [hasError, sethasError] = React.useState(false);
 
   React.useEffect(() => {
     setIsLoading(true);
+
     fetch(ApiUrl)
       .then((res) => res.json())
       .then((data) => {
@@ -29,15 +28,11 @@ function App() {
   }, []);
 
   return (
-
-
     <div className={styles.app}>
-
       <AppHeader />
       {!isLoading && !hasError && (
         <main className={styles.main}>
           <section>
-
             <p className="text text_type_main-large mt-10 mb-5">
               Соберите бургер
             </p>

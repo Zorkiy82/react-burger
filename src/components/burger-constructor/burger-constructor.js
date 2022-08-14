@@ -68,7 +68,7 @@ function BurgerConstructor(props) {
           </Button>
         </div>
 
-        {modalIsVisible && (modalWindow)}
+        {modalIsVisible && modalWindow}
       </div>
     </>
   );
