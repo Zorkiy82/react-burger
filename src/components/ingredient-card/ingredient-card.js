@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./ingredient-card.module.css";
 import { Modal } from "../modal/modal.js";
 import { ModalOverlay } from "../modal-overlay/modal-overlay.js";
+import { IngredientDetails } from "../ingredient-details/ingredient-details";
 
 import {
   CurrencyIcon,
@@ -14,7 +15,9 @@ function IngredientCard(props) {
 
   const modalWindow = (
     <ModalOverlay onClose={handleCloseModal}>
-      <Modal {...props}/>
+      <Modal>
+        <IngredientDetails {...props}/>
+      </Modal>
     </ModalOverlay>
   );
 

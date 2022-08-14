@@ -4,16 +4,37 @@ import styles from "./burger-constructor.module.css";
 import { IngredientPropTypes } from "../../utils/constants.js";
 import { ConstructorCard } from "../constructor-card/constructor-card";
 import { IngredientsList } from "../ingredients-list/ingredients-list";
+import { ModalOverlay } from "../modal-overlay/modal-overlay";
+import { Modal } from "../modal/modal";
+import { OrderDetails } from "../order-details/order-details";
 import {
   CurrencyIcon,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
 function BurgerConstructor(props) {
+  const [modalIsVisible, setModalIsVisible] = React.useState(false);
+
+  const modalWindow = (
+    <ModalOverlay onClose={handleCloseModal}>
+      <Modal>
+        <OrderDetails />
+      </Modal>
+    </ModalOverlay>
+  );
+
   const totalPrice =
     props.main.reduce((summ, item) => summ + item.price, 0) +
     props.top.price +
     props.bottom.price;
+
+  function handleOpenModal() {
+    setModalIsVisible(true);
+  }
+
+  function handleCloseModal() {
+    setModalIsVisible(false);
+  }
 
   return (
     <>
@@ -42,10 +63,12 @@ function BurgerConstructor(props) {
             <CurrencyIcon type="primary" />
           </div>
 
-          <Button type="primary" size="large">
+          <Button type="primary" size="large" onClick={handleOpenModal}>
             Оформить заказ
           </Button>
         </div>
+
+        {modalIsVisible && (modalWindow)}
       </div>
     </>
   );
