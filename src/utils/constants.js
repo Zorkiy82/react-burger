@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 const IngredientPropTypes = PropTypes.shape({
   _id: PropTypes.string,
@@ -19,4 +19,4 @@ const ApiUrl = "https://norma.nomoreparties.space/api/ingredients";
 
 const ModalRoot = document.getElementById("react-modals");
 
-export { IngredientPropTypes, ApiUrl, ModalRoot}
+export { IngredientPropTypes, ApiUrl, ModalRoot };

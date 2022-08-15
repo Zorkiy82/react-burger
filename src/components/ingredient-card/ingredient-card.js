@@ -1,7 +1,7 @@
 import React from "react";
+import { IngredientPropTypes } from "../../utils/constants.js";
 import styles from "./ingredient-card.module.css";
 import { Modal } from "../modal/modal.js";
-import { ModalOverlay } from "../modal-overlay/modal-overlay.js";
 import { IngredientDetails } from "../ingredient-details/ingredient-details";
 
 import {
@@ -13,11 +13,9 @@ function IngredientCard(props) {
   const [modalIsVisible, setModalIsVisible] = React.useState(false);
 
   const modalWindow = (
-    <ModalOverlay onClose={handleCloseModal}>
-      <Modal>
-        <IngredientDetails {...props} />
-      </Modal>
-    </ModalOverlay>
+    <Modal onClose={handleCloseModal}>
+      <IngredientDetails {...props} />
+    </Modal>
   );
 
   function handleOpenModal() {
@@ -43,5 +41,7 @@ function IngredientCard(props) {
     </li>
   );
 }
+
+IngredientCard.propTypes = { IngredientPropTypes };
 
 export { IngredientCard };

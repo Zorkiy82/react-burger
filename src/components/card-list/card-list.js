@@ -1,4 +1,6 @@
 import React from "react";
+import PropTypes from "prop-types";
+import { IngredientPropTypes } from "../../utils/constants.js";
 import { IngredientCard } from "../ingredient-card/ingredient-card";
 import styles from "./card-list.module.css";
 
@@ -11,5 +13,9 @@ function CardList(props) {
     </ul>
   );
 }
+
+CardList.propTypes = {
+  data: PropTypes.arrayOf(IngredientPropTypes),
+};
 
 export { CardList };

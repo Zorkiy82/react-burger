@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./constructor-card.module.css";
+import PropTypes from "prop-types";
 import {
   ConstructorElement,
   DragIcon,
@@ -23,5 +24,14 @@ function ConstructorCard(props) {
     </li>
   );
 }
+
+ConstructorCard.propTypes = {
+  type: PropTypes.oneOf(["top", "bottom", undefined]),
+  isLocked: PropTypes.bool,
+  handleClose: PropTypes.func,
+  text: PropTypes.string.isRequired,
+  thumbnail: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+};
 
 export { ConstructorCard };

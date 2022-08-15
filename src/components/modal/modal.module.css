@@ -1,7 +1,10 @@
 .modal {
   display: block;
-  position: relative;
-  min-width: 720px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 720px;
   min-height: 100px;
   background: #1c1c21;
   border: 1px solid rgba(76, 76, 255, 0.1);

@@ -4,7 +4,6 @@ import styles from "./burger-constructor.module.css";
 import { IngredientPropTypes } from "../../utils/constants.js";
 import { ConstructorCard } from "../constructor-card/constructor-card";
 import { IngredientsList } from "../ingredients-list/ingredients-list";
-import { ModalOverlay } from "../modal-overlay/modal-overlay";
 import { Modal } from "../modal/modal";
 import { OrderDetails } from "../order-details/order-details";
 import {
@@ -16,11 +15,9 @@ function BurgerConstructor(props) {
   const [modalIsVisible, setModalIsVisible] = React.useState(false);
 
   const modalWindow = (
-    <ModalOverlay onClose={handleCloseModal}>
-      <Modal>
-        <OrderDetails />
-      </Modal>
-    </ModalOverlay>
+    <Modal onClose={handleCloseModal}>
+      <OrderDetails />
+    </Modal>
   );
 
   const totalPrice =
@@ -47,7 +44,7 @@ function BurgerConstructor(props) {
           thumbnail={props.top.image_mobile}
         />
 
-        <IngredientsList {...props} />
+        <IngredientsList main={props.main} />
 
         <ConstructorCard
           type="bottom"

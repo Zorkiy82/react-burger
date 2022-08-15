@@ -1,4 +1,6 @@
 import React from "react";
+import PropTypes from "prop-types";
+import { IngredientPropTypes } from "../../utils/constants.js";
 import { ConstructorCard } from "../constructor-card/constructor-card";
 import styles from "./ingredients-list.module.css";
 
@@ -7,7 +9,7 @@ function IngredientsList(props) {
     <ul className={styles.list}>
       {props.main.map((item, index) => (
         <ConstructorCard
-          key={index}
+          key={item._id}
           text={item.name}
           price={item.price}
           thumbnail={item.image_mobile}
@@ -16,5 +18,9 @@ function IngredientsList(props) {
     </ul>
   );
 }
+
+IngredientsList.propTypes = {
+  main: PropTypes.arrayOf(IngredientPropTypes),
+};
 
 export { IngredientsList };
