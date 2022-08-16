@@ -1,7 +1,7 @@
 import React from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 
-const TabBar = () => {
+function TabBar() {
   const [current, setCurrent] = React.useState("one");
   window.location.href = `#${current}`;
   return (
@@ -17,6 +17,6 @@ const TabBar = () => {
       </Tab>
     </div>
   );
-};
+}
 
 export { TabBar };

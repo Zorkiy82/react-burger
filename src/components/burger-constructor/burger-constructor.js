@@ -1,80 +1,80 @@
 import React from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import styles from "./burger-constructor.module.css";
+import { IngredientPropTypes } from "../../utils/constants.js";
 import { ConstructorCard } from "../constructor-card/constructor-card";
 import { IngredientsList } from "../ingredients-list/ingredients-list";
+import { Modal } from "../modal/modal";
+import { OrderDetails } from "../order-details/order-details";
 import {
-  ConstructorElement,
   CurrencyIcon,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-class BurgerConstructor extends React.Component {
-  constructor(props) {
-    super(props);
+function BurgerConstructor(props) {
+  const [modalIsVisible, setModalIsVisible] = React.useState(false);
 
-    this.totalPrice =
-      this.props.main.reduce((summ, item) => summ + item.price, 0) +
-      this.props.top.price +
-      this.props.bottom.price;
+  const modalWindow = (
+    <Modal onClose={handleCloseModal}>
+      <OrderDetails />
+    </Modal>
+  );
+
+  const totalPrice =
+    props.main.reduce((summ, item) => summ + item.price, 0) +
+    props.top.price +
+    props.bottom.price;
+
+  function handleOpenModal() {
+    setModalIsVisible(true);
   }
-  render() {
-    return (
-      <>
-        <div className={styles.main}>
-          <ConstructorCard
-            type="top"
-            isLocked={true}
-            text={`${this.props.top.name} (верх)`}
-            price={this.props.top.price}
-            thumbnail={this.props.top.image_mobile}
-          />
 
-          <IngredientsList {...this.props} />
+  function handleCloseModal() {
+    setModalIsVisible(false);
+  }
 
-          <ConstructorCard
-            type="bottom"
-            isLocked={true}
-            text={`${this.props.bottom.name} (низ)`}
-            price={this.props.bottom.price}
-            thumbnail={this.props.bottom.image_mobile}
-          />
+  return (
+    <>
+      <div className={styles.main}>
+        <ConstructorCard
+          type="top"
+          isLocked={true}
+          text={`${props.top.name} (верх)`}
+          price={props.top.price}
+          thumbnail={props.top.image_mobile}
+        />
 
-          <div className={`${styles.totalPriceContainer} mr-4`}>
-            <div className={styles.priceContainer}>
-              <p className="text text_type_digits-medium">{this.totalPrice}</p>
-              <CurrencyIcon type="primary" />
-            </div>
+        <IngredientsList main={props.main} />
 
-            <Button type="primary" size="large">
-              Оформить заказ
-            </Button>
+        <ConstructorCard
+          type="bottom"
+          isLocked={true}
+          text={`${props.bottom.name} (низ)`}
+          price={props.bottom.price}
+          thumbnail={props.bottom.image_mobile}
+        />
+
+        <div className={`${styles.totalPriceContainer} mr-4`}>
+          <div className={styles.priceContainer}>
+            <p className="text text_type_digits-medium">{totalPrice}</p>
+            <CurrencyIcon type="primary" />
           </div>
+
+          <Button type="primary" size="large" onClick={handleOpenModal}>
+            Оформить заказ
+          </Button>
         </div>
-      </>
-    );
-  }
+
+        {modalIsVisible && modalWindow}
+      </div>
+    </>
+  );
 }
 
-const ingredientPropTypes = PropTypes.shape({
-  _id: PropTypes.string,
-  name: PropTypes.string,
-  type: PropTypes.string,
-  proteins: PropTypes.number,
-  fat: PropTypes.number,
-  carbohydrates: PropTypes.number,
-  calories: PropTypes.number,
-  price: PropTypes.number,
-  image: PropTypes.string,
-  image_mobile: PropTypes.string,
-  image_large: PropTypes.string,
-  __v: PropTypes.number,
-});
-
 BurgerConstructor.propTypes = {
-  main: PropTypes.arrayOf(ingredientPropTypes),
-  top: ingredientPropTypes,
-  bottom: ingredientPropTypes,
+  main: PropTypes.arrayOf(IngredientPropTypes),
+  top: IngredientPropTypes,
+  bottom: IngredientPropTypes,
 };
 
 export { BurgerConstructor };
