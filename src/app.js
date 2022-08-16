@@ -3,42 +3,37 @@ import { AppHeader } from "./components/app-header/app-header.js";
 import { BurgerIngredients } from "./components/burger-ingredients/burger-ingredients.js";
 import { BurgerConstructor } from "./components/burger-constructor/burger-constructor.js";
 import { Modal } from "./components/modal/modal.js";
-import { ApiUrl } from "./utils/constants.js";
+import { getIngredients } from "./utils/burger-api.js";
 import styles from "./styles.module.css";
 
 function App() {
   const [ingredientsDataArray, setIngredientsDataArray] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
-  const [hasError, sethasError] = React.useState(false);
-  const [errorMesage, setErrorMesage] = React.useState("");
-  const [erorrCode, setErorrCode] = React.useState(null);
-  const [erorrUrl, setErorrUrl] = React.useState(null);
   const [modalIsVisible, setModalIsVisible] = React.useState(false);
+  const [hasError, sethasError] = React.useState(false);
+  const [erorrData, setErorrData] = React.useState({
+    mesage: null,
+    code: null,
+    url: null,
+  });
 
   React.useEffect(() => {
-    fetch(ApiUrl)
-      .then(checkReponse)
+    getIngredients()
       .then((data) => {
         setIsLoading(true);
         setIngredientsDataArray(data.data);
       })
-      .catch((err) => {
+      .catch((res) => {
         setIsLoading(false);
         sethasError(true);
-        setErrorMesage(err);
+        setErorrData({
+          mesage: res.statusText,
+          code: res.status,
+          url: res.url,
+        });
         setModalIsVisible(true);
       });
   }, []);
-
-  const checkReponse = (res) => {
-    if (res.ok) {
-      return res.json();
-    } else {
-      setErorrCode(res.status);
-      setErorrUrl(res.url);
-      return res.json().then((err) => Promise.reject(err));
-    }
-  };
 
   function handleCloseModal() {
     setModalIsVisible(false);
@@ -74,9 +69,9 @@ function App() {
       {modalIsVisible && (
         <Modal onClose={handleCloseModal}>
           <div className="pt-10 pr-10 pb-10 pl-10">
-            <p className="text text_type_main-large text_color_inactive">{`Ошибка ${erorrCode}`}</p>
-            <p className="text text_type_main-default text_color_inactive mt-10">{`url: ${erorrUrl}`}</p>
-            <p className="text text_type_main-default text_color_inactive mt-8">{`${errorMesage}`}</p>
+            <p className="text text_type_main-large text_color_inactive">{`Ошибка ${erorrData.code}`}</p>
+            <p className="text text_type_main-default text_color_inactive mt-10">{`url: ${erorrData.url}`}</p>
+            <p className="text text_type_main-default text_color_inactive mt-8">{`${erorrData.mesage}`}</p>
           </div>
         </Modal>
       )}

@@ -12,7 +12,7 @@ function Modal(props) {
     return () => {
       window.removeEventListener("keydown", handleKeydownEsc);
     };
-  });
+  }, []);
 
   function handleMouseDown(evt) {
     const eventId = evt.target.id;
