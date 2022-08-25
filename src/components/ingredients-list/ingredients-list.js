@@ -9,7 +9,7 @@ function IngredientsList(props) {
     <ul className={styles.list}>
       {props.main.map((item, index) => (
         <ConstructorCard
-          key={item._id}
+          key={index}
           text={item.name}
           price={item.price}
           thumbnail={item.image_mobile}
