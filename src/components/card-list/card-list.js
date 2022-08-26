@@ -15,7 +15,7 @@ function CardList(props) {
 }
 
 CardList.propTypes = {
-  data: PropTypes.arrayOf(IngredientPropTypes),
+  data: PropTypes.arrayOf(IngredientPropTypes).isRequired,
 };
 
 export { CardList };

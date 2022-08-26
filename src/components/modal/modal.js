@@ -15,7 +15,9 @@ function Modal(props) {
   }, []);
 
   function handleMouseDown(evt) {
+    console.log(evt.target);
     const eventId = evt.target.id;
+    console.log(eventId);
     if (eventId === "modalOverlay" || eventId === "modalCloseButton") {
       props.onClose();
     }
@@ -28,16 +30,19 @@ function Modal(props) {
   }
 
   return ReactDOM.createPortal(
-    <div className={styles.modal} id="modal" onMouseDown={handleMouseDown}>
-      <button
-        id="modalCloseButton"
-        type="button"
-        className={styles.closeButton}
-        alt="Закрыть"
-      ></button>
-      {props.children}
-      <ModalOverlay />
-    </div>,
+    <>
+      <ModalOverlay>
+        <div className={styles.modal} id="modal" onMouseDown={handleMouseDown}>
+          <button
+            id="modalCloseButton"
+            type="button"
+            className={styles.closeButton}
+            alt="Закрыть"
+          ></button>
+          {props.children}
+        </div>
+      </ModalOverlay>
+    </>,
     ModalRoot
   );
 }

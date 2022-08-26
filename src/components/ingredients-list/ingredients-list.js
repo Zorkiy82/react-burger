@@ -20,7 +20,7 @@ function IngredientsList(props) {
 }
 
 IngredientsList.propTypes = {
-  main: PropTypes.arrayOf(IngredientPropTypes),
+  main: PropTypes.arrayOf(IngredientPropTypes).isRequired,
 };
 
 export { IngredientsList };

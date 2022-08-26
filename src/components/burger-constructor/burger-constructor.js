@@ -12,6 +12,7 @@ import {
 import { ConstructorItemsContext } from "../../services/constructor-context";
 import { BurgerIngredientsContext } from "../../services/app-context.js";
 import { postOrder } from "../../utils/burger-api.js";
+import { ErrorDetails } from "../error-details/error-details.js";
 
 function BurgerConstructor() {
   const [modalIsVisible, setModalIsVisible] = React.useState(false);
@@ -49,7 +50,6 @@ function BurgerConstructor() {
         setOrderState(data);
       })
       .catch((res) => {
-        console.log(res);
         sethasError(true);
         setErorrData({
           mesage: res.statusText,
@@ -74,54 +74,48 @@ function BurgerConstructor() {
   }
 
   return (
-    <>
-      <div className={styles.main}>
-        <ConstructorCard
-          type="top"
-          isLocked={true}
-          text={`${constructorItemsState.bun.name} (верх)`}
-          price={constructorItemsState.bun.price}
-          thumbnail={constructorItemsState.bun.image_mobile}
-        />
+    <section className={`${styles.main} pl-4`}>
+      <ConstructorCard
+        type="top"
+        isLocked={true}
+        text={`${constructorItemsState.bun.name} (верх)`}
+        price={constructorItemsState.bun.price}
+        thumbnail={constructorItemsState.bun.image_mobile}
+      />
 
-        <IngredientsList main={constructorItemsState.main} />
+      <IngredientsList main={constructorItemsState.main} />
 
-        <ConstructorCard
-          type="bottom"
-          isLocked={true}
-          text={`${constructorItemsState.bun.name} (низ)`}
-          price={constructorItemsState.bun.price}
-          thumbnail={constructorItemsState.bun.image_mobile}
-        />
+      <ConstructorCard
+        type="bottom"
+        isLocked={true}
+        text={`${constructorItemsState.bun.name} (низ)`}
+        price={constructorItemsState.bun.price}
+        thumbnail={constructorItemsState.bun.image_mobile}
+      />
 
-        <div className={`${styles.totalPriceContainer} mr-4`}>
-          <div className={styles.priceContainer}>
-            <p
-              className="text text_type_digits-medium"
-              onClick={updateConstructor}
-            >
-              {totalPrice}
-            </p>
-            <CurrencyIcon type="primary" />
-          </div>
-
-          <Button type="primary" size="large" onClick={handleClickOrderButton}>
-            Оформить заказ
-          </Button>
+      <div className={`${styles.totalPriceContainer} mr-4`}>
+        <div className={styles.priceContainer}>
+          <p
+            className="text text_type_digits-medium"
+            onClick={updateConstructor}
+          >
+            {totalPrice}
+          </p>
+          <CurrencyIcon type="primary" />
         </div>
 
-        {modalIsVisible && !hasError && modalWindow}
-        {hasError && modalIsVisible && (
-          <Modal onClose={handleCloseModal}>
-            <div className="pt-10 pr-10 pb-10 pl-10">
-              <p className="text text_type_main-large text_color_inactive">{`Ошибка ${erorrData.code}`}</p>
-              <p className="text text_type_main-default text_color_inactive mt-10">{`url: ${erorrData.url}`}</p>
-              <p className="text text_type_main-default text_color_inactive mt-8">{`${erorrData.mesage}`}</p>
-            </div>
-          </Modal>
-        )}
+        <Button type="primary" size="large" onClick={handleClickOrderButton}>
+          Оформить заказ
+        </Button>
       </div>
-    </>
+
+      {modalIsVisible && !hasError && modalWindow}
+      {hasError && modalIsVisible && (
+        <Modal onClose={handleCloseModal}>
+          <ErrorDetails {...erorrData} />
+        </Modal>
+      )}
+    </section>
   );
 }
 

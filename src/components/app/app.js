@@ -1,12 +1,13 @@
 import React from "react";
-import { AppHeader } from "./components/app-header/app-header.js";
-import { BurgerIngredients } from "./components/burger-ingredients/burger-ingredients.js";
-import { BurgerConstructor } from "./components/burger-constructor/burger-constructor.js";
-import { Modal } from "./components/modal/modal.js";
-import { getIngredients } from "./utils/burger-api.js";
-import { ConstructorItemsContext } from "./services/constructor-context.js";
-import { BurgerIngredientsContext } from "./services/app-context.js";
-import { defaultConstructorItems } from "./utils/constants.js";
+import { AppHeader } from "../app-header/app-header.js";
+import { BurgerIngredients } from "../burger-ingredients/burger-ingredients.js";
+import { BurgerConstructor } from "../burger-constructor/burger-constructor.js";
+import { Modal } from "../modal/modal.js";
+import { getIngredients } from "../../utils/burger-api.js";
+import { ConstructorItemsContext } from "../../services/constructor-context.js";
+import { BurgerIngredientsContext } from "../../services/app-context.js";
+import { defaultConstructorItems } from "../../utils/constants.js";
+import { ErrorDetails } from "../error-details/error-details.js";
 import styles from "./styles.module.css";
 
 function reducer(state, action) {
@@ -102,17 +103,9 @@ function App() {
             value={{ constructorItemsState, constructorItemsDispatcher }}
           >
             <main className={styles.main}>
-              <section>
-                <p className="text text_type_main-large mt-10 mb-5">
-                  Соберите бургер
-                </p>
+              <BurgerIngredients />
 
-                <BurgerIngredients initialData={ingredientsDataArray} />
-              </section>
-
-              <section className="pl-4">
-                <BurgerConstructor />
-              </section>
+              <BurgerConstructor />
             </main>
           </ConstructorItemsContext.Provider>
         </BurgerIngredientsContext.Provider>
@@ -120,11 +113,7 @@ function App() {
 
       {modalIsVisible && (
         <Modal onClose={handleCloseModal}>
-          <div className="pt-10 pr-10 pb-10 pl-10">
-            <p className="text text_type_main-large text_color_inactive">{`Ошибка ${erorrData.code}`}</p>
-            <p className="text text_type_main-default text_color_inactive mt-10">{`url: ${erorrData.url}`}</p>
-            <p className="text text_type_main-default text_color_inactive mt-8">{`${erorrData.mesage}`}</p>
-          </div>
+          <ErrorDetails {...erorrData} />
         </Modal>
       )}
     </div>
