@@ -15,9 +15,7 @@ function Modal(props) {
   }, []);
 
   function handleMouseDown(evt) {
-    console.log(evt.target);
     const eventId = evt.target.id;
-    console.log(eventId);
     if (eventId === "modalOverlay" || eventId === "modalCloseButton") {
       props.onClose();
     }
@@ -30,25 +28,27 @@ function Modal(props) {
   }
 
   return ReactDOM.createPortal(
-    <>
-      <ModalOverlay>
-        <div className={styles.modal} id="modal" onMouseDown={handleMouseDown}>
-          <button
-            id="modalCloseButton"
-            type="button"
-            className={styles.closeButton}
-            alt="Закрыть"
-          ></button>
-          {props.children}
-        </div>
-      </ModalOverlay>
-    </>,
+    <div className={styles.outerContainer} onMouseDown={handleMouseDown}>
+      <ModalOverlay />
+
+      <div className={styles.modal} id="modal">
+        <button
+          id="modalCloseButton"
+          type="button"
+          className={styles.closeButton}
+          alt="Закрыть"
+        ></button>
+
+        {props.children}
+      </div>
+    </div>,
     ModalRoot
   );
 }
 
 Modal.propTypes = {
-  onClose: PropTypes.func,
+  onClose: PropTypes.func.isRequired,
+  children: PropTypes.element.isRequired,
 };
 
 export { Modal };

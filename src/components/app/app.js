@@ -16,7 +16,6 @@ function reducer(state, action) {
       return { ...defaultConstructorItems };
 
     case "random": {
-      // console.log(action.ingredientsData)
       const bunIngredientArray = action.ingredientsData.filter(
         (item) => item.type === "bun"
       );
