@@ -28,22 +28,27 @@ function Modal(props) {
   }
 
   return ReactDOM.createPortal(
-    <div className={styles.modal} id="modal" onMouseDown={handleMouseDown}>
-      <button
-        id="modalCloseButton"
-        type="button"
-        className={styles.closeButton}
-        alt="Закрыть"
-      ></button>
-      {props.children}
+    <div className={styles.outerContainer} onMouseDown={handleMouseDown}>
       <ModalOverlay />
+
+      <div className={styles.modal} id="modal">
+        <button
+          id="modalCloseButton"
+          type="button"
+          className={styles.closeButton}
+          alt="Закрыть"
+        ></button>
+
+        {props.children}
+      </div>
     </div>,
     ModalRoot
   );
 }
 
 Modal.propTypes = {
-  onClose: PropTypes.func,
+  onClose: PropTypes.func.isRequired,
+  children: PropTypes.element.isRequired,
 };
 
 export { Modal };

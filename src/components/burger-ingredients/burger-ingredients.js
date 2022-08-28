@@ -1,20 +1,25 @@
 import React from "react";
-import PropTypes from "prop-types";
-import { IngredientPropTypes } from "../../utils/constants.js";
 import { TabBar } from "../tab-bar/tab-bar.js";
 import { CardList } from "../card-list/card-list.js";
-
+import { BurgerIngredientsContext } from "../../services/app-context.js";
 import styles from "./burger-ingredients.module.css";
 
-function BurgerIngredients(props) {
-  const bunList = props.initialData.filter((value) => value.type === "bun");
+function BurgerIngredients() {
+  const { ingredientsDataArray } = React.useContext(BurgerIngredientsContext);
 
-  const sauceList = props.initialData.filter((value) => value.type === "sauce");
+  const bunList = ingredientsDataArray.filter((value) => value.type === "bun");
 
-  const mainList = props.initialData.filter((value) => value.type === "main");
+  const sauceList = ingredientsDataArray.filter(
+    (value) => value.type === "sauce"
+  );
+
+  const mainList = ingredientsDataArray.filter(
+    (value) => value.type === "main"
+  );
 
   return (
-    <>
+    <section>
+      <p className="text text_type_main-large mt-10 mb-5">Соберите бургер</p>
       <TabBar />
 
       <div className={styles.scrollbarContainer}>
@@ -36,12 +41,8 @@ function BurgerIngredients(props) {
 
         <CardList data={mainList} />
       </div>
-    </>
+    </section>
   );
 }
-
-BurgerIngredients.propTypes = {
-  initialData: PropTypes.arrayOf(IngredientPropTypes),
-};
 
 export { BurgerIngredients };

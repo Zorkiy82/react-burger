@@ -1,9 +1,10 @@
 import React from "react";
 import styles from "./order-details.module.css";
+import PropTypes from "prop-types";
 
-function OrderDetails() {
-  const [orderData, setOrderData] = React.useState({
-    number: "034536",
+function OrderDetails({ number }) {
+  const [orderData] = React.useState({
+    number: number,
     status: "Ваш заказ начали готовить",
     recommendation: "Дождитесь готовности на орбитальной станции",
   });
@@ -26,5 +27,9 @@ function OrderDetails() {
     </div>
   );
 }
+
+OrderDetails.propTypes = {
+  number: PropTypes.number,
+};
 
 export { OrderDetails };
