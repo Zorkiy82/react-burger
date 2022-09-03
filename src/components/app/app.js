@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector, useDispatch } from 'react-redux';
 import { AppHeader } from "../app-header/app-header.js";
 import { BurgerIngredients } from "../burger-ingredients/burger-ingredients.js";
 import { BurgerConstructor } from "../burger-constructor/burger-constructor.js";
@@ -8,9 +9,11 @@ import { ConstructorItemsContext } from "../../services/constructor-context.js";
 import { BurgerIngredientsContext } from "../../services/app-context.js";
 import { defaultConstructorItems } from "../../utils/constants.js";
 import { ErrorDetails } from "../error-details/error-details.js";
+import { getIngredientsData } from "../../services/actions/app.js";
 import styles from "./styles.module.css";
 
 function reducer(state, action) {
+
   switch (action.type) {
     case "default":
       return { ...defaultConstructorItems };
@@ -48,6 +51,7 @@ function reducer(state, action) {
 }
 
 function App() {
+  const dispatch = useDispatch();
   const [ingredientsDataArray, setIngredientsDataArray] = React.useState([]);
 
   const [constructorItemsState, constructorItemsDispatcher] = React.useReducer(
@@ -66,6 +70,7 @@ function App() {
   });
 
   React.useEffect(() => {
+    dispatch(getIngredientsData());
     getIngredients()
       .then((data) => {
         setIsLoading(true);
