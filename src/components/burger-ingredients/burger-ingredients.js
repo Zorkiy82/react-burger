@@ -1,21 +1,14 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { TabBar } from "../tab-bar/tab-bar.js";
 import { CardList } from "../card-list/card-list.js";
-import { BurgerIngredientsContext } from "../../services/app-context.js";
 import styles from "./burger-ingredients.module.css";
 
 function BurgerIngredients() {
-  const { ingredientsDataArray } = React.useContext(BurgerIngredientsContext);
-
-  const bunList = ingredientsDataArray.filter((value) => value.type === "bun");
-
-  const sauceList = ingredientsDataArray.filter(
-    (value) => value.type === "sauce"
-  );
-
-  const mainList = ingredientsDataArray.filter(
-    (value) => value.type === "main"
-  );
+  const { items } = useSelector((state) => state.ingredients);
+  const bunList = items.filter((value) => value.type === "bun");
+  const sauceList = items.filter((value) => value.type === "sauce");
+  const mainList = items.filter((value) => value.type === "main");
 
   return (
     <section>

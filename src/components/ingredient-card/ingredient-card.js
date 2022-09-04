@@ -1,54 +1,40 @@
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { IngredientPropTypes } from "../../utils/constants.js";
 import styles from "./ingredient-card.module.css";
-import { Modal } from "../modal/modal.js";
-import { IngredientDetails } from "../ingredient-details/ingredient-details";
-import { ConstructorItemsContext } from "../../services/constructor-context";
-
 import {
   CurrencyIcon,
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-function IngredientCard(props) {
-  const [modalIsVisible, setModalIsVisible] = React.useState(false);
-  const [count, setCount] = React.useState(0);
-  const { constructorItemsState } = React.useContext(ConstructorItemsContext);
+import {
+  SET_MODAL_DATA,
+  SET_VIEWED_INGREDIENT,
+} from "../../services/actions/app.js";
 
-  const modalWindow = (
-    <Modal onClose={handleCloseModal}>
-      <IngredientDetails {...props} />
-    </Modal>
+function IngredientCard(props) {
+  const dispatch = useDispatch();
+  const { bun, main } = useSelector((store) => store.burgerConstructor);
+  const ingridientsIdArray = [bun._id, bun._id];
+  main.forEach((item) => ingridientsIdArray.push(item._id));
+  const counterObject = {};
+  ingridientsIdArray.forEach(
+    (item) =>
+      (counterObject[item] = counterObject[item] ? ++counterObject[item] : 1)
   );
 
-  React.useEffect(() => {
-    setCount(getCount(props._id, props.type));
-  });
-
   function handleOpenModal() {
-    setModalIsVisible(true);
-  }
+    dispatch({
+      type: SET_VIEWED_INGREDIENT,
+      data: { ...props },
+    });
 
-  function handleCloseModal() {
-    setModalIsVisible(false);
-  }
-
-  function getCount(id, type) {
-    let count = 0;
-
-    if (type === "bun") {
-      if (id === constructorItemsState.bun._id) {
-        count = 2;
-      }
-    }
-
-    if (type !== "bun") {
-      count = constructorItemsState.main.filter(
-        (item) => item._id === id
-      ).length;
-    }
-
-    return count;
+    dispatch({
+      type: SET_MODAL_DATA,
+      modalIsVisible: true,
+      modalType: "ingredient",
+      errorData: {},
+    });
   }
 
   return (
@@ -61,8 +47,9 @@ function IngredientCard(props) {
       </div>
 
       <p className="text text_type_main-small">{props.name}</p>
-      {count > 0 && <Counter count={count} size="default" />}
-      {modalIsVisible && modalWindow}
+      {counterObject[props._id] > 0 && (
+        <Counter count={counterObject[props._id]} size="default" />
+      )}
     </li>
   );
 }

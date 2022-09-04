@@ -1,9 +1,16 @@
 import { combineReducers } from "redux";
-import { ingredientsReducer, constructorReducer, viewedElementReducer, orderElementReducer } from "./app";
+import {
+  ingredientsReducer,
+  constructorReducer,
+  viewedIngredientReducer,
+  orderElementReducer,
+  modalReducer,
+} from "./app";
 
 export const rootReducer = combineReducers({
   ingredients: ingredientsReducer,
   burgerConstructor: constructorReducer,
-  viewedElement: viewedElementReducer,
+  viewedIngredient: viewedIngredientReducer,
   orderElement: orderElementReducer,
+  modal: modalReducer,
 });
