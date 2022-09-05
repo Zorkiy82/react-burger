@@ -16,6 +16,9 @@ export const POST_ORDER_FAILED = "POST_ORDER_FAILED";
 export const SET_MODAL_DATA = "SET_MODAL_DATA";
 export const RESET_MODAL_DATA = "RESET_MODAL_DATA";
 
+export const SET_TAB_BAR_CURRENT = "SET_TAB_BAR_CURRENT";
+
+
 export function getIngredientsData() {
   return function (dispatch) {
     dispatch({

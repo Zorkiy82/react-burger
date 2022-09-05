@@ -11,6 +11,7 @@ import {
   POST_ORDER_FAILED,
   SET_MODAL_DATA,
   RESET_MODAL_DATA,
+  SET_TAB_BAR_CURRENT,
 } from "../actions/app";
 import { defaultConstructorItems } from "../../utils/constants";
 
@@ -119,10 +120,10 @@ export const viewedIngredientReducer = (
 ) => {
   switch (action.type) {
     case SET_VIEWED_INGREDIENT: {
-       return {
+      return {
         ...state,
-        ingredientData: {...action.data},
-       };
+        ingredientData: { ...action.data },
+      };
     }
     default: {
       return state;
@@ -175,7 +176,7 @@ export const orderElementReducer = (
 //Хранилище модального окна
 const modalInitialState = {
   modalIsVisible: false,
-  modalType: '',
+  modalType: "",
   errorData: {},
 };
 
@@ -185,7 +186,7 @@ export const modalReducer = (state = modalInitialState, action) => {
       return {
         modalIsVisible: action.modalIsVisible,
         modalType: action.modalType,
-        errorData: {...action.errorData},
+        errorData: { ...action.errorData },
       };
     }
     case RESET_MODAL_DATA: {
@@ -198,3 +199,24 @@ export const modalReducer = (state = modalInitialState, action) => {
     }
   }
 };
+
+//Хранилище TabBar
+const tabBarlInitialState = {
+  current: "one",
+};
+
+export const tabBarReducer = (state = tabBarlInitialState, action) => {
+  switch (action.type) {
+    case SET_TAB_BAR_CURRENT: {
+      return {
+        ...state,
+        current: action.current,
+      };
+    }
+    default: {
+      return state;
+    }
+  }
+};
+
+
