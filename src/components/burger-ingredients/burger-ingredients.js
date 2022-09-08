@@ -3,11 +3,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { TabBar } from "../tab-bar/tab-bar.js";
 import { CardList } from "../card-list/card-list.js";
 import styles from "./burger-ingredients.module.css";
-import { SET_TAB_BAR_CURRENT } from "../../services/actions/app";
+import { UPDATE_TAB_BAR_CURRENT } from "../../services/actions/app";
 
 function BurgerIngredients() {
   const dispatch = useDispatch();
-  const { current } = useSelector((state) => state.tabBar);
+  let templateCurrent = "";
 
   const { items } = useSelector((state) => state.ingredients);
 
@@ -31,7 +31,8 @@ function BurgerIngredients() {
     [items]
   );
 
-  function handlerOnScroll() {
+  function handlerOnScroll(evt) {
+    // console.log(evt);
     const baseY = baseRef.current.getBoundingClientRect().y;
     const idOneY = idOneRef.current.getBoundingClientRect().y;
     const idTwoY = idTwoRef.current.getBoundingClientRect().y;
@@ -52,13 +53,14 @@ function BurgerIngredients() {
     ];
 
     distanceArray.sort((a, b) => a.distance - b.distance);
-
-    if (distanceArray[0].name !== current) {
+    if (templateCurrent !== distanceArray[0].name) {
       dispatch({
-        type: SET_TAB_BAR_CURRENT,
+        type: UPDATE_TAB_BAR_CURRENT,
         current: distanceArray[0].name,
       });
     }
+
+    templateCurrent = distanceArray[0].name;
   }
 
   return (

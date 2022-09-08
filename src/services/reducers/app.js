@@ -6,12 +6,16 @@ import {
   GET_CONSTRUCTOR_LIST_DEFAULT,
   GET_CONSTRUCTOR_LIST_RANDOM,
   SET_CONSTRUCTOR_LIST_COUNTERS,
+  SET_CONSTRUCTOR_LIST_BUN,
+  ADD_CONSTRUCTOR_LIST_MAIN,
+  DELETE_CONSTRUCTOR_LIST_ITEM_MAIN,
   POST_ORDER_REQUEST,
   POST_ORDER_SUCCESS,
   POST_ORDER_FAILED,
   SET_MODAL_DATA,
   RESET_MODAL_DATA,
   SET_TAB_BAR_CURRENT,
+  UPDATE_TAB_BAR_CURRENT,
 } from "../actions/app";
 import { defaultConstructorItems } from "../../utils/constants";
 
@@ -48,6 +52,9 @@ export const ingredientsReducer = (state = ingredientsInitialState, action) => {
         items: [],
       };
     }
+
+
+
 
     default: {
       return state;
@@ -103,6 +110,36 @@ export const constructorReducer = (state = constructorInitialState, action) => {
         main: otherIngredientsArray,
       };
     }
+
+    case SET_CONSTRUCTOR_LIST_BUN: {
+      return {
+        ...state,
+        bun: action.item,
+      };
+    }
+
+    case ADD_CONSTRUCTOR_LIST_MAIN: {
+      const newMain = state.main.map(item=>item);
+      newMain.splice(0,0,action.item);
+      return {
+        ...state,
+        main: newMain,
+
+      };
+    }
+
+    case DELETE_CONSTRUCTOR_LIST_ITEM_MAIN: {
+      const newMain = state.main.map(item=>item);
+      newMain.splice(action.index,1);
+      return {
+        ...state,
+        main: newMain,
+
+      };
+    }
+
+
+
     default: {
       return state;
     }
@@ -213,10 +250,19 @@ export const tabBarReducer = (state = tabBarlInitialState, action) => {
         current: action.current,
       };
     }
+
+    case UPDATE_TAB_BAR_CURRENT: {
+      if (state.current !== action.current) {
+        return {
+          ...state,
+          current: action.current,
+        };
+      }
+      return { ...state };
+    }
+
     default: {
       return state;
     }
   }
 };
-
-

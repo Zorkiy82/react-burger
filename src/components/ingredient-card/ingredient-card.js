@@ -1,4 +1,5 @@
 import React from "react";
+import { useDrag } from "react-dnd";
 import { useSelector, useDispatch } from "react-redux";
 import { IngredientPropTypes } from "../../utils/constants.js";
 import styles from "./ingredient-card.module.css";
@@ -15,6 +16,13 @@ import {
 function IngredientCard(props) {
   const dispatch = useDispatch();
   const { bun, main } = useSelector((store) => store.burgerConstructor);
+  const [{ isDrag }, dragRef1] = useDrag({
+    type: "ingredient",
+    item: { ...props },
+    collect: (monitor) => ({
+      isDrag: monitor.isDragging(),
+    }),
+  });
   const ingridientsIdArray = [bun._id, bun._id];
   main.forEach((item) => ingridientsIdArray.push(item._id));
   const counterObject = {};
@@ -38,18 +46,27 @@ function IngredientCard(props) {
   }
 
   return (
-    <li className={styles.card} onClick={handleOpenModal}>
-      <img src={props.image} className={styles.image} alt={props.name} />
+    <li className={styles.li} onClick={handleOpenModal}>
+      <div>
+      <div className={styles.card} ref={dragRef1}>
+        <img src={props.image} className={styles.image} alt={props.name} />
 
-      <div className={styles.praiceContainer}>
-        <p className="text text_type_digits-default">{props.price}</p>
-        <CurrencyIcon type="primary" />
+        <div className={styles.praiceContainer}>
+          <p className="text text_type_digits-default">{props.price}</p>
+          <CurrencyIcon type="primary" />
+        </div>
+
+        <p className="text text_type_main-small">{props.name}</p>
       </div>
 
-      <p className="text text_type_main-small">{props.name}</p>
       {counterObject[props._id] > 0 && (
         <Counter count={counterObject[props._id]} size="default" />
       )}
+
+      </div>
+
+
+
     </li>
   );
 }

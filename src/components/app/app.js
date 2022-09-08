@@ -1,4 +1,6 @@
 import React from "react";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 import { useSelector, useDispatch } from "react-redux";
 import { AppHeader } from "../app-header/app-header.js";
 import { BurgerIngredients } from "../burger-ingredients/burger-ingredients.js";
@@ -68,11 +70,13 @@ function App() {
     <div className={styles.app}>
       <AppHeader />
       {!itemsRequest && !itemsFailed && (
-        <main className={styles.main}>
-          <BurgerIngredients />
+        <DndProvider backend={HTML5Backend}>
+          <main className={styles.main}>
+            <BurgerIngredients />
 
-          <BurgerConstructor />
-        </main>
+            <BurgerConstructor />
+          </main>
+        </DndProvider>
       )}
 
       {modalIsVisible && (

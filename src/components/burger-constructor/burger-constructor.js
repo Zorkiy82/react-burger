@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useDrop } from "react-dnd";
 import styles from "./burger-constructor.module.css";
 import { ConstructorCard } from "../constructor-card/constructor-card";
 import { IngredientsList } from "../ingredients-list/ingredients-list";
@@ -10,6 +11,8 @@ import {
 import {
   postOrderData,
   GET_CONSTRUCTOR_LIST_RANDOM,
+  SET_CONSTRUCTOR_LIST_BUN,
+  ADD_CONSTRUCTOR_LIST_MAIN,
 } from "../../services/actions/app.js";
 
 function BurgerConstructor() {
@@ -17,8 +20,28 @@ function BurgerConstructor() {
   const { bun, main } = useSelector((store) => store.burgerConstructor);
   const { items } = useSelector((state) => state.ingredients);
 
-  const totalPrice =
-    main.reduce((summ, item) => summ + item.price, 0) + bun.price * 2;
+  const [, dropTarget] = useDrop({
+    accept: "ingredient",
+    drop(itemData) {
+      if (itemData.type === "bun") {
+        dispatch({
+          type: SET_CONSTRUCTOR_LIST_BUN,
+          item: itemData,
+        });
+      } else {
+        dispatch({
+          type: ADD_CONSTRUCTOR_LIST_MAIN,
+          item: itemData,
+        });
+
+      }
+    },
+  });
+
+  const totalPrice = React.useMemo(
+    () => main.reduce((summ, item) => summ + item.price, 0) + bun.price * 2,
+    [main, bun]
+  );
 
   function handleClickOrderButton() {
     const ingridientsIdArray = [bun._id, bun._id];
@@ -35,24 +58,26 @@ function BurgerConstructor() {
   }
 
   return (
-    <section className={`${styles.main} pl-4`}>
-      <ConstructorCard
-        type="top"
-        isLocked={true}
-        text={`${bun.name} (верх)`}
-        price={bun.price}
-        thumbnail={bun.image_mobile}
-      />
+    <section className={`pl-4`}>
+      <div className={`${styles.main}`} ref={dropTarget}>
+        <ConstructorCard
+          type="top"
+          isLocked={true}
+          text={`${bun.name} (верх)`}
+          price={bun.price}
+          thumbnail={bun.image_mobile}
+        />
 
-      <IngredientsList main={main} />
+        <IngredientsList main={main} />
 
-      <ConstructorCard
-        type="bottom"
-        isLocked={true}
-        text={`${bun.name} (низ)`}
-        price={bun.price}
-        thumbnail={bun.image_mobile}
-      />
+        <ConstructorCard
+          type="bottom"
+          isLocked={true}
+          text={`${bun.name} (низ)`}
+          price={bun.price}
+          thumbnail={bun.image_mobile}
+        />
+      </div>
 
       <div className={`${styles.totalPriceContainer} mr-4`}>
         <div className={styles.priceContainer}>
