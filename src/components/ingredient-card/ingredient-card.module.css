@@ -1,8 +1,6 @@
-
 .li {
   position: relative;
 }
-
 
 .card {
   display: flex;
@@ -14,8 +12,6 @@
   gap: 8px;
   text-align: center;
 }
-
-
 
 .praiceContainer {
   display: flex;

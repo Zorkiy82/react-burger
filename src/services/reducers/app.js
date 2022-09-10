@@ -136,9 +136,6 @@ export const constructorReducer = (state = constructorInitialState, action) => {
       const newMain = [...state.main];
       const saveItem = { ...state.main[action.dragIndex] };
       const newDropIndex = action.dropIndex === "top" ? 0 : action.dropIndex;
-      console.log("action.dropIndex :", action.dropIndex);
-      console.log("newDropIndex :", newDropIndex);
-
 
       if (newDropIndex === "bottom") {
         newMain.push(saveItem);

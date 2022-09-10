@@ -49,9 +49,9 @@ function ConstructorCard(props) {
     }
 
     return props.index === "top" && isHover
-      ? { paddingBottom: "96px" }
+      ? { paddingBottom: "80px" }
       : isHover
-      ? { paddingTop: "80px" }
+      ? { paddingTop: "96px" }
       : {};
   }, [props.index, isHover]);
 

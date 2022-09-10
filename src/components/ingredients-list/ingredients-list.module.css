@@ -4,13 +4,9 @@
   list-style: none;
   display: flex;
   flex-direction: column;
-  max-height: calc(100vh - 560px);
+  max-height: calc(100vh - 620px);
   overflow-y: scroll;
 }
-
-/* li:first-child {
-  padding-top: 0px;
-} */
 
 .list::-webkit-scrollbar {
   width: 8px;

@@ -32,7 +32,6 @@ function BurgerIngredients() {
   );
 
   function handlerOnScroll(evt) {
-    // console.log(evt);
     const baseY = baseRef.current.getBoundingClientRect().y;
     const idOneY = idOneRef.current.getBoundingClientRect().y;
     const idTwoY = idTwoRef.current.getBoundingClientRect().y;
