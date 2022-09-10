@@ -7,7 +7,8 @@ import {
   GET_CONSTRUCTOR_LIST_RANDOM,
   SET_CONSTRUCTOR_LIST_COUNTERS,
   SET_CONSTRUCTOR_LIST_BUN,
-  ADD_CONSTRUCTOR_LIST_MAIN,
+  ADD_CONSTRUCTOR_LIST_MAIN_TO_INDEX,
+  MOVE_CONSTRUCTOR_LIST_MAIN_INDEX_TO_INDEX,
   DELETE_CONSTRUCTOR_LIST_ITEM_MAIN,
   POST_ORDER_REQUEST,
   POST_ORDER_SUCCESS,
@@ -52,9 +53,6 @@ export const ingredientsReducer = (state = ingredientsInitialState, action) => {
         items: [],
       };
     }
-
-
-
 
     default: {
       return state;
@@ -118,27 +116,57 @@ export const constructorReducer = (state = constructorInitialState, action) => {
       };
     }
 
-    case ADD_CONSTRUCTOR_LIST_MAIN: {
-      const newMain = state.main.map(item=>item);
-      newMain.splice(0,0,action.item);
+    case ADD_CONSTRUCTOR_LIST_MAIN_TO_INDEX: {
+      const newMain = [...state.main];
+
+      if (action.dropIndex !== "bottom") {
+        const newIndex = action.dropIndex === "top" ? 0 : action.dropIndex;
+        newMain.splice(newIndex, 0, action.item);
+      } else {
+        newMain.push(action.item);
+      }
+
       return {
         ...state,
         main: newMain,
+      };
+    }
 
+    case MOVE_CONSTRUCTOR_LIST_MAIN_INDEX_TO_INDEX: {
+      const newMain = [...state.main];
+      const saveItem = { ...state.main[action.dragIndex] };
+      const newDropIndex = action.dropIndex === "top" ? 0 : action.dropIndex;
+      console.log("action.dropIndex :", action.dropIndex);
+      console.log("newDropIndex :", newDropIndex);
+
+
+      if (newDropIndex === "bottom") {
+        newMain.push(saveItem);
+        newMain.splice(action.dragIndex, 1);
+      } else {
+        if (newDropIndex <= action.dragIndex) {
+          newMain.splice(action.dragIndex, 1);
+          newMain.splice(newDropIndex, 0, saveItem);
+        } else {
+          newMain.splice(newDropIndex, 0, saveItem);
+          newMain.splice(action.dragIndex, 1);
+        }
+      }
+
+      return {
+        ...state,
+        main: newMain,
       };
     }
 
     case DELETE_CONSTRUCTOR_LIST_ITEM_MAIN: {
-      const newMain = state.main.map(item=>item);
-      newMain.splice(action.index,1);
+      const newMain = state.main.map((item) => item);
+      newMain.splice(action.index, 1);
       return {
         ...state,
         main: newMain,
-
       };
     }
-
-
 
     default: {
       return state;

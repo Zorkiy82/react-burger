@@ -1,8 +1,19 @@
 .main {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  padding-top: 100px;
+  box-sizing: border-box;
+  /* gap: 16px; */
+  margin-top: 100px;
+  border-radius: 80px;
+
+}
+
+/* main:last-child{
+  padding-top: 0px;
+} */
+
+.mainIsHover {
+  box-shadow: 0px 0px 10px #4c4cff;
 }
 
 .totalPriceContainer {

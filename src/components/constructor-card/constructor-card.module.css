@@ -8,3 +8,10 @@
   width: 24px;
   height: 24px;
 }
+
+.resetLi {
+  margin: 0;
+  /* padding: 0; */
+  /* padding-top: 16px; */
+  list-style: none;
+}

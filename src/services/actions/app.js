@@ -9,8 +9,13 @@ export const GET_CONSTRUCTOR_LIST_DEFAULT = "GET_CONSTRUCTOR_LIST_DEFAULT";
 export const GET_CONSTRUCTOR_LIST_RANDOM = "GET_CONSTRUCTOR_LIST_RANDOM";
 export const SET_CONSTRUCTOR_LIST_COUNTERS = "SET_CONSTRUCTOR_LIST_COUNTERS";
 export const SET_CONSTRUCTOR_LIST_BUN = "SET_CONSTRUCTOR_LIST_BUN";
-export const ADD_CONSTRUCTOR_LIST_MAIN = "ADD_CONSTRUCTOR_LIST_MAIN";
-export const DELETE_CONSTRUCTOR_LIST_ITEM_MAIN = "DELETE_CONSTRUCTOR_LIST_ITEM_MAIN";
+export const ADD_CONSTRUCTOR_LIST_MAIN_TO_INDEX =
+  "ADD_CONSTRUCTOR_LIST_MAIN_TO_INDEX";
+export const MOVE_CONSTRUCTOR_LIST_MAIN_INDEX_TO_INDEX =
+  "MOVE_CONSTRUCTOR_LIST_MAIN_INDEX_TO_INDEX";
+
+export const DELETE_CONSTRUCTOR_LIST_ITEM_MAIN =
+  "DELETE_CONSTRUCTOR_LIST_ITEM_MAIN";
 
 export const POST_ORDER_REQUEST = "POST_ORDER_REQUEST";
 export const POST_ORDER_SUCCESS = "POST_ORDER_SUCCESS";
@@ -88,5 +93,37 @@ export function postOrderData(ingridientsIdArray) {
           },
         });
       });
+  };
+}
+
+export function handleDropAction({
+  action,
+  data,
+  dragIndex,
+  dropIndex,
+  ingredientType,
+}) {
+  return function (dispatch) {
+    if (action === "add") {
+      if (ingredientType === "bun") {
+        dispatch({ type: SET_CONSTRUCTOR_LIST_BUN, item: data });
+      } else {
+        dispatch({
+          type: ADD_CONSTRUCTOR_LIST_MAIN_TO_INDEX,
+          item: data,
+          dropIndex: dropIndex,
+        });
+      }
+    }
+
+    if (action === "move") {
+      if (ingredientType !== "bun") {
+        dispatch({
+          type: MOVE_CONSTRUCTOR_LIST_MAIN_INDEX_TO_INDEX,
+          dragIndex: dragIndex,
+          dropIndex: dropIndex,
+        });
+      }
+    }
   };
 }

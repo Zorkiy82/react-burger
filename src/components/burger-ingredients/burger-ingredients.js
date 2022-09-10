@@ -17,17 +17,17 @@ function BurgerIngredients() {
   const idThreeRef = React.useRef();
 
   const bunList = React.useMemo(
-    () => items.filter((distance) => distance.type === "bun"),
+    () => items.filter((item) => item.type === "bun"),
     [items]
   );
 
   const sauceList = React.useMemo(
-    () => items.filter((distance) => distance.type === "sauce"),
+    () => items.filter((item) => item.type === "sauce"),
     [items]
   );
 
   const mainList = React.useMemo(
-    () => items.filter((distance) => distance.type === "main"),
+    () => items.filter((item) => item.type === "main"),
     [items]
   );
 
@@ -37,30 +37,30 @@ function BurgerIngredients() {
     const idOneY = idOneRef.current.getBoundingClientRect().y;
     const idTwoY = idTwoRef.current.getBoundingClientRect().y;
     const idThreeY = idThreeRef.current.getBoundingClientRect().y;
-    const distanceArray = [
+    const itemArray = [
       {
         name: "one",
-        distance: Math.abs(baseY - idOneY),
+        item: Math.abs(baseY - idOneY),
       },
       {
         name: "two",
-        distance: Math.abs(baseY - idTwoY),
+        item: Math.abs(baseY - idTwoY),
       },
       {
         name: "three",
-        distance: Math.abs(baseY - idThreeY),
+        item: Math.abs(baseY - idThreeY),
       },
     ];
 
-    distanceArray.sort((a, b) => a.distance - b.distance);
-    if (templateCurrent !== distanceArray[0].name) {
+    itemArray.sort((a, b) => a.item - b.item);
+    if (templateCurrent !== itemArray[0].name) {
       dispatch({
         type: UPDATE_TAB_BAR_CURRENT,
-        current: distanceArray[0].name,
+        current: itemArray[0].name,
       });
     }
 
-    templateCurrent = distanceArray[0].name;
+    templateCurrent = itemArray[0].name;
   }
 
   return (

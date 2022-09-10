@@ -11,8 +11,6 @@ import {
 import {
   postOrderData,
   GET_CONSTRUCTOR_LIST_RANDOM,
-  SET_CONSTRUCTOR_LIST_BUN,
-  ADD_CONSTRUCTOR_LIST_MAIN,
 } from "../../services/actions/app.js";
 
 function BurgerConstructor() {
@@ -20,22 +18,11 @@ function BurgerConstructor() {
   const { bun, main } = useSelector((store) => store.burgerConstructor);
   const { items } = useSelector((state) => state.ingredients);
 
-  const [, dropTarget] = useDrop({
+  const [{ isHover }, dropTarget] = useDrop({
     accept: "ingredient",
-    drop(itemData) {
-      if (itemData.type === "bun") {
-        dispatch({
-          type: SET_CONSTRUCTOR_LIST_BUN,
-          item: itemData,
-        });
-      } else {
-        dispatch({
-          type: ADD_CONSTRUCTOR_LIST_MAIN,
-          item: itemData,
-        });
-
-      }
-    },
+    collect: (monitor) => ({
+      isHover: monitor.isOver(),
+    }),
   });
 
   const totalPrice = React.useMemo(
@@ -59,13 +46,18 @@ function BurgerConstructor() {
 
   return (
     <section className={`pl-4`}>
-      <div className={`${styles.main}`} ref={dropTarget}>
+      <div
+        className={`${styles.main}${isHover ? " " + styles.mainIsHover : ""}`}
+        ref={dropTarget}
+      >
         <ConstructorCard
           type="top"
           isLocked={true}
           text={`${bun.name} (верх)`}
           price={bun.price}
           thumbnail={bun.image_mobile}
+          index="top"
+          ingredientType="bun"
         />
 
         <IngredientsList main={main} />
@@ -76,6 +68,8 @@ function BurgerConstructor() {
           text={`${bun.name} (низ)`}
           price={bun.price}
           thumbnail={bun.image_mobile}
+          index="bottom"
+          ingredientType="bun"
         />
       </div>
 

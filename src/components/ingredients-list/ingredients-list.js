@@ -15,6 +15,8 @@ function IngredientsList(props) {
           price={item.price}
           index={index}
           thumbnail={item.image_mobile}
+          ingredientType={item.type}
+
         />
       ))}
     </ul>
