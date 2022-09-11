@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { useDrag } from "react-dnd";
 import { useSelector, useDispatch } from "react-redux";
 import { IngredientPropTypes } from "../../utils/constants.js";
@@ -26,13 +26,18 @@ function IngredientCard(props) {
     },
   });
 
-  const ingridientsIdArray = [bun._id, bun._id];
-  main.forEach((item) => ingridientsIdArray.push(item._id));
-  const counterObject = {};
-  ingridientsIdArray.forEach(
-    (item) =>
-      (counterObject[item] = counterObject[item] ? ++counterObject[item] : 1)
-  );
+  const counter = useMemo(()=>{
+    const ingridientsIdArray = [bun._id, bun._id];
+    main.forEach((item) => ingridientsIdArray.push(item._id));
+    const countObject = {};
+    ingridientsIdArray.forEach(
+      (item) =>
+        (countObject[item] = countObject[item] ? ++countObject[item] : 1)
+    );
+    return countObject[props._id];
+
+  },[bun, main]);
+
 
   function handleOpenModal() {
     dispatch({
@@ -62,8 +67,8 @@ function IngredientCard(props) {
           <p className="text text_type_main-small">{props.name}</p>
         </div>
 
-        {counterObject[props._id] > 0 && (
-          <Counter count={counterObject[props._id]} size="default" />
+        {counter > 0 && (
+          <Counter count={counter} size="default" />
         )}
       </div>
     </li>

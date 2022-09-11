@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 import styles from "./modal.module.css";
@@ -6,7 +6,7 @@ import { ModalOverlay } from "../modal-overlay/modal-overlay";
 import { ModalRoot } from "../../utils/constants.js";
 
 function Modal(props) {
-  React.useEffect(() => {
+  useEffect(() => {
     window.addEventListener("keydown", handleKeydownEsc);
 
     return () => {

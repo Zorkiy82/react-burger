@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { useSelector, useDispatch } from "react-redux";
@@ -29,14 +29,12 @@ function App() {
 
   const { ingredientData } = useSelector((state) => state.viewedIngredient);
   const { orderData } = useSelector((state) => state.orderElement);
-
-  React.useEffect(() => {
+  useEffect(() => {
     if (itemsRequest) {
       dispatch(getIngredientsData());
     }
   }, [itemsRequest, dispatch]);
-
-  React.useEffect(() => {
+  useEffect(() => {
     if (!itemsRequest) {
       dispatch({
         type: GET_CONSTRUCTOR_LIST_RANDOM,

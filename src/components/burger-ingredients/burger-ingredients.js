@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { TabBar } from "../tab-bar/tab-bar.js";
 import { CardList } from "../card-list/card-list.js";
@@ -11,22 +11,22 @@ function BurgerIngredients() {
 
   const { items } = useSelector((state) => state.ingredients);
 
-  const baseRef = React.useRef();
-  const idOneRef = React.useRef();
-  const idTwoRef = React.useRef();
-  const idThreeRef = React.useRef();
+  const baseRef = useRef();
+  const idOneRef = useRef();
+  const idTwoRef = useRef();
+  const idThreeRef = useRef();
 
-  const bunList = React.useMemo(
+  const bunList = useMemo(
     () => items.filter((item) => item.type === "bun"),
     [items]
   );
 
-  const sauceList = React.useMemo(
+  const sauceList = useMemo(
     () => items.filter((item) => item.type === "sauce"),
     [items]
   );
 
-  const mainList = React.useMemo(
+  const mainList = useMemo(
     () => items.filter((item) => item.type === "main"),
     [items]
   );

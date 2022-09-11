@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useDrop } from "react-dnd";
 import styles from "./burger-constructor.module.css";
@@ -25,7 +25,7 @@ function BurgerConstructor() {
     }),
   });
 
-  const totalPrice = React.useMemo(
+  const totalPrice = useMemo(
     () => main.reduce((summ, item) => summ + item.price, 0) + bun.price * 2,
     [main, bun]
   );
