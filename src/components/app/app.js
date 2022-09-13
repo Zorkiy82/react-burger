@@ -1,119 +1,84 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import { useSelector, useDispatch } from "react-redux";
 import { AppHeader } from "../app-header/app-header.js";
 import { BurgerIngredients } from "../burger-ingredients/burger-ingredients.js";
 import { BurgerConstructor } from "../burger-constructor/burger-constructor.js";
 import { Modal } from "../modal/modal.js";
-import { getIngredients } from "../../utils/burger-api.js";
-import { ConstructorItemsContext } from "../../services/constructor-context.js";
-import { BurgerIngredientsContext } from "../../services/app-context.js";
-import { defaultConstructorItems } from "../../utils/constants.js";
 import { ErrorDetails } from "../error-details/error-details.js";
+import { IngredientDetails } from "../ingredient-details/ingredient-details.js";
+import { OrderDetails } from "../order-details/order-details.js";
+import {
+  getIngredientsData,
+  GET_CONSTRUCTOR_LIST_RANDOM,
+  RESET_MODAL_DATA,
+} from "../../services/actions/app.js";
 import styles from "./styles.module.css";
 
-function reducer(state, action) {
-  switch (action.type) {
-    case "default":
-      return { ...defaultConstructorItems };
-
-    case "random": {
-      const bunIngredientArray = action.ingredientsData.filter(
-        (item) => item.type === "bun"
-      );
-      const notBunIngredientArray = action.ingredientsData.filter(
-        (item) => item.type !== "bun"
-      );
-      const numberOfOtherIngredients = Math.round(Math.random() * 7 + 1);
-      const otherIngredientsArray = [];
-
-      const bunIngredient =
-        bunIngredientArray[
-          Math.round(Math.random() * (bunIngredientArray.length - 1))
-        ];
-
-      for (let i = 1; i <= numberOfOtherIngredients; ++i) {
-        const rnd = Math.round(
-          Math.random() * (notBunIngredientArray.length - 1)
-        );
-        otherIngredientsArray.push(notBunIngredientArray[rnd]);
-      }
-      return {
-        bun: bunIngredient,
-        main: otherIngredientsArray,
-      };
-    }
-
-    default:
-      throw new Error(`Wrong type of action: ${action.type}`);
-  }
-}
-
 function App() {
-  const [ingredientsDataArray, setIngredientsDataArray] = React.useState([]);
+  const dispatch = useDispatch();
 
-  const [constructorItemsState, constructorItemsDispatcher] = React.useReducer(
-    reducer,
-    { bun: {}, main: [] },
-    undefined
+  const { items, itemsRequest, itemsFailed } = useSelector(
+    (state) => state.ingredients
   );
 
-  const [isLoading, setIsLoading] = React.useState(false);
-  const [modalIsVisible, setModalIsVisible] = React.useState(false);
-  const [hasError, sethasError] = React.useState(false);
-  const [erorrData, setErorrData] = React.useState({
-    mesage: null,
-    code: null,
-    url: null,
-  });
+  const { modalIsVisible, modalType, errorData } = useSelector(
+    (state) => state.modal
+  );
 
-  React.useEffect(() => {
-    getIngredients()
-      .then((data) => {
-        setIsLoading(true);
-        constructorItemsDispatcher({
-          type: "random",
-          ingredientsData: data.data,
-        });
-        setIngredientsDataArray(data.data);
-      })
-      .catch((res) => {
-        setIsLoading(false);
-        sethasError(true);
-        setErorrData({
-          mesage: res.statusText,
-          code: res.status,
-          url: res.url,
-        });
-        setModalIsVisible(true);
+  const { ingredientData } = useSelector((state) => state.viewedIngredient);
+  const { orderData } = useSelector((state) => state.orderElement);
+  useEffect(() => {
+    if (itemsRequest) {
+      dispatch(getIngredientsData());
+    }
+  }, [itemsRequest, dispatch]);
+  useEffect(() => {
+    if (!itemsRequest) {
+      dispatch({
+        type: GET_CONSTRUCTOR_LIST_RANDOM,
+        ingredientsData: items,
       });
-  }, []);
+    }
+  }, [items, itemsRequest, dispatch]);
+
+  function getModalContent() {
+    switch (modalType) {
+      case "error": {
+        return <ErrorDetails {...errorData} />;
+      }
+      case "ingredient": {
+        return <IngredientDetails {...ingredientData} />;
+      }
+      case "order": {
+        return <OrderDetails number={orderData.order.number} />;
+      }
+      default: {
+        return null;
+      }
+    }
+  }
 
   function handleCloseModal() {
-    setModalIsVisible(false);
+    dispatch({ type: RESET_MODAL_DATA });
   }
 
   return (
     <div className={styles.app}>
       <AppHeader />
-      {isLoading && !hasError && (
-        <BurgerIngredientsContext.Provider
-          value={{ ingredientsDataArray, setIngredientsDataArray }}
-        >
-          <ConstructorItemsContext.Provider
-            value={{ constructorItemsState, constructorItemsDispatcher }}
-          >
-            <main className={styles.main}>
-              <BurgerIngredients />
+      {!itemsRequest && !itemsFailed && (
+        <DndProvider backend={HTML5Backend}>
+          <main className={styles.main}>
+            <BurgerIngredients />
 
-              <BurgerConstructor />
-            </main>
-          </ConstructorItemsContext.Provider>
-        </BurgerIngredientsContext.Provider>
+            <BurgerConstructor />
+          </main>
+        </DndProvider>
       )}
 
       {modalIsVisible && (
-        <Modal onClose={handleCloseModal}>
-          <ErrorDetails {...erorrData} />
-        </Modal>
+        <Modal onClose={handleCloseModal}>{getModalContent()}</Modal>
       )}
     </div>
   );

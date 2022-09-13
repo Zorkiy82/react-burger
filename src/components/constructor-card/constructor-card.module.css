@@ -8,3 +8,8 @@
   width: 24px;
   height: 24px;
 }
+
+.resetLi {
+  margin: 0;
+  list-style: none;
+}

@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./order-details.module.css";
 import PropTypes from "prop-types";
 
 function OrderDetails({ number }) {
-  const [orderData] = React.useState({
+  const [orderData] = useState({
     number: number,
     status: "Ваш заказ начали готовить",
     recommendation: "Дождитесь готовности на орбитальной станции",

@@ -4,8 +4,7 @@
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  max-height: calc(100vh - 560px);
+  max-height: calc(100vh - 620px);
   overflow-y: scroll;
 }
 

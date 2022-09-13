@@ -1,97 +1,77 @@
-import React from "react";
+import React, { useMemo } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useDrop } from "react-dnd";
 import styles from "./burger-constructor.module.css";
-import { defaultOrderState } from "../../utils/constants.js";
 import { ConstructorCard } from "../constructor-card/constructor-card";
 import { IngredientsList } from "../ingredients-list/ingredients-list";
-import { Modal } from "../modal/modal";
-import { OrderDetails } from "../order-details/order-details";
 import {
   CurrencyIcon,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { ConstructorItemsContext } from "../../services/constructor-context";
-import { BurgerIngredientsContext } from "../../services/app-context.js";
-import { postOrder } from "../../utils/burger-api.js";
-import { ErrorDetails } from "../error-details/error-details.js";
+import {
+  postOrderData,
+  GET_CONSTRUCTOR_LIST_RANDOM,
+} from "../../services/actions/app.js";
 
 function BurgerConstructor() {
-  const [modalIsVisible, setModalIsVisible] = React.useState(false);
-  const [orderState, setOrderState] = React.useState(defaultOrderState);
-  const { constructorItemsState, constructorItemsDispatcher } =
-    React.useContext(ConstructorItemsContext);
-  const { ingredientsDataArray } = React.useContext(BurgerIngredientsContext);
-  const [hasError, sethasError] = React.useState(false);
-  const [erorrData, setErorrData] = React.useState({
-    mesage: null,
-    code: null,
-    url: null,
+  const dispatch = useDispatch();
+  const { bun, main } = useSelector((store) => store.burgerConstructor);
+  const { items } = useSelector((state) => state.ingredients);
+
+  const [{ isHover }, dropTarget] = useDrop({
+    accept: "ingredient",
+    collect: (monitor) => ({
+      isHover: monitor.isOver(),
+    }),
   });
 
-  const modalWindow = (
-    <Modal onClose={handleCloseModal}>
-      <OrderDetails number={orderState.order.number} />
-    </Modal>
+  const totalPrice = useMemo(
+    () => main.reduce((summ, item) => summ + item.price, 0) + bun.price * 2,
+    [main, bun]
   );
 
-  const totalPrice =
-    constructorItemsState.main.reduce((summ, item) => summ + item.price, 0) +
-    constructorItemsState.bun.price * 2;
-
   function handleClickOrderButton() {
-    const ingridientsIdArray = [
-      constructorItemsState.bun._id,
-      constructorItemsState.bun._id,
-    ];
-    constructorItemsState.main.forEach((item) =>
-      ingridientsIdArray.push(item._id)
-    );
-    postOrder(ingridientsIdArray)
-      .then((data) => {
-        setOrderState(data);
-      })
-      .catch((res) => {
-        sethasError(true);
-        setErorrData({
-          mesage: res.statusText,
-          code: res.status,
-          url: res.url,
-        });
-      })
-      .finally(() => {
-        setModalIsVisible(true);
-      });
-  }
+    const ingridientsIdArray = [bun._id, bun._id];
+    main.forEach((item) => ingridientsIdArray.push(item._id));
 
-  function handleCloseModal() {
-    setModalIsVisible(false);
+    dispatch(postOrderData(ingridientsIdArray));
   }
 
   function updateConstructor() {
-    constructorItemsDispatcher({
-      type: "random",
-      ingredientsData: ingredientsDataArray,
+    dispatch({
+      type: GET_CONSTRUCTOR_LIST_RANDOM,
+      ingredientsData: items,
     });
   }
 
   return (
-    <section className={`${styles.main} pl-4`}>
-      <ConstructorCard
-        type="top"
-        isLocked={true}
-        text={`${constructorItemsState.bun.name} (верх)`}
-        price={constructorItemsState.bun.price}
-        thumbnail={constructorItemsState.bun.image_mobile}
-      />
+    <section className={`pl-4`}>
+      <div
+        className={`${styles.main}${isHover ? " " + styles.mainIsHover : ""}`}
+        ref={dropTarget}
+      >
+        <ConstructorCard
+          type="top"
+          isLocked={true}
+          text={`${bun.name} (верх)`}
+          price={bun.price}
+          thumbnail={bun.image_mobile}
+          index="top"
+          ingredientType="bun"
+        />
 
-      <IngredientsList main={constructorItemsState.main} />
+        <IngredientsList main={main} />
 
-      <ConstructorCard
-        type="bottom"
-        isLocked={true}
-        text={`${constructorItemsState.bun.name} (низ)`}
-        price={constructorItemsState.bun.price}
-        thumbnail={constructorItemsState.bun.image_mobile}
-      />
+        <ConstructorCard
+          type="bottom"
+          isLocked={true}
+          text={`${bun.name} (низ)`}
+          price={bun.price}
+          thumbnail={bun.image_mobile}
+          index="bottom"
+          ingredientType="bun"
+        />
+      </div>
 
       <div className={`${styles.totalPriceContainer} mr-4`}>
         <div className={styles.priceContainer}>
@@ -108,13 +88,6 @@ function BurgerConstructor() {
           Оформить заказ
         </Button>
       </div>
-
-      {modalIsVisible && !hasError && modalWindow}
-      {hasError && modalIsVisible && (
-        <Modal onClose={handleCloseModal}>
-          <ErrorDetails {...erorrData} />
-        </Modal>
-      )}
     </section>
   );
 }

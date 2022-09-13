@@ -14,7 +14,7 @@ function ErrorDetails({ code, url, mesage }) {
 ErrorDetails.propTypes = {
   code: PropTypes.number.isRequired,
   url: PropTypes.string,
-  mesage: PropTypes.string
+  mesage: PropTypes.string,
 };
 
 export { ErrorDetails };

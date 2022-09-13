@@ -8,12 +8,14 @@ import { v4 as uuidv4 } from "uuid";
 function IngredientsList(props) {
   return (
     <ul className={styles.list}>
-      {props.main.map((item) => (
+      {props.main.map((item, index) => (
         <ConstructorCard
           key={uuidv4()}
           text={item.name}
           price={item.price}
+          index={index}
           thumbnail={item.image_mobile}
+          ingredientType={item.type}
         />
       ))}
     </ul>
