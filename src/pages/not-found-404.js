@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 // import styles from "./home.module.css";
 
 export function NotFound404Page() {
@@ -15,7 +16,7 @@ export function NotFound404Page() {
       существовало вовсе, сервер вернёт ошибку 404.
     </p>
   </main>
-  <p class="footer">Вернуться на <a href="/" >главную страницу</a></p>
+  <p class="footer">Вернуться на <Link to="/" >главную страницу</Link></p>
     </>
 
   );

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import {
   Input,
   Button,
@@ -6,6 +7,22 @@ import {
 import styles from "./login.module.css";
 
 export function LoginPage() {
+  const history = useHistory();
+  const { pathname, state } = useLocation();
+
+  function handleOnChange(evt) {
+    const key = evt.target.name;
+    const value = evt.target.value;
+
+    history.replace({
+      pathname: pathname,
+      state: {
+        ...state,
+        [key]: value,
+      },
+    });
+  }
+
   return (
     <div className={styles.container}>
       <p className="text text_type_main-medium">Вход</p>
@@ -13,19 +30,23 @@ export function LoginPage() {
       <Input
         type={"email"}
         placeholder={"E-mail"}
-        name={"name"}
+        name={"email"}
+        value = {state && state.email ? state.email : ""}
         error={false}
         size={"default"}
+        onChange={handleOnChange}
       />
       <spacer className="pt-6" />
       <Input
         type={"password"}
         placeholder={"Пароль"}
-        name={"name"}
+        name={"password"}
+        value = {state && state.password ? state.password : ""}
         icon={"ShowIcon"}
         // onIconClick={onIconClick}
         error={false}
         size={"default"}
+        onChange={handleOnChange}
       />
       <spacer className="pt-6" />
 
@@ -35,15 +56,15 @@ export function LoginPage() {
 
       <p className="text text_type_main-default text_color_inactive mt-20">
         Вы — новый пользователь?{" "}
-        <a className={styles.link} href="/register">
+        <Link className={styles.link} to="/register">
           Зарегистрироваться
-        </a>
+        </Link>
       </p>
       <p className="text text_type_main-default text_color_inactive mt-4">
         Забыли пароль?{" "}
-        <a className={styles.link} href="/forgot-password">
+        <Link className={styles.link} to="/forgot-password">
           Восстановить пароль
-        </a>
+        </Link>
       </p>
     </div>
   );

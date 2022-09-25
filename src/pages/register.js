@@ -1,4 +1,5 @@
 import React from "react";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import {
   Input,
   Button,
@@ -6,6 +7,22 @@ import {
 import styles from "./register.module.css";
 
 export function RegisterPage() {
+  const history = useHistory();
+  const { pathname, state } = useLocation();
+
+  function handleOnChange(evt) {
+    const key = evt.target.name;
+    const value = evt.target.value;
+
+    history.replace({
+      pathname: pathname,
+      state: {
+        ...state,
+        [key]: value,
+      },
+    });
+  }
+
   return (
     <div className={styles.container}>
       <p className="text text_type_main-medium">Регистрация</p>
@@ -13,23 +30,29 @@ export function RegisterPage() {
       <Input
         type={"text"}
         placeholder={"Имя"}
+        onChange={handleOnChange}
         name={"name"}
+        value = {state && state.name ? state.name : ""}
         error={false}
         size={"default"}
       />
       <spacer className="pt-6" />
       <Input
         type={"email"}
+        onChange={handleOnChange}
         placeholder={"E-mail"}
-        name={"name"}
+        name={"email"}
+        value = {state && state.email ? state.email : ""}
         error={false}
         size={"default"}
       />
       <spacer className="pt-6" />
       <Input
         type={"password"}
+        onChange={handleOnChange}
         placeholder={"Пароль"}
-        name={"name"}
+        name={"password"}
+        value = {state && state.password ? state.password : ""}
         icon={"ShowIcon"}
         // onIconClick={onIconClick}
         error={false}
@@ -38,16 +61,15 @@ export function RegisterPage() {
       <spacer className="pt-6" />
 
       <Button type="primary" size="medium">
-      Зарегистрироваться
+        Зарегистрироваться
       </Button>
 
       <p className="text text_type_main-default text_color_inactive mt-20">
-      Уже зарегистрированы?{" "}
-        <a className={styles.link} href="/login">
+        Уже зарегистрированы?{" "}
+        <Link className={styles.link} to="/login">
           Войти
-        </a>
+        </Link>
       </p>
-
     </div>
   );
 }

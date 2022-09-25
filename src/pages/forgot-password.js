@@ -1,4 +1,5 @@
 import React from "react";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import {
   Input,
   Button,
@@ -6,6 +7,21 @@ import {
 import styles from "./forgot-password.module.css";
 
 export function ForgotPasswordPage() {
+  const history = useHistory();
+  const { pathname, state } = useLocation();
+
+  function handleOnChange(evt) {
+    const key = evt.target.name;
+    const value = evt.target.value;
+
+    history.replace({
+      pathname: pathname,
+      state: {
+        ...state,
+        [key]: value,
+      },
+    });
+  }
   return (
     <div className={styles.container}>
       <p className="text text_type_main-medium">Восстановление пароля</p>
@@ -14,9 +30,11 @@ export function ForgotPasswordPage() {
       <Input
         type={"email"}
         placeholder={"Укажите E-mail"}
-        name={"name"}
+        name={"email"}
+        value = {state && state.email ? state.email : ""}
         error={false}
         size={"default"}
+        onChange={handleOnChange}
       />
 
       <spacer className="pt-6" />
@@ -27,9 +45,9 @@ export function ForgotPasswordPage() {
 
       <p className="text text_type_main-default text_color_inactive mt-20">
         Вспомнили пароль?{" "}
-        <a className={styles.link} href="/login">
+        <Link className={styles.link} to="/login">
           Войти
-        </a>
+        </Link>
       </p>
     </div>
   );
