@@ -1,10 +1,15 @@
 import React, { useEffect } from "react";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { HomePage } from "../../pages/home";
+import { LoginPage } from "../../pages/login";
+import { RegisterPage } from "../../pages/register";
+import { ForgotPasswordPage } from "../../pages/forgot-password";
+import { ResetPasswordPage } from "../../pages/reset-password";
+import { ProfilePage } from "../../pages/profile";
+import { IngredientPage } from "../../pages/ingredient";
+import { NotFound404Page } from "../../pages/not-found-404";
 import { useSelector, useDispatch } from "react-redux";
 import { AppHeader } from "../app-header/app-header.js";
-import { BurgerIngredients } from "../burger-ingredients/burger-ingredients.js";
-import { BurgerConstructor } from "../burger-constructor/burger-constructor.js";
 import { Modal } from "../modal/modal.js";
 import { ErrorDetails } from "../error-details/error-details.js";
 import { IngredientDetails } from "../ingredient-details/ingredient-details.js";
@@ -67,15 +72,36 @@ function App() {
   return (
     <div className={styles.app}>
       <AppHeader />
-      {!itemsRequest && !itemsFailed && (
-        <DndProvider backend={HTML5Backend}>
-          <main className={styles.main}>
-            <BurgerIngredients />
-
-            <BurgerConstructor />
-          </main>
-        </DndProvider>
-      )}
+      <div className={styles.main}>
+        <Router>
+          <Switch>
+            <Route path="/" exact={true}>
+              <HomePage />
+            </Route>
+            <Route path="/login" exact={true}>
+              <LoginPage />
+            </Route>
+            <Route path="/register" exact={true}>
+              <RegisterPage />
+            </Route>
+            <Route path="/forgot-password" exact={true}>
+              <ForgotPasswordPage />
+            </Route>
+            <Route path="/reset-password" exact={true}>
+              <ResetPasswordPage />
+            </Route>
+            <Route path="/profile" exact={true}>
+              <ProfilePage />
+            </Route>
+            <Route path="/ingredients/:id" exact={true}>
+              <IngredientPage />
+            </Route>
+            <Route>
+              <NotFound404Page />
+            </Route>
+          </Switch>
+        </Router>
+      </div>
 
       {modalIsVisible && (
         <Modal onClose={handleCloseModal}>{getModalContent()}</Modal>

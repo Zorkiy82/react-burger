@@ -36,7 +36,7 @@ function IngredientCard(props) {
     );
     return countObject[props._id];
 
-  },[bun, main]);
+  },[bun, main, props._id]);
 
 
   function handleOpenModal() {

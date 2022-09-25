@@ -53,7 +53,7 @@ function ConstructorCard(props) {
       : isHover
       ? { paddingTop: "96px" }
       : {};
-  }, [props.index, isHover]);
+  }, [props.index, isHover ]);
 
   function deleteConstructorElement() {
     dispatch({
