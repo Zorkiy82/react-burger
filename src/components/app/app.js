@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { HomePage } from "../../pages/home";
 import { LoginPage } from "../../pages/login";
@@ -6,6 +7,7 @@ import { RegisterPage } from "../../pages/register";
 import { ForgotPasswordPage } from "../../pages/forgot-password";
 import { ResetPasswordPage } from "../../pages/reset-password";
 import { ProfilePage } from "../../pages/profile";
+import { OrderListPage } from "../../pages/order-list";
 import { IngredientPage } from "../../pages/ingredient";
 import { NotFound404Page } from "../../pages/not-found-404";
 import { useSelector, useDispatch } from "react-redux";
@@ -71,9 +73,9 @@ function App() {
 
   return (
     <div className={styles.app}>
-      <AppHeader />
-      <div className={styles.main}>
-        <Router>
+      <Router>
+        <AppHeader />
+        <div className={styles.main}>
           <Switch>
             <Route path="/" exact={true}>
               <HomePage />
@@ -90,8 +92,11 @@ function App() {
             <Route path="/reset-password" exact={true}>
               <ResetPasswordPage />
             </Route>
-            <Route path="/profile" exact={true}>
+            <Route path="/profile">
               <ProfilePage />
+            </Route>
+            <Route path="/order-list" exact={true}>
+              <OrderListPage />
             </Route>
             <Route path="/ingredients/:id" exact={true}>
               <IngredientPage />
@@ -100,8 +105,8 @@ function App() {
               <NotFound404Page />
             </Route>
           </Switch>
-        </Router>
-      </div>
+        </div>
+      </Router>
 
       {modalIsVisible && (
         <Modal onClose={handleCloseModal}>{getModalContent()}</Modal>

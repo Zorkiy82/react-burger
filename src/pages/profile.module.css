@@ -1,0 +1,13 @@
+.nav {
+  display: flex;
+  flex-direction: column;
+}
+
+.link {
+  text-decoration: none;
+  /* color: #4c4cff; */
+}
+
+.linkActiv {
+  color: #F2F2F3;
+}

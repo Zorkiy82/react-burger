@@ -17,3 +17,14 @@
   display: flex;
   gap: 8px;
 }
+
+.link {
+  display: flex;
+  box-sizing: border-box;
+  align-items: center;
+  height: 56px;
+  padding-left: 20px;
+  padding-right: 20px;
+  text-decoration: none;
+  border-radius: 40px;
+}
