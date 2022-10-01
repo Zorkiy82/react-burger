@@ -6,6 +6,7 @@ import {
   EmailInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./forgot-password.module.css";
+import { postForgotPasswordData } from "../services/actions/forgot-password";
 
 export function ForgotPasswordPage() {
   const dispatch = useDispatch();
@@ -28,7 +29,7 @@ export function ForgotPasswordPage() {
   function handleSubmit(evt) {
     evt.preventDefault();
     console.log(history.location.state);
-    // dispatch(postRegisterData(history, pathname));
+    dispatch(postForgotPasswordData(history, pathname));
   }
 
   return (

@@ -31,4 +31,8 @@ function postRegister(registerDataObj) {
   return basePostFetch("/auth/register", registerDataObj);
 }
 
-export { getIngredients, postOrder, postRegister };
+function postForgotPassword(forgotPasswordDataObj) {
+  return basePostFetch("/password-reset", forgotPasswordDataObj);
+}
+
+export { getIngredients, postOrder, postRegister, postForgotPassword };
