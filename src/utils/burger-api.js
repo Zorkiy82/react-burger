@@ -1,6 +1,7 @@
 import { ApiUrl } from "./constants.js";
 
 function checkReponse(res) {
+  // console.log(res);
   if (res.ok) {
     return res.json();
   } else {
@@ -8,18 +9,26 @@ function checkReponse(res) {
   }
 }
 
+function basePostFetch(addUrl, bodyObject) {
+  return fetch(`${ApiUrl + addUrl}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(bodyObject),
+  }).then(checkReponse);
+}
+
 function getIngredients() {
   return fetch(`${ApiUrl}/ingredients`).then(checkReponse);
 }
 
 function postOrder(ingridientsIdArray) {
-  return fetch(`${ApiUrl}/orders`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ ingredients: ingridientsIdArray }),
-  }).then(checkReponse);
+  return basePostFetch("/orders", { ingredients: ingridientsIdArray });
 }
 
-export { getIngredients, postOrder };
+function postRegister(registerDataObj) {
+  return basePostFetch("/auth/register", registerDataObj);
+}
+
+export { getIngredients, postOrder, postRegister };
