@@ -11,8 +11,8 @@ import styles from "./register.module.css";
 import { postRegisterData } from "../services/actions/register";
 
 export function RegisterPage() {
-  const history = useHistory();
   const dispatch = useDispatch();
+  const history = useHistory();
   const { pathname, state } = useLocation();
 
   function handleOnChange(evt) {

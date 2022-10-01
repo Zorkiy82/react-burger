@@ -28,7 +28,6 @@ export function ForgotPasswordPage() {
 
   function handleSubmit(evt) {
     evt.preventDefault();
-    console.log(history.location.state);
     dispatch(postForgotPasswordData(history, pathname));
   }
 

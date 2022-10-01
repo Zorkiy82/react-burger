@@ -1,7 +1,6 @@
 import { ApiUrl } from "./constants.js";
 
 function checkReponse(res) {
-  // console.log(res);
   if (res.ok) {
     return res.json();
   } else {
@@ -35,4 +34,8 @@ function postForgotPassword(forgotPasswordDataObj) {
   return basePostFetch("/password-reset", forgotPasswordDataObj);
 }
 
-export { getIngredients, postOrder, postRegister, postForgotPassword };
+function postResetPassword(resetPasswordDataObj) {
+  return basePostFetch("/password-reset/reset", resetPasswordDataObj);
+}
+
+export { getIngredients, postOrder, postRegister, postForgotPassword, postResetPassword };
