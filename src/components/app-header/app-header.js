@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { NavLink, useLocation } from "react-router-dom";
+import { getCookie } from "../../utils/utils";
 import styles from "./app-header.module.css";
 import {
   Logo,
@@ -10,6 +11,9 @@ import {
 
 function AppHeader() {
   const { pathname } = useLocation();
+  // const userIconType = useMemo(() => {
+  //   return getCookie("accessToken") ? "success" : "secondary";
+  // });
   return (
     <header className={`pb-4 pt-4 ${styles.header}`}>
       <nav className={styles.header_linkContainer}>
@@ -47,7 +51,7 @@ function AppHeader() {
         }}
       >
         <ProfileIcon
-          type={pathname.startsWith("/profile") ? "primary" : "secondary"}
+          type={getCookie("accessToken") ? "success" : "secondary"}
         />
 
         <p className="ml-2">Личный кабинет</p>

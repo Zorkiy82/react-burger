@@ -1,12 +1,18 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import {
   Input,
   Button,
+  EmailInput,
+  PasswordInput,
+
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { postLoginData } from "../services/actions/login";
 import styles from "./login.module.css";
 
 export function LoginPage() {
+  const dispatch = useDispatch();
   const history = useHistory();
   const { pathname, state } = useLocation();
 
@@ -23,36 +29,40 @@ export function LoginPage() {
     });
   }
 
+  function handleSubmit(evt) {
+    evt.preventDefault();
+    dispatch(postLoginData(history, pathname));
+  }
+
   return (
     <div className={styles.container}>
-      <p className="text text_type_main-medium">Вход</p>
-      <spacer className="pt-6" />
-      <Input
-        type={"email"}
-        placeholder={"E-mail"}
-        name={"email"}
-        value = {state && state.email ? state.email : ""}
-        error={false}
-        size={"default"}
-        onChange={handleOnChange}
-      />
-      <spacer className="pt-6" />
-      <Input
-        type={"password"}
-        placeholder={"Пароль"}
-        name={"password"}
-        value = {state && state.password ? state.password : ""}
-        icon={"ShowIcon"}
-        // onIconClick={onIconClick}
-        error={false}
-        size={"default"}
-        onChange={handleOnChange}
-      />
-      <spacer className="pt-6" />
+      <p className="text text_type_main-medium mb-6">Вход</p>
 
-      <Button type="primary" size="medium">
-        Войти
-      </Button>
+      <form
+        name="registerForm"
+        className={styles.form}
+        onSubmit={handleSubmit}
+        method="POST"
+      >
+        <EmailInput
+          onChange={handleOnChange}
+          name={"email"}
+          value={state && state.email ? state.email : ""}
+          size={"default"}
+        />
+
+        <PasswordInput
+          onChange={handleOnChange}
+          name={"password"}
+          value={state && state.password ? state.password : ""}
+          size={"default"}
+          required
+        />
+
+        <Button type="primary" size="medium" htmlType="submit">
+          Войти
+        </Button>
+      </form>
 
       <p className="text text_type_main-default text_color_inactive mt-20">
         Вы — новый пользователь?{" "}

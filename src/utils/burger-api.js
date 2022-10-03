@@ -26,6 +26,10 @@ function postOrder(ingridientsIdArray) {
   return basePostFetch("/orders", { ingredients: ingridientsIdArray });
 }
 
+function postLogin(loginDataObj) {
+  return basePostFetch("/auth/login", loginDataObj);
+}
+
 function postRegister(registerDataObj) {
   return basePostFetch("/auth/register", registerDataObj);
 }
@@ -38,4 +42,4 @@ function postResetPassword(resetPasswordDataObj) {
   return basePostFetch("/password-reset/reset", resetPasswordDataObj);
 }
 
-export { getIngredients, postOrder, postRegister, postForgotPassword, postResetPassword };
+export { getIngredients, postOrder, postLogin, postRegister, postForgotPassword, postResetPassword };

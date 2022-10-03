@@ -1,24 +1,21 @@
 import { SET_MODAL_DATA } from "./app";
 import { setCookie } from "../../utils/utils";
-import { postRegister } from "../../utils/burger-api";
+import { postLogin } from "../../utils/burger-api";
 
+export const POST_LOGIN_REQUEST = "POST_LOGIN_REQUEST";
+export const POST_LOGIN_SUCCESS = "POST_LOGIN_SUCCESS";
+export const POST_LOGIN_FAILED = "POST_LOGIN_FAILED";
 
-export const POST_REGISTER_REQUEST = "POST_REGISTER_REQUEST";
-export const POST_REGISTER_SUCCESS = "POST_REGISTER_SUCCESS";
-export const POST_REGISTER_FAILED = "POST_REGISTER_FAILED";
-
-
-
-export function postRegisterData(history, pathname) {
+export function postLoginData(history, pathname) {
   return function (dispatch) {
     dispatch({
-      type: POST_REGISTER_REQUEST,
+      type: POST_LOGIN_REQUEST,
     });
 
-    postRegister(history.location.state)
+    postLogin(history.location.state)
       .then((res) => {
         dispatch({
-          type: POST_REGISTER_SUCCESS,
+          type: POST_LOGIN_SUCCESS,
           data: res,
         });
         history.replace({
@@ -27,16 +24,18 @@ export function postRegisterData(history, pathname) {
         });
         setCookie("accessToken", res.accessToken, { expires: 1200 });
         setCookie("refreshToken", res.refreshToken);
+
+        // history.push({
+        //   pathname: "/",
+        // });
       })
       .catch((res) => {
-
-
         const code = res.status;
         const url = res.url;
 
         res.json().then((res) => {
           dispatch({
-            type: POST_REGISTER_FAILED,
+            type: POST_LOGIN_FAILED,
             data: res,
           });
 
