@@ -1,33 +1,28 @@
 import { SET_MODAL_DATA } from "./app";
 import { setCookie } from "../../utils/utils";
-import { postLogin } from "../../utils/burger-api";
+import { postToken } from "../../utils/burger-api";
 
-export const POST_LOGIN_REQUEST = "POST_LOGIN_REQUEST";
-export const POST_LOGIN_SUCCESS = "POST_LOGIN_SUCCESS";
-export const POST_LOGIN_FAILED = "POST_LOGIN_FAILED";
+export const POST_TOKEN_REQUEST = "POST_TOKEN_REQUEST";
+export const POST_TOKEN_SUCCESS = "POST_TOKEN_SUCCESS";
+export const POST_TOKEN_FAILED = "POST_TOKEN_FAILED";
 
-export function postLoginData(history, pathname) {
+export function postTokenData(refreshToken) {
   return function (dispatch) {
     dispatch({
-      type: POST_LOGIN_REQUEST,
+      type: POST_TOKEN_REQUEST,
     });
 
-    postLogin(history.location.state)
+    postToken(refreshToken)
       .then((res) => {
         dispatch({
-          type: POST_LOGIN_SUCCESS,
+          type: POST_TOKEN_SUCCESS,
           data: res,
         });
-        history.replace({
-          pathname: pathname,
-          state: {},
-        });
+
         setCookie("accessToken", res.accessToken);
         setCookie("refreshToken", res.refreshToken);
 
-        // history.push({
-        //   pathname: "/",
-        // });
+
       })
       .catch((res) => {
         const code = res.status;
@@ -35,7 +30,7 @@ export function postLoginData(history, pathname) {
 
         res.json().then((res) => {
           dispatch({
-            type: POST_LOGIN_FAILED,
+            type: POST_TOKEN_FAILED,
             data: res,
           });
 

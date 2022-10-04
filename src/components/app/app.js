@@ -22,11 +22,13 @@ import {
   RESET_MODAL_DATA,
 } from "../../services/actions/app.js";
 import styles from "./styles.module.css";
+// import { getCookie } from "../../utils/utils";
+// import { postTokenData } from "../../services/actions/token";
 
 function App() {
   const dispatch = useDispatch();
 
-  const { items, itemsRequest, itemsFailed } = useSelector(
+  const { items, itemsRequest } = useSelector(
     (state) => state.ingredients
   );
 
@@ -49,6 +51,13 @@ function App() {
       });
     }
   }, [items, itemsRequest, dispatch]);
+
+  // useEffect(() => {
+  //   const refreshToken = getCookie("refreshToken");
+  //   if (refreshToken) {
+  //     dispatch(postTokenData(refreshToken));
+  //   }
+  // }, [dispatch]);
 
   function getModalContent() {
     switch (modalType) {

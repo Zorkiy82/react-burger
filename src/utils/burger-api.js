@@ -22,6 +22,21 @@ function getIngredients() {
   return fetch(`${ApiUrl}/ingredients`).then(checkReponse);
 }
 
+function getUserData(accessToken) {
+  return fetch(`${ApiUrl}/auth/user`, {
+    method: "GET",
+    // mode: 'cors',
+    // cache: 'no-cache',
+    // credentials: 'same-origin',
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: accessToken,
+    },
+    // redirect: 'follow',
+    // referrerPolicy: 'no-referrer'
+  }).then(checkReponse);
+}
+
 function postOrder(ingridientsIdArray) {
   return basePostFetch("/orders", { ingredients: ingridientsIdArray });
 }
@@ -42,4 +57,19 @@ function postResetPassword(resetPasswordDataObj) {
   return basePostFetch("/password-reset/reset", resetPasswordDataObj);
 }
 
-export { getIngredients, postOrder, postLogin, postRegister, postForgotPassword, postResetPassword };
+function postToken(refreshToken) {
+  return basePostFetch("/auth/token", {
+    token: refreshToken,
+  });
+}
+
+export {
+  getIngredients,
+  postOrder,
+  postLogin,
+  postRegister,
+  postForgotPassword,
+  postResetPassword,
+  postToken,
+  getUserData,
+};

@@ -6,6 +6,7 @@ import { orderElementReducer } from "./order-element";
 import { modalReducer } from "./modal";
 import { tabBarReducer } from "./tab-bar";
 import { loginReducer } from "./login";
+import { tokenReducer } from "./token";
 import { registerReducer } from "./register";
 import { forgotPasswordReducer } from "./forgot-password";
 import { resetPasswordReducer } from "./reset-password";
@@ -21,4 +22,5 @@ export const rootReducer = combineReducers({
   register: registerReducer,
   forgotPassword: forgotPasswordReducer,
   resetPassword: resetPasswordReducer,
+  token: tokenReducer,
 });

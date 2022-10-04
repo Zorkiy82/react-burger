@@ -25,7 +25,7 @@ export function postRegisterData(history, pathname) {
           pathname: pathname,
           state: {},
         });
-        setCookie("accessToken", res.accessToken, { expires: 1200 });
+        setCookie("accessToken", res.accessToken);
         setCookie("refreshToken", res.refreshToken);
       })
       .catch((res) => {
