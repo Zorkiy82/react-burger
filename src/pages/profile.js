@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import { NavLink, Switch, Route, useLocation } from "react-router-dom";
 import styles from "./profile.module.css";
-import { ProfileUserPage } from "./profile-user";
+import { ProfileEditPage } from "./profile-edit";
 import { ProfileОrderHistoryPage } from "./profile-order-history";
 import { ProfileExitPage } from "./profile-exit";
 
@@ -73,7 +73,7 @@ export function ProfilePage() {
       <div className={styles.rightColumn}>
         <Switch>
           <Route path="/profile" exact={true}>
-            <ProfileUserPage />
+            <ProfileEditPage />
           </Route>
           <Route path="/profile/orders" exact={true}>
             <ProfileОrderHistoryPage />
