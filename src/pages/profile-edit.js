@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useHistory, useLocation } from "react-router-dom";
 
@@ -11,6 +11,8 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 // import { Link, NavLink, useHistory, useLocation } from "react-router-dom";
 import styles from "./profile-edit.module.css";
+import { getCookie } from "../utils/utils";
+import { getUserData } from "../services/actions/user";
 
 export function ProfileEditPage() {
   const dispatch = useDispatch();
@@ -30,9 +32,16 @@ export function ProfileEditPage() {
     });
   }
 
+  useEffect(() => {
+    const accessToken = getCookie("accessToken");
+    dispatch(getUserData(history, pathname, accessToken));
+  }, [history, pathname]);
+
   function handleSubmit(evt) {
     evt.preventDefault();
-    alert('submit')
+    console.log(state);
+
+    // alert("submit");
     // dispatch(postRegisterData(history, pathname));
   }
   return (
@@ -72,11 +81,15 @@ export function ProfileEditPage() {
           <Link
             className={`text text_type_main-default ${styles.link}`}
             to={{
-              pathname: pathname,
+              pathname: "/profile",
               state: {
-                name: "Kolya",
-                email: "Kolya@ya.ya",
-                password: "777",
+                ...state,
+                // name: state.user && state.user.name ? state.user.name : "xyi",
+                // email:
+                //   (state.user && state.user.email)
+                //     ? state.user.email
+                //     : "xyi@xyi.hu",
+                // // password: "",
               },
             }}
           >

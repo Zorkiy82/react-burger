@@ -22,18 +22,14 @@ function getIngredients() {
   return fetch(`${ApiUrl}/ingredients`).then(checkReponse);
 }
 
-function getUserData(accessToken) {
+function getUser(accessToken) {
   return fetch(`${ApiUrl}/auth/user`, {
     method: "GET",
-    // mode: 'cors',
-    // cache: 'no-cache',
-    // credentials: 'same-origin',
+
     headers: {
       "Content-Type": "application/json",
-      Authorization: accessToken,
+      authorization: accessToken,
     },
-    // redirect: 'follow',
-    // referrerPolicy: 'no-referrer'
   }).then(checkReponse);
 }
 
@@ -71,5 +67,5 @@ export {
   postForgotPassword,
   postResetPassword,
   postToken,
-  getUserData,
+  getUser,
 };
