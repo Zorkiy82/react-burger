@@ -5,8 +5,14 @@ export function getCookie(name) {
   return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 
-export function setCookie(name, value, props) {
-  props = props || {};
+export function setCookie(name, value, props={}) {
+  // props = props || {};
+
+  props = {
+    path: '/',
+    // при необходимости добавьте другие значения по умолчанию
+    ...props
+  };
   let exp = props.expires;
   if (typeof exp == 'number' && exp) {
     const d = new Date();

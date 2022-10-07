@@ -19,8 +19,8 @@ export function postTokenData(refreshToken) {
           data: res,
         });
 
-        setCookie("accessToken", res.accessToken);
-        setCookie("refreshToken", res.refreshToken);
+        setCookie("accessToken", res.accessToken, { expires: 1140 });
+        setCookie("refreshToken", res.refreshToken,{ expires: 604800 });
 
 
       })

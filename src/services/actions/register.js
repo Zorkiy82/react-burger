@@ -1,6 +1,7 @@
 import { SET_MODAL_DATA } from "./app";
 import { setCookie } from "../../utils/utils";
 import { postRegister } from "../../utils/burger-api";
+import { SET_USER_DATA } from "./user";
 
 
 export const POST_REGISTER_REQUEST = "POST_REGISTER_REQUEST";
@@ -21,12 +22,18 @@ export function postRegisterData(history, pathname) {
           type: POST_REGISTER_SUCCESS,
           data: res,
         });
+
+        dispatch({
+          type: SET_USER_DATA,
+          user: { ...res.user },
+        });
+
         history.replace({
           pathname: pathname,
           state: {},
         });
-        setCookie("accessToken", res.accessToken);
-        setCookie("refreshToken", res.refreshToken);
+        setCookie("accessToken", res.accessToken, { expires: 1140 });
+        setCookie("refreshToken", res.refreshToken,{ expires: 604800 });
       })
       .catch((res) => {
 

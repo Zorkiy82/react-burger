@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory, useLocation } from "react-router-dom";
 
 import {
@@ -18,6 +18,7 @@ export function ProfileEditPage() {
   const dispatch = useDispatch();
   const history = useHistory();
   const { pathname, state } = useLocation();
+  const {name, email} = useSelector((storege) => storege.user.userData );
 
   function handleOnChange(evt) {
     const key = evt.target.name;
@@ -84,12 +85,9 @@ export function ProfileEditPage() {
               pathname: "/profile",
               state: {
                 ...state,
-                // name: state.user && state.user.name ? state.user.name : "xyi",
-                // email:
-                //   (state.user && state.user.email)
-                //     ? state.user.email
-                //     : "xyi@xyi.hu",
-                // // password: "",
+                name: name,
+                email: email,
+                password: "",
               },
             }}
           >
