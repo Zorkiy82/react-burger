@@ -10,7 +10,7 @@ import { tokenReducer } from "./token";
 import { registerReducer } from "./register";
 import { forgotPasswordReducer } from "./forgot-password";
 import { resetPasswordReducer } from "./reset-password";
-import { userReducer } from "./user";
+import { profileReducer } from "./profile";
 
 export const rootReducer = combineReducers({
   ingredients: ingredientsReducer,
@@ -24,5 +24,5 @@ export const rootReducer = combineReducers({
   forgotPassword: forgotPasswordReducer,
   resetPassword: resetPasswordReducer,
   token: tokenReducer,
-  user: userReducer,
+  profile: profileReducer,
 });

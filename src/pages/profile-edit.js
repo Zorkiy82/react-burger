@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory, useLocation } from "react-router-dom";
 
@@ -9,16 +9,28 @@ import {
   PasswordInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-// import { Link, NavLink, useHistory, useLocation } from "react-router-dom";
+
 import styles from "./profile-edit.module.css";
 import { getCookie } from "../utils/utils";
-import { getUserData } from "../services/actions/user";
+import { getUserData, patchUserData } from "../services/actions/profile";
 
 export function ProfileEditPage() {
   const dispatch = useDispatch();
   const history = useHistory();
+  const [isСhanged, setIsChanged] = useState(false);
   const { pathname, state } = useLocation();
-  const {name, email} = useSelector((storege) => storege.user.userData );
+  const { name, email } = useSelector((storege) => storege.profile.userData);
+  const fetchRan = useRef(false);
+
+  // useEffect(() => {
+  //   history.replace({
+  //     pathname: pathname,
+  //     state: {
+  //       ...state,
+  //       password: "",
+  //     },
+  //   });
+  // }, []);
 
   function handleOnChange(evt) {
     const key = evt.target.name;
@@ -31,20 +43,33 @@ export function ProfileEditPage() {
         [key]: value,
       },
     });
+
+    setIsChanged(
+      history.location.state.name !== name ||
+        history.location.state.email !== email ||
+        (history.location.state.password
+          ? history.location.state.password.length > 0
+          : false)
+    );
   }
 
   useEffect(() => {
-    const accessToken = getCookie("accessToken");
-    dispatch(getUserData(history, pathname, accessToken));
+    if (fetchRan.current === false) {
+      const accessToken = getCookie("accessToken");
+      dispatch(getUserData(history, pathname, accessToken));
+    }
+    return () => {
+      fetchRan.current = true;
+    };
   }, [history, pathname]);
 
   function handleSubmit(evt) {
     evt.preventDefault();
-    console.log(state);
+    const accessToken = getCookie("accessToken");
 
-    // alert("submit");
-    // dispatch(postRegisterData(history, pathname));
+    dispatch(patchUserData(history, pathname, accessToken, state));
   }
+
   return (
     <div>
       <form
@@ -76,28 +101,32 @@ export function ProfileEditPage() {
           name={"password"}
           value={state && state.password ? state.password : ""}
           size={"default"}
+          // suggested="current-password"
           required
         />
-        <div className={styles.container}>
-          <Link
-            className={`text text_type_main-default ${styles.link}`}
-            to={{
-              pathname: "/profile",
-              state: {
-                ...state,
-                name: name,
-                email: email,
-                password: "",
-              },
-            }}
-          >
-            Отмена
-          </Link>
 
-          <Button type="primary" size="medium" htmlType="submit">
-            Сохранить
-          </Button>
-        </div>
+        {isСhanged && (
+          <div className={styles.container}>
+            <Link
+              className={`text text_type_main-default ${styles.link}`}
+              to={{
+                pathname: "/profile",
+                state: {
+                  ...state,
+                  name: name,
+                  email: email,
+                  password: "",
+                },
+              }}
+            >
+              Отмена
+            </Link>
+
+            <Button type="primary" size="medium" htmlType="submit">
+              Сохранить
+            </Button>
+          </div>
+        )}
       </form>
     </div>
   );

@@ -1,7 +1,7 @@
 import { SET_MODAL_DATA } from "./app";
-import { setCookie } from "../../utils/utils";
+import { setToken } from "../../utils/utils";
 import { postLogin } from "../../utils/burger-api";
-import { SET_USER_DATA } from "./user";
+import { SET_USER_DATA } from "./profile";
 
 export const POST_LOGIN_REQUEST = "POST_LOGIN_REQUEST";
 export const POST_LOGIN_SUCCESS = "POST_LOGIN_SUCCESS";
@@ -25,8 +25,7 @@ export function postLoginData(history, pathname) {
           user: { ...res.user },
         });
 
-        setCookie("accessToken", res.accessToken, { expires: 1140 });
-        setCookie("refreshToken", res.refreshToken, { expires: 604800 });
+        setToken(res);
 
         history.replace({
           pathname: pathname,

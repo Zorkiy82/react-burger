@@ -1,5 +1,15 @@
 import PropTypes from "prop-types";
 
+const oneSecond=1;
+const oneMinute=oneSecond*60;
+const oneHour=oneMinute*60;
+const oneDay=oneHour*24;
+const oneWeek=oneDay*7;
+
+
+const accessTokenLifetime = oneMinute * 19;
+const refreshTokenLifetime = oneDay;
+
 const defaultConstructorItems = {
   bun: {
     _id: "60666c42cc7b410027a1a9b2",
@@ -66,4 +76,6 @@ export {
   ModalRoot,
   defaultConstructorItems,
   defaultOrderState,
+  accessTokenLifetime,
+  refreshTokenLifetime,
 };

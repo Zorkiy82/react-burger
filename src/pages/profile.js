@@ -4,6 +4,7 @@ import styles from "./profile.module.css";
 import { ProfileEditPage } from "./profile-edit";
 import { ProfileОrderHistoryPage } from "./profile-order-history";
 import { ProfileExitPage } from "./profile-exit";
+import { ProtectedRoute } from "../components/protected-route/protected-route";
 
 export function ProfilePage() {
   const { pathname } = useLocation();
@@ -72,15 +73,15 @@ export function ProfilePage() {
       </div>
       <div className={styles.rightColumn}>
         <Switch>
-          <Route path="/profile" exact={true}>
+          <ProtectedRoute path="/profile" exact={true}>
             <ProfileEditPage />
-          </Route>
-          <Route path="/profile/orders" exact={true}>
+          </ProtectedRoute>
+          <ProtectedRoute path="/profile/orders" exact={true}>
             <ProfileОrderHistoryPage />
-          </Route>
-          <Route path="/profile/exit" exact={true}>
+          </ProtectedRoute>
+          <ProtectedRoute path="/profile/exit" exact={true}>
             <ProfileExitPage />
-          </Route>
+          </ProtectedRoute>
         </Switch>
       </div>
     </div>

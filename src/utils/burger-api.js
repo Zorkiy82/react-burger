@@ -33,6 +33,18 @@ function getUser(accessToken) {
   }).then(checkReponse);
 }
 
+function patсhUser(accessToken, userDataObj) {
+
+  return fetch(`${ApiUrl}/auth/user`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: accessToken,
+    },
+    body: JSON.stringify(userDataObj),
+  }).then(checkReponse);
+}
+
 function postOrder(ingridientsIdArray) {
   return basePostFetch("/orders", { ingredients: ingridientsIdArray });
 }
@@ -58,6 +70,11 @@ function postToken(refreshToken) {
     token: refreshToken,
   });
 }
+function logoutRequest(refreshToken){
+  basePostFetch("/auth/logout", {
+    token: refreshToken,
+  });
+}
 
 export {
   getIngredients,
@@ -68,4 +85,6 @@ export {
   postResetPassword,
   postToken,
   getUser,
+  patсhUser,
+  logoutRequest,
 };

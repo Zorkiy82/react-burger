@@ -1,5 +1,5 @@
 import { SET_MODAL_DATA } from "./app";
-import { setCookie } from "../../utils/utils";
+import { setToken } from "../../utils/utils";
 import { postToken } from "../../utils/burger-api";
 
 export const POST_TOKEN_REQUEST = "POST_TOKEN_REQUEST";
@@ -19,8 +19,7 @@ export function postTokenData(refreshToken) {
           data: res,
         });
 
-        setCookie("accessToken", res.accessToken, { expires: 1140 });
-        setCookie("refreshToken", res.refreshToken,{ expires: 604800 });
+        setToken(res);
 
 
       })
