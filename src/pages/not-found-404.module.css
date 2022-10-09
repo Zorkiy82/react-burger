@@ -1,0 +1,17 @@
+.img{
+  width: 520px;
+  height: 190px;
+  background-image: url("../images/empty-boxes.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.main{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.mesage {
+  text-align: center;
+}

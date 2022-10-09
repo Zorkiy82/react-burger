@@ -1,6 +1,7 @@
 import { SET_MODAL_DATA } from "./app";
 import { setToken } from "../../utils/utils";
 import { postToken } from "../../utils/burger-api";
+import { SET_AUTORIZATION_DATA } from "./profile";
 
 export const POST_TOKEN_REQUEST = "POST_TOKEN_REQUEST";
 export const POST_TOKEN_SUCCESS = "POST_TOKEN_SUCCESS";
@@ -14,14 +15,16 @@ export function postTokenData(refreshToken) {
 
     postToken(refreshToken)
       .then((res) => {
+        setToken(res);
         dispatch({
           type: POST_TOKEN_SUCCESS,
           data: res,
         });
 
-        setToken(res);
-
-
+        dispatch({
+          type: SET_AUTORIZATION_DATA,
+          isAuthorized: true,
+        });
       })
       .catch((res) => {
         const code = res.status;

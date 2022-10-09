@@ -7,10 +7,12 @@ import {
   PATCH_USER_FAILED,
   SET_USER_DATA,
   RESET_USER_DATA,
+  SET_AUTORIZATION_DATA
 } from "../actions/profile";
 
 const profileInitialState = {
   userData: {},
+  isAuthorized: false,
   getUserDataSuccess: false,
   getUserDataRequest: false,
   getUserDataFailed: false,
@@ -83,6 +85,13 @@ export const profileReducer = (state = profileInitialState, action) => {
     case RESET_USER_DATA: {
       return {
         ...profileInitialState,
+      };
+    }
+
+    case SET_AUTORIZATION_DATA: {
+      return {
+        ...state,
+        isAuthorized: action.isAuthorized,
       };
     }
 

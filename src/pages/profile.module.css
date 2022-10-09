@@ -1,5 +1,4 @@
 .mainContainer {
-  /* border: 1px solid green; */
   display: flex;
   gap: 60px;
   width: 100%;
@@ -21,13 +20,11 @@
 }
 
 .leftColumn {
-  /* border: 1px solid red; */
   width: 320px;
   padding-left: 20px;
   padding-top: 120px;
 }
 
 .rightColumn {
-  /* border: 1px solid red; */
   width: 844px;
 }

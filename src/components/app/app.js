@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { checkAuth } from "../../utils/utils";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { HomePage } from "../../pages/home";
@@ -22,15 +23,15 @@ import {
   RESET_MODAL_DATA,
 } from "../../services/actions/app.js";
 import styles from "./styles.module.css";
-// import { getCookie } from "../../utils/utils";
-// import { postTokenData } from "../../services/actions/token";
 
 function App() {
   const dispatch = useDispatch();
+  const isAuthorized = useSelector((state) => state.profile.isAuthorized);
+  useEffect(() => {
+    checkAuth(dispatch, isAuthorized);
+  },[dispatch, isAuthorized]);
 
-  const { items, itemsRequest } = useSelector(
-    (state) => state.ingredients
-  );
+  const { items, itemsRequest } = useSelector((state) => state.ingredients);
 
   const { modalIsVisible, modalType, errorData } = useSelector(
     (state) => state.modal
@@ -38,6 +39,7 @@ function App() {
 
   const { ingredientData } = useSelector((state) => state.viewedIngredient);
   const { orderData } = useSelector((state) => state.orderElement);
+
   useEffect(() => {
     if (itemsRequest) {
       dispatch(getIngredientsData());
@@ -51,13 +53,6 @@ function App() {
       });
     }
   }, [items, itemsRequest, dispatch]);
-
-  // useEffect(() => {
-  //   const refreshToken = getCookie("refreshToken");
-  //   if (refreshToken) {
-  //     dispatch(postTokenData(refreshToken));
-  //   }
-  // }, [dispatch]);
 
   function getModalContent() {
     switch (modalType) {

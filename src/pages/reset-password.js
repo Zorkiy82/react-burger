@@ -1,6 +1,7 @@
-import React from "react";
-import { useDispatch } from "react-redux";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, Redirect, useHistory, useLocation } from "react-router-dom";
+import { checkAuth } from "../utils/utils";
 import {
   Input,
   Button,
@@ -11,6 +12,13 @@ import { postResetPasswordData } from "../services/actions/reset-password";
 
 export function ResetPasswordPage() {
   const dispatch = useDispatch();
+  const isAuthorized = useSelector((state) => state.profile.isAuthorized);
+  useEffect(() => {
+    checkAuth(dispatch, isAuthorized);
+  }, [dispatch, isAuthorized]);
+
+  const forgotSuccess = useSelector((state) => state.forgotPassword.forgotPasswordData.success);
+  const resetSuccess = useSelector((state) => state.resetPassword.resetPasswordData.success);
   const history = useHistory();
   const { pathname, state } = useLocation();
 
@@ -31,6 +39,19 @@ export function ResetPasswordPage() {
     evt.preventDefault();
     dispatch(postResetPasswordData(history, pathname));
   }
+
+  if (isAuthorized) {
+    return <Redirect to={state?.from || "/"} />;
+  }
+
+  if (!forgotSuccess) {
+    return <Redirect to={"/forgot-password"} />;
+  }
+
+  if (resetSuccess) {
+    return <Redirect to={"/login"} />;
+  }
+
 
   return (
     <div className={styles.container}>

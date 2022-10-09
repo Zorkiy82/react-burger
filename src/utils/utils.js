@@ -1,6 +1,6 @@
 import { accessTokenLifetime, refreshTokenLifetime } from "./constants";
-
-
+import { SET_AUTORIZATION_DATA } from "../services/actions/profile";
+import { postTokenData } from "../services/actions/token";
 
 export function getCookie(name) {
   const matches = document.cookie.match(
@@ -51,9 +51,28 @@ export function setToken(res) {
   });
 }
 
-export function isAuth() {
+export function isHasTokens() {
   const accessToken = getCookie("accessToken");
   const refreshToken = getCookie("refreshToken");
 
   return accessToken && refreshToken;
 }
+
+export const checkAuth = async (dispatch, state) => {
+  const accessToken = getCookie("accessToken");
+  const refreshToken = getCookie("refreshToken");
+
+  if (accessToken && refreshToken) {
+    if (!state) {
+      dispatch({ type: SET_AUTORIZATION_DATA, isAuthorized: true });
+    }
+  } else {
+    if (refreshToken && !accessToken) {
+      dispatch(postTokenData(refreshToken));
+    } else {
+      if (state) {
+        dispatch({ type: SET_AUTORIZATION_DATA, isAuthorized: false });
+      }
+    }
+  }
+};

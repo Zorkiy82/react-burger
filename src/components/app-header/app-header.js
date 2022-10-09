@@ -1,4 +1,6 @@
-import React, { useMemo } from "react";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { checkAuth } from "../../utils/utils";
 import { NavLink, useLocation } from "react-router-dom";
 import { getCookie } from "../../utils/utils";
 import styles from "./app-header.module.css";
@@ -10,10 +12,18 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
 function AppHeader() {
+  const dispatch = useDispatch();
+  const isAuthorized = useSelector((state) => state.profile.isAuthorized);
+  useEffect(() => {
+    checkAuth(dispatch, isAuthorized);
+  }, [dispatch, isAuthorized]);
+
+
   const { pathname } = useLocation();
-  // const userIconType = useMemo(() => {
-  //   return getCookie("accessToken") ? "success" : "secondary";
-  // });
+  const { name } = useSelector((state) => state.profile.userData);
+
+
+
   return (
     <header className={`pb-4 pt-4 ${styles.header}`}>
       <nav className={styles.header_linkContainer}>
@@ -50,11 +60,11 @@ function AppHeader() {
           color: "#F2F2F3",
         }}
       >
-        <ProfileIcon
-          type={getCookie("accessToken") ? "success" : "secondary"}
-        />
+        <ProfileIcon type={isAuthorized ? "success" : "secondary"} />
 
-        <p className="ml-2">Личный кабинет</p>
+        <p className="ml-2">
+          {!isAuthorized ? "Личный кабинет" : name ? name : "Личный кабинет"}
+        </p>
       </NavLink>
 
       <div className={styles.header_logo}>

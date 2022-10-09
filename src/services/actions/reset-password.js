@@ -21,11 +21,6 @@ export function postResetPasswordData(history, pathname) {
           pathname: pathname,
           state: {},
         });
-
-        // history.push({
-        //   pathname: "/reset-password",
-        //   state: {},
-        // })
       })
       .catch((res) => {
         const code = res.status;

@@ -1,18 +1,23 @@
-import React from "react";
-import { useDispatch } from "react-redux";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import React, { useEffect } from "react";
+
+import { checkAuth } from "../utils/utils";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, Redirect, useHistory, useLocation } from "react-router-dom";
 import {
-  Input,
   Button,
   EmailInput,
   PasswordInput,
-
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { postLoginData } from "../services/actions/login";
 import styles from "./login.module.css";
 
 export function LoginPage() {
   const dispatch = useDispatch();
+  const isAuthorized = useSelector((state) => state.profile.isAuthorized);
+  useEffect(() => {
+    checkAuth(dispatch, isAuthorized);
+  }, [dispatch, isAuthorized]);
+
   const history = useHistory();
   const { pathname, state } = useLocation();
 
@@ -32,6 +37,14 @@ export function LoginPage() {
   function handleSubmit(evt) {
     evt.preventDefault();
     dispatch(postLoginData(history, pathname));
+  }
+
+  if (isAuthorized) {
+    return (
+      <Redirect
+        to={state?.from || "/"}
+      />
+    );
   }
 
   return (

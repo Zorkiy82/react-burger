@@ -1,7 +1,7 @@
 import { SET_MODAL_DATA } from "./app";
 import { setToken } from "../../utils/utils";
 import { postRegister } from "../../utils/burger-api";
-import { SET_USER_DATA } from "./profile";
+import { SET_USER_DATA, SET_AUTORIZATION_DATA } from "./profile";
 
 
 export const POST_REGISTER_REQUEST = "POST_REGISTER_REQUEST";
@@ -33,6 +33,10 @@ export function postRegisterData(history, pathname) {
           state: {},
         });
         setToken(res);
+        dispatch({
+          type: SET_AUTORIZATION_DATA,
+          isAuthorized: true,
+        });
       })
       .catch((res) => {
 

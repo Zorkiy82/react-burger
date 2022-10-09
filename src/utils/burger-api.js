@@ -34,7 +34,6 @@ function getUser(accessToken) {
 }
 
 function patсhUser(accessToken, userDataObj) {
-
   return fetch(`${ApiUrl}/auth/user`, {
     method: "PATCH",
     headers: {
@@ -45,8 +44,16 @@ function patсhUser(accessToken, userDataObj) {
   }).then(checkReponse);
 }
 
-function postOrder(ingridientsIdArray) {
-  return basePostFetch("/orders", { ingredients: ingridientsIdArray });
+function postOrder(ingridientsIdArray, accessToken) {
+  // return basePostFetch("/orders", { ingredients: ingridientsIdArray });
+  return fetch(`${ApiUrl}/orders`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: accessToken,
+    },
+    body: JSON.stringify({ ingredients: ingridientsIdArray }),
+  }).then(checkReponse);
 }
 
 function postLogin(loginDataObj) {
@@ -70,7 +77,7 @@ function postToken(refreshToken) {
     token: refreshToken,
   });
 }
-function logoutRequest(refreshToken){
+function logoutRequest(refreshToken) {
   basePostFetch("/auth/logout", {
     token: refreshToken,
   });

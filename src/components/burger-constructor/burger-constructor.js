@@ -1,5 +1,8 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useEffect } from "react";
+import { getCookie } from "../../utils/utils";
+import { Link, Redirect, useHistory, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { checkAuth } from "../../utils/utils";
 import { useDrop } from "react-dnd";
 import styles from "./burger-constructor.module.css";
 import { ConstructorCard } from "../constructor-card/constructor-card";
@@ -15,6 +18,11 @@ import {
 
 function BurgerConstructor() {
   const dispatch = useDispatch();
+  const isAuthorized = useSelector((state) => state.profile.isAuthorized);
+  useEffect(() => {
+    checkAuth(dispatch, isAuthorized);
+  }, [dispatch, isAuthorized]);
+  const history = useHistory();
   const { bun, main } = useSelector((store) => store.burgerConstructor);
   const { items } = useSelector((state) => state.ingredients);
 
@@ -31,10 +39,15 @@ function BurgerConstructor() {
   );
 
   function handleClickOrderButton() {
-    const ingridientsIdArray = [bun._id, bun._id];
-    main.forEach((item) => ingridientsIdArray.push(item._id));
-
-    dispatch(postOrderData(ingridientsIdArray));
+    if (getCookie("accessToken")) {
+      const ingridientsIdArray = [bun._id, bun._id];
+      main.forEach((item) => ingridientsIdArray.push(item._id));
+      dispatch(postOrderData(ingridientsIdArray, getCookie("accessToken")));
+    } else {
+      history.replace({
+        pathname: "/login",
+      });
+    }
   }
 
   function updateConstructor() {
@@ -84,7 +97,12 @@ function BurgerConstructor() {
           <CurrencyIcon type="primary" />
         </div>
 
-        <Button type="primary" size="large" onClick={handleClickOrderButton} htmlType="button">
+        <Button
+          type="primary"
+          size="large"
+          onClick={handleClickOrderButton}
+          htmlType="button"
+        >
           Оформить заказ
         </Button>
       </div>

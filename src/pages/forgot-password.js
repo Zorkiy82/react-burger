@@ -1,6 +1,7 @@
-import React from "react";
-import { useDispatch } from "react-redux";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import React, {useEffect} from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { checkAuth } from "../utils/utils";
+import { Link,Redirect, useHistory, useLocation } from "react-router-dom";
 import {
   Button,
   EmailInput,
@@ -10,6 +11,11 @@ import { postForgotPasswordData } from "../services/actions/forgot-password";
 
 export function ForgotPasswordPage() {
   const dispatch = useDispatch();
+  const isAuthorized = useSelector((state) => state.profile.isAuthorized);
+  useEffect(() => {
+    checkAuth(dispatch, isAuthorized);
+  }, [dispatch, isAuthorized]);
+
   const history = useHistory();
   const { pathname, state } = useLocation();
 
@@ -26,9 +32,15 @@ export function ForgotPasswordPage() {
     });
   }
 
+
+
   function handleSubmit(evt) {
     evt.preventDefault();
     dispatch(postForgotPasswordData(history, pathname));
+  }
+
+  if (isAuthorized) {
+    return <Redirect to={state?.from || "/"} />;
   }
 
   return (

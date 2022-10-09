@@ -1,11 +1,9 @@
 import React from "react";
-// import { Link, NavLink, useHistory, useLocation } from "react-router-dom";
-// import styles from "./profile.module.css";
 
 export function ProfileОrderHistoryPage() {
   return (
     <div>
-      <h2>Страница с историей заказов ProfileОrderHistoryPage</h2>
+      <p className="text text_type_main-large pt-30">Страница с историей заказов ProfileОrderHistoryPage</p>
 
     </div>
   );

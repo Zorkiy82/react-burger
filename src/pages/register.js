@@ -1,6 +1,7 @@
-import React from "react";
-import { useDispatch } from "react-redux";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import React, { useEffect } from "react";
+import { checkAuth } from "../utils/utils";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, Redirect, useHistory, useLocation } from "react-router-dom";
 import {
   Input,
   Button,
@@ -12,6 +13,11 @@ import { postRegisterData } from "../services/actions/register";
 
 export function RegisterPage() {
   const dispatch = useDispatch();
+  const isAuthorized = useSelector((state) => state.profile.isAuthorized);
+  useEffect(() => {
+    checkAuth(dispatch, isAuthorized);
+  }, [dispatch, isAuthorized]);
+
   const history = useHistory();
   const { pathname, state } = useLocation();
 
@@ -31,6 +37,14 @@ export function RegisterPage() {
   function handleSubmit(evt) {
     evt.preventDefault();
     dispatch(postRegisterData(history, pathname));
+  }
+
+  if (isAuthorized) {
+    return (
+      <Redirect
+        to={state?.from || "/"}
+      />
+    );
   }
 
   return (

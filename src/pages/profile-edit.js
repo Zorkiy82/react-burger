@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory, useLocation } from "react-router-dom";
+import { checkAuth } from "../utils/utils";
 
 import {
   Input,
@@ -16,21 +17,15 @@ import { getUserData, patchUserData } from "../services/actions/profile";
 
 export function ProfileEditPage() {
   const dispatch = useDispatch();
+  const isAuthorized = useSelector((state) => state.profile.isAuthorized);
+  useEffect(() => {
+    checkAuth(dispatch, isAuthorized);
+  }, [dispatch, isAuthorized]);
   const history = useHistory();
   const [isСhanged, setIsChanged] = useState(false);
   const { pathname, state } = useLocation();
   const { name, email } = useSelector((storege) => storege.profile.userData);
   const fetchRan = useRef(false);
-
-  // useEffect(() => {
-  //   history.replace({
-  //     pathname: pathname,
-  //     state: {
-  //       ...state,
-  //       password: "",
-  //     },
-  //   });
-  // }, []);
 
   function handleOnChange(evt) {
     const key = evt.target.name;
@@ -54,17 +49,22 @@ export function ProfileEditPage() {
   }
 
   useEffect(() => {
-    if (fetchRan.current === false) {
-      const accessToken = getCookie("accessToken");
-      dispatch(getUserData(history, pathname, accessToken));
-    }
+    // console.log(state);
+    if (fetchRan.current === false || state === null) {
+        checkAuth(dispatch, isAuthorized);
+        const accessToken = getCookie("accessToken");
+        dispatch(getUserData(history, pathname, accessToken));
+      }
+
     return () => {
       fetchRan.current = true;
     };
-  }, [history, pathname]);
+  }, [history, pathname, state]);
 
   function handleSubmit(evt) {
     evt.preventDefault();
+
+    checkAuth(dispatch, isAuthorized);
     const accessToken = getCookie("accessToken");
 
     dispatch(patchUserData(history, pathname, accessToken, state));
@@ -101,7 +101,6 @@ export function ProfileEditPage() {
           name={"password"}
           value={state && state.password ? state.password : ""}
           size={"default"}
-          // suggested="current-password"
           required
         />
 

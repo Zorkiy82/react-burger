@@ -12,6 +12,7 @@ export const PATCH_USER_SUCCESS = "PATCH_USER_SUCCESS";
 export const PATCH_USER_FAILED = "PATCH_USER_FAILED";
 
 export const SET_USER_DATA = "SET_USER_DATA";
+export const SET_AUTORIZATION_DATA = "SET_AUTORIZATION_DATA";
 export const RESET_USER_DATA = "RESET_USER_DATA";
 
 let count = 0;
@@ -49,7 +50,6 @@ export function getUserData(history, pathname, accessToken) {
               Promise.all([dispatch(postTokenData(refreshToken))]).then(
                 (data) => {
                   setTimeout(() => {
-                    // console.log("Куку");
                     const accessToken = getCookie("accessToken");
                     dispatch(getUserData(history, pathname, accessToken));
                   }, 1000);
@@ -88,7 +88,7 @@ export function patchUserData(history, pathname, accessToken, userDataObj) {
 
     patсhUser(accessToken, userDataObj)
       .then((res) => {
-        count=0;
+        count = 0;
         dispatch({
           type: PATCH_USER_SUCCESS,
           data: res,
@@ -113,9 +113,10 @@ export function patchUserData(history, pathname, accessToken, userDataObj) {
               Promise.all([dispatch(postTokenData(refreshToken))]).then(
                 (data) => {
                   setTimeout(() => {
-                    // console.log("Куку");
                     const accessToken = getCookie("accessToken");
-                    dispatch(patchUserData(history, pathname, accessToken, userDataObj));
+                    dispatch(
+                      patchUserData(history, pathname, accessToken, userDataObj)
+                    );
                   }, 1000);
                 }
               );
