@@ -21,7 +21,6 @@ export function ProfileEditPage() {
     checkAuth(dispatch, isAuthorized);
   }, [dispatch, isAuthorized]);
   const history = useHistory();
-  const [isСhanged, setIsChanged] = useState(false);
   const { pathname, state } = useLocation();
   const { name, email } = useSelector((storege) => storege.profile.userData);
   const fetchRan = useRef(false);
@@ -37,14 +36,20 @@ export function ProfileEditPage() {
         [key]: value,
       },
     });
+  }
 
-    setIsChanged(
-      history.location.state.name !== name ||
+  function isChanged() {
+    if (state !== null) {
+      return (
+        history.location.state.name !== name ||
         history.location.state.email !== email ||
         (history.location.state.password
           ? history.location.state.password.length > 0
           : false)
-    );
+      );
+    } else {
+      return false;
+    }
   }
 
   useEffect(() => {
@@ -102,7 +107,7 @@ export function ProfileEditPage() {
           required
         />
 
-        {isСhanged && (
+        {isChanged() && (
           <div className={styles.container}>
             <Link
               className={`text text_type_main-default ${styles.link}`}
