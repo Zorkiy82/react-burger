@@ -40,11 +40,7 @@ export function RegisterPage() {
   }
 
   if (isAuthorized) {
-    return (
-      <Redirect
-        to={state?.from || "/"}
-      />
-    );
+    return <Redirect to={state?.from || "/"} />;
   }
 
   return (

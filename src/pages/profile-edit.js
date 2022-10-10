@@ -1,11 +1,10 @@
-import React, { useEffect, useRef, useMemo, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import { checkAuth } from "../utils/utils";
 
 import {
   Input,
-  EditIcon,
   EmailInput,
   PasswordInput,
   Button,
@@ -49,12 +48,11 @@ export function ProfileEditPage() {
   }
 
   useEffect(() => {
-    // console.log(state);
     if (fetchRan.current === false || state === null) {
-        checkAuth(dispatch, isAuthorized);
-        const accessToken = getCookie("accessToken");
-        dispatch(getUserData(history, pathname, accessToken));
-      }
+      checkAuth(dispatch, isAuthorized);
+      const accessToken = getCookie("accessToken");
+      dispatch(getUserData(history, pathname, accessToken));
+    }
 
     return () => {
       fetchRan.current = true;

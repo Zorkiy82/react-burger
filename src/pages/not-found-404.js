@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./not-found-404.module.css";
-// import dert from "../images/"
 
 export function NotFound404Page() {
   return (
@@ -16,7 +15,10 @@ export function NotFound404Page() {
         404.
       </p>
       <p className="text text_type_main-medium mt-20">
-        Вернуться на <Link to="/">главную страницу</Link>
+        Вернуться на{" "}
+        <Link className={styles.link} to="/">
+          главную страницу
+        </Link>
       </p>
     </main>
   );

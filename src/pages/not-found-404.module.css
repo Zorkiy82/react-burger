@@ -15,3 +15,8 @@
 .mesage {
   text-align: center;
 }
+
+.link {
+  text-decoration: none;
+  color: #4c4cff;
+}

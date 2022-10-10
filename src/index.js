@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./components/app/app.js";
+import { AppSwitch } from "./components/app-switch/app-switch";
 import { compose, createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import { rootReducer } from "./services/reducers";
@@ -19,7 +19,7 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <AppSwitch />
     </Provider>
   </React.StrictMode>
 );

@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { checkAuth } from "../../utils/utils";
-
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Switch, Route, useLocation, useHistory } from "react-router-dom";
 import { HomePage } from "../../pages/home";
 import { LoginPage } from "../../pages/login";
 import { RegisterPage } from "../../pages/register";
@@ -29,7 +28,11 @@ function App() {
   const isAuthorized = useSelector((state) => state.profile.isAuthorized);
   useEffect(() => {
     checkAuth(dispatch, isAuthorized);
-  },[dispatch, isAuthorized]);
+  }, [dispatch, isAuthorized]);
+
+  const location = useLocation();
+  const history = useHistory();
+  const background = location.state && location.state.background;
 
   const { items, itemsRequest } = useSelector((state) => state.ingredients);
 
@@ -75,45 +78,55 @@ function App() {
     dispatch({ type: RESET_MODAL_DATA });
   }
 
+  function back(evt) {
+    // evt.stopPropagation();
+    history.goBack();
+  }
+
   return (
     <div className={styles.app}>
-      <Router>
-        <AppHeader />
-        <div className={styles.main}>
-          <Switch>
-            <Route path="/" exact={true}>
-              <HomePage />
-            </Route>
-            <Route path="/login" exact={true}>
-              <LoginPage />
-            </Route>
-            <Route path="/register" exact={true}>
-              <RegisterPage />
-            </Route>
-            <Route path="/forgot-password" exact={true}>
-              <ForgotPasswordPage />
-            </Route>
-            <Route path="/reset-password" exact={true}>
-              <ResetPasswordPage />
-            </Route>
-            <Route path="/profile">
-              <ProfilePage />
-            </Route>
-            <Route path="/order-list" exact={true}>
-              <OrderListPage />
-            </Route>
-            <Route path="/ingredients/:id" exact={true}>
-              <IngredientPage />
-            </Route>
-            <Route>
-              <NotFound404Page />
-            </Route>
-          </Switch>
-        </div>
-      </Router>
+      <AppHeader />
+      <div className={styles.main}>
+        <Switch location={background || location}>
+          <Route path="/" exact={true}>
+            <HomePage />
+          </Route>
+          <Route path="/login" exact={true}>
+            <LoginPage />
+          </Route>
+          <Route path="/register" exact={true}>
+            <RegisterPage />
+          </Route>
+          <Route path="/forgot-password" exact={true}>
+            <ForgotPasswordPage />
+          </Route>
+          <Route path="/reset-password" exact={true}>
+            <ResetPasswordPage />
+          </Route>
+          <Route path="/profile">
+            <ProfilePage />
+          </Route>
+          <Route path="/order-list" exact={true}>
+            <OrderListPage />
+          </Route>
+          <Route path="/ingredients/:id" exact={true}>
+            <IngredientPage />
+          </Route>
+          <Route>
+            <NotFound404Page />
+          </Route>
+        </Switch>
+      </div>
 
       {modalIsVisible && (
         <Modal onClose={handleCloseModal}>{getModalContent()}</Modal>
+      )}
+      {background && (
+        <Route path="/ingredients/:id">
+          <Modal onClose={back}>
+            <IngredientPage />
+          </Modal>
+        </Route>
       )}
     </div>
   );

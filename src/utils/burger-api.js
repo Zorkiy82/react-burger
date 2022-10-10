@@ -45,7 +45,6 @@ function patсhUser(accessToken, userDataObj) {
 }
 
 function postOrder(ingridientsIdArray, accessToken) {
-  // return basePostFetch("/orders", { ingredients: ingridientsIdArray });
   return fetch(`${ApiUrl}/orders`, {
     method: "POST",
     headers: {

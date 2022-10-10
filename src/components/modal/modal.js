@@ -22,6 +22,7 @@ function Modal(props) {
   }
 
   function handleKeydownEsc(evt) {
+    alert('handleKeydownEsc');
     if (evt.key === "Escape") {
       props.onClose();
     }
