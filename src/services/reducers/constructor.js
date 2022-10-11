@@ -3,6 +3,7 @@ import {
   GET_CONSTRUCTOR_LIST_RANDOM,
   SET_CONSTRUCTOR_LIST_COUNTERS,
   SET_CONSTRUCTOR_LIST_BUN,
+  RESET_CONSTRUCTOR_LIST,
   ADD_CONSTRUCTOR_LIST_MAIN_TO_INDEX,
   MOVE_CONSTRUCTOR_LIST_MAIN_INDEX_TO_INDEX,
   DELETE_CONSTRUCTOR_LIST_ITEM_MAIN,
@@ -96,6 +97,10 @@ export const constructorReducer = (state = constructorInitialState, action) => {
         ...state,
         main: newMain,
       };
+    }
+
+    case RESET_CONSTRUCTOR_LIST: {
+      return { ...constructorInitialState };
     }
 
     default: {

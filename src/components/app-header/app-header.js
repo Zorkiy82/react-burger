@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { checkAuth } from "../../utils/utils";
-import { NavLink, useLocation } from "react-router-dom";
-import { getCookie } from "../../utils/utils";
+import { NavLink, Link, useLocation } from "react-router-dom";
 import styles from "./app-header.module.css";
 import {
   Logo,
@@ -18,11 +17,8 @@ function AppHeader() {
     checkAuth(dispatch, isAuthorized);
   }, [dispatch, isAuthorized]);
 
-
   const { pathname } = useLocation();
   const { name } = useSelector((state) => state.profile.userData);
-
-
 
   return (
     <header className={`pb-4 pt-4 ${styles.header}`}>
@@ -67,9 +63,9 @@ function AppHeader() {
         </p>
       </NavLink>
 
-      <div className={styles.header_logo}>
+      <Link to="/" className={styles.header_logo}>
         <Logo />
-      </div>
+      </Link>
     </header>
   );
 }

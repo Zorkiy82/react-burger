@@ -18,7 +18,6 @@ import { IngredientDetails } from "../ingredient-details/ingredient-details.js";
 import { OrderDetails } from "../order-details/order-details.js";
 import {
   getIngredientsData,
-  GET_CONSTRUCTOR_LIST_RANDOM,
   RESET_MODAL_DATA,
 } from "../../services/actions/app.js";
 import styles from "./styles.module.css";
@@ -34,7 +33,7 @@ function App() {
   const history = useHistory();
   const background = location.state && location.state.background;
 
-  const { items, itemsRequest } = useSelector((state) => state.ingredients);
+  const { itemsRequest } = useSelector((state) => state.ingredients);
 
   const { modalIsVisible, modalType, errorData } = useSelector(
     (state) => state.modal
@@ -48,14 +47,6 @@ function App() {
       dispatch(getIngredientsData());
     }
   }, [itemsRequest, dispatch]);
-  useEffect(() => {
-    if (!itemsRequest) {
-      dispatch({
-        type: GET_CONSTRUCTOR_LIST_RANDOM,
-        ingredientsData: items,
-      });
-    }
-  }, [items, itemsRequest, dispatch]);
 
   function getModalContent() {
     switch (modalType) {

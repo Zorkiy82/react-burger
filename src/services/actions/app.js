@@ -9,6 +9,7 @@ export const GET_CONSTRUCTOR_LIST_DEFAULT = "GET_CONSTRUCTOR_LIST_DEFAULT";
 export const GET_CONSTRUCTOR_LIST_RANDOM = "GET_CONSTRUCTOR_LIST_RANDOM";
 export const SET_CONSTRUCTOR_LIST_COUNTERS = "SET_CONSTRUCTOR_LIST_COUNTERS";
 export const SET_CONSTRUCTOR_LIST_BUN = "SET_CONSTRUCTOR_LIST_BUN";
+export const RESET_CONSTRUCTOR_LIST = "RESET_CONSTRUCTOR_LIST";
 export const ADD_CONSTRUCTOR_LIST_MAIN_TO_INDEX =
   "ADD_CONSTRUCTOR_LIST_MAIN_TO_INDEX";
 export const MOVE_CONSTRUCTOR_LIST_MAIN_INDEX_TO_INDEX =
@@ -41,18 +42,19 @@ export function getIngredientsData() {
         });
       })
       .catch((res) => {
-        dispatch({
-          type: GET_INGREDIENTS_FAILED,
-        });
-        dispatch({
-          type: SET_MODAL_DATA,
-          modalIsVisible: true,
-          modalType: "error",
-          errorData: {
-            mesage: res.statusText,
-            code: res.status,
-            url: res.url,
-          },
+        const code = res.status;
+        const url = res.url;
+        res.json().then((res) => {
+          dispatch({
+            type: SET_MODAL_DATA,
+            modalIsVisible: true,
+            modalType: "error",
+            errorData: {
+              mesage: JSON.stringify(res),
+              code: code,
+              url: url,
+            },
+          });
         });
       });
   };
@@ -76,21 +78,24 @@ export function postOrderData(ingridientsIdArray) {
           modalType: "order",
           errorData: {},
         });
+        dispatch({
+          type: RESET_CONSTRUCTOR_LIST,
+        });
       })
       .catch((res) => {
-        dispatch({
-          type: POST_ORDER_FAILED,
-        });
-
-        dispatch({
-          type: SET_MODAL_DATA,
-          modalIsVisible: true,
-          modalType: "error",
-          errorData: {
-            mesage: res.statusText,
-            code: res.status,
-            url: res.url,
-          },
+        const code = res.status;
+        const url = res.url;
+        res.json().then((res) => {
+          dispatch({
+            type: SET_MODAL_DATA,
+            modalIsVisible: true,
+            modalType: "error",
+            errorData: {
+              mesage: JSON.stringify(res),
+              code: code,
+              url: url,
+            },
+          });
         });
       });
   };

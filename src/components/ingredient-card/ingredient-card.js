@@ -3,6 +3,7 @@ import { useDrag } from "react-dnd";
 import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { IngredientPropTypes } from "../../utils/constants.js";
+import { v4 as uuidv4 } from "uuid";
 import styles from "./ingredient-card.module.css";
 import {
   CurrencyIcon,
@@ -15,7 +16,10 @@ function IngredientCard(props) {
   const [, dragRef] = useDrag({
     type: "ingredient",
     item: {
-      data: { ...props },
+      data: {
+        ...props,
+        uuid: uuidv4(),
+      },
       action: "add",
       ingredientType: props.type,
       dragIndex: null,
@@ -36,7 +40,7 @@ function IngredientCard(props) {
   return (
     <li className={styles.li}>
       <Link
-      className={styles.link}
+        className={styles.link}
         to={{
           pathname: `/ingredients/${props._id}`,
           state: { background: location },

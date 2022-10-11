@@ -1,6 +1,6 @@
 import React, { useMemo, useEffect } from "react";
 import { getCookie } from "../../utils/utils";
-import { Link, Redirect, useHistory, useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { checkAuth } from "../../utils/utils";
 import { useDrop } from "react-dnd";
@@ -66,7 +66,7 @@ function BurgerConstructor() {
         <ConstructorCard
           type="top"
           isLocked={true}
-          text={`${bun.name} (верх)`}
+          text={`${bun.name}${bun.uuid ? " (верх)" : ""}`}
           price={bun.price}
           thumbnail={bun.image_mobile}
           index="top"
@@ -78,34 +78,35 @@ function BurgerConstructor() {
         <ConstructorCard
           type="bottom"
           isLocked={true}
-          text={`${bun.name} (низ)`}
+          text={`${bun.name}${bun.uuid ? " (низ)" : ""}`}
           price={bun.price}
           thumbnail={bun.image_mobile}
           index="bottom"
           ingredientType="bun"
         />
       </div>
+      {bun.uuid && (
+        <div className={`${styles.totalPriceContainer} mr-4`}>
+          <div className={styles.priceContainer}>
+            <p
+              className="text text_type_digits-medium"
+              onClick={updateConstructor}
+            >
+              {totalPrice}
+            </p>
+            <CurrencyIcon type="primary" />
+          </div>
 
-      <div className={`${styles.totalPriceContainer} mr-4`}>
-        <div className={styles.priceContainer}>
-          <p
-            className="text text_type_digits-medium"
-            onClick={updateConstructor}
+          <Button
+            type="primary"
+            size="large"
+            onClick={handleClickOrderButton}
+            htmlType="button"
           >
-            {totalPrice}
-          </p>
-          <CurrencyIcon type="primary" />
+            Оформить заказ
+          </Button>
         </div>
-
-        <Button
-          type="primary"
-          size="large"
-          onClick={handleClickOrderButton}
-          htmlType="button"
-        >
-          Оформить заказ
-        </Button>
-      </div>
+      )}
     </section>
   );
 }
