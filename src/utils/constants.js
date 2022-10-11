@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import plus from "../images/plus-circle-o_1.svg";
+import plus from "../images/plus-circle-o.svg";
 
 const oneSecond = 1;
 const oneMinute = oneSecond * 60;
