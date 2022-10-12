@@ -4,7 +4,7 @@ import App from "../app/app";
 
 export function AppSwitch() {
   return (
-    <Router>
+    <Router basename="/react-burger">
       <App />
     </Router>
   );
