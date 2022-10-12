@@ -53,7 +53,7 @@ function ConstructorCard(props) {
       : isHover
       ? { paddingTop: "96px" }
       : {};
-  }, [props.index, isHover ]);
+  }, [props.index, isHover]);
 
   function deleteConstructorElement() {
     dispatch({
@@ -92,7 +92,7 @@ ConstructorCard.propTypes = {
   handleClose: PropTypes.func,
   text: PropTypes.string.isRequired,
   thumbnail: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
+  price: PropTypes.number,
 };
 
 export { ConstructorCard };
