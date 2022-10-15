@@ -1,5 +1,8 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useEffect } from "react";
+import { getCookie } from "../../utils/utils";
+import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { checkAuth } from "../../utils/utils";
 import { useDrop } from "react-dnd";
 import styles from "./burger-constructor.module.css";
 import { ConstructorCard } from "../constructor-card/constructor-card";
@@ -15,6 +18,11 @@ import {
 
 function BurgerConstructor() {
   const dispatch = useDispatch();
+  const isAuthorized = useSelector((state) => state.profile.isAuthorized);
+  useEffect(() => {
+    checkAuth(dispatch, isAuthorized);
+  }, [dispatch, isAuthorized]);
+  const history = useHistory();
   const { bun, main } = useSelector((store) => store.burgerConstructor);
   const { items } = useSelector((state) => state.ingredients);
 
@@ -31,10 +39,15 @@ function BurgerConstructor() {
   );
 
   function handleClickOrderButton() {
-    const ingridientsIdArray = [bun._id, bun._id];
-    main.forEach((item) => ingridientsIdArray.push(item._id));
-
-    dispatch(postOrderData(ingridientsIdArray));
+    if (getCookie("accessToken")) {
+      const ingridientsIdArray = [bun._id, bun._id];
+      main.forEach((item) => ingridientsIdArray.push(item._id));
+      dispatch(postOrderData(ingridientsIdArray, getCookie("accessToken")));
+    } else {
+      history.replace({
+        pathname: "/login",
+      });
+    }
   }
 
   function updateConstructor() {
@@ -53,7 +66,7 @@ function BurgerConstructor() {
         <ConstructorCard
           type="top"
           isLocked={true}
-          text={`${bun.name} (верх)`}
+          text={`${bun.name}${bun.uuid ? " (верх)" : ""}`}
           price={bun.price}
           thumbnail={bun.image_mobile}
           index="top"
@@ -65,29 +78,35 @@ function BurgerConstructor() {
         <ConstructorCard
           type="bottom"
           isLocked={true}
-          text={`${bun.name} (низ)`}
+          text={`${bun.name}${bun.uuid ? " (низ)" : ""}`}
           price={bun.price}
           thumbnail={bun.image_mobile}
           index="bottom"
           ingredientType="bun"
         />
       </div>
+      {bun.uuid && (
+        <div className={`${styles.totalPriceContainer} mr-4`}>
+          <div className={styles.priceContainer}>
+            <p
+              className="text text_type_digits-medium"
+              onClick={updateConstructor}
+            >
+              {totalPrice}
+            </p>
+            <CurrencyIcon type="primary" />
+          </div>
 
-      <div className={`${styles.totalPriceContainer} mr-4`}>
-        <div className={styles.priceContainer}>
-          <p
-            className="text text_type_digits-medium"
-            onClick={updateConstructor}
+          <Button
+            type="primary"
+            size="large"
+            onClick={handleClickOrderButton}
+            htmlType="button"
           >
-            {totalPrice}
-          </p>
-          <CurrencyIcon type="primary" />
+            Оформить заказ
+          </Button>
         </div>
-
-        <Button type="primary" size="large" onClick={handleClickOrderButton}>
-          Оформить заказ
-        </Button>
-      </div>
+      )}
     </section>
   );
 }

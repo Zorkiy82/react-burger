@@ -1,6 +1,7 @@
 .ingredientDetails {
   display: flex;
   flex-direction: column;
+  align-items: center;
   box-sizing: border-box;
   width: 720px;
   border-radius: 40px;

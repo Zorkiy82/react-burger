@@ -1,0 +1,30 @@
+.mainContainer {
+  display: flex;
+  gap: 60px;
+  width: 100%;
+  height: 100%;
+}
+
+.nav {
+  display: grid;
+  align-items: center;
+  grid-template-rows: 64px 64px 64px;
+}
+
+.link {
+  text-decoration: none;
+}
+
+.linkActiv {
+  color: #f2f2f3;
+}
+
+.leftColumn {
+  width: 320px;
+  padding-left: 20px;
+  padding-top: 120px;
+}
+
+.rightColumn {
+  width: 844px;
+}
