@@ -60,13 +60,13 @@ export function getIngredientsData() {
   };
 }
 
-export function postOrderData(ingridientsIdArray) {
+export function postOrderData(ingridientsIdArray, accessToken) {
   return function (dispatch) {
     dispatch({
       type: POST_ORDER_REQUEST,
     });
 
-    postOrder(ingridientsIdArray)
+    postOrder(ingridientsIdArray, accessToken)
       .then((res) => {
         dispatch({
           type: POST_ORDER_SUCCESS,

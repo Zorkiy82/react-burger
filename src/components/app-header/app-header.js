@@ -36,14 +36,14 @@ function AppHeader() {
         </NavLink>
 
         <NavLink
-          to="/order-list"
+          to="/feed"
           className={`text text_type_main-default text_color_inactive ${styles.link}`}
           activeStyle={{
             color: "#F2F2F3",
           }}
         >
           <ListIcon
-            type={pathname === "/order-list" ? "primary" : "secondary"}
+            type={pathname === "/feed" ? "primary" : "secondary"}
           />
           <p className="ml-2">Лента заказов</p>
         </NavLink>
