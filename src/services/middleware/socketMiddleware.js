@@ -15,15 +15,26 @@ export const socketMiddleware = (wsUrl, wsActions) => {
         onError,
         onMessage,
       } = wsActions;
-      // const { user } = getState().user;
-      // console.log (getState());
-      if (type === wsClose) {
-        socket.close(1000, "reason");
+
+      if (type === wsClose && socket) {
+        console.log("перед условием закрытия :", socket.readyState);
+
+        socket.close();
+
+        console.log("после условия закрытия :", socket.readyState);
       }
 
       if (type === wsInit) {
-        socket = new WebSocket(`${wsUrl}`);
-        // dispatch({ type: wsSocket, payload: socket });
+        // console.log("перед условием открытия :", socket.readyState);
+        if (socket === null) {
+          socket = new WebSocket(`${wsUrl}`);
+        } else if (socket.readyState === 3) {
+          socket = new WebSocket(`${wsUrl}`);
+        } else {
+          socket.close();
+          socket = new WebSocket(`${wsUrl}`);
+        }
+        // console.log("после условия закрытия :", socket.readyState);
       }
       if (socket) {
         socket.onopen = (event) => {

@@ -6,7 +6,7 @@ import {
   WS_CONNECTION_FINISH,
 } from "../services/actions/wsActions";
 
-import { OrderFeed } from "../components/app-switch/order-feed/order-feed";
+import { OrderFeed } from "../components/order-feed/order-feed";
 import {
   Input,
   EmailInput,
@@ -17,27 +17,23 @@ import styles from "./feed.module.css";
 
 export function FeedPage() {
   const dispatch = useDispatch();
+  // const wsSocket = useRef({});
   const wsRun = useRef(false);
   const connect = useSelector((store) => store.ws.wsConnected);
 
   useEffect(() => {
-    if (!wsRun.current && !connect) {
-      dispatch({ type: WS_CONNECTION_START });
-      wsRun.current = true;
-    }
-  });
+    dispatch({ type: WS_CONNECTION_START });
 
-  // if (!connect) {
-  //   return null
-  // }
+    return () => {
+      dispatch({ type: WS_CONNECTION_FINISH });
+    };
+  }, []);
 
   return (
     <div className={styles.container}>
       <p className="text text_type_main-large mb-5">Лента заказов</p>
 
-      <main className={styles.main}>
-       {connect && <OrderFeed />}
-      </main>
+      <main className={styles.main}>{connect && <OrderFeed />}</main>
     </div>
   );
 }
