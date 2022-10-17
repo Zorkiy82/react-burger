@@ -4,6 +4,7 @@ export const socketMiddleware = (wsUrl, wsActions) => {
 
     return (next) => (action) => {
       const { dispatch, getState } = store;
+      const { itemsCatalog } = getState().ingredients;
       const { type, payload } = action;
       const {
         wsInit,
@@ -15,6 +16,8 @@ export const socketMiddleware = (wsUrl, wsActions) => {
         onError,
         onMessage,
       } = wsActions;
+
+      // console.log(itemsCatalog);
 
       if (type === wsClose && socket) {
         console.log("перед условием закрытия :", socket.readyState);
@@ -50,7 +53,10 @@ export const socketMiddleware = (wsUrl, wsActions) => {
           const parsedData = JSON.parse(data);
           const { success, ...restParsedData } = parsedData;
 
-          dispatch({ type: onMessage, payload: restParsedData });
+          dispatch({ type: onMessage, payload: {
+            data: restParsedData,
+            catalog: itemsCatalog,
+          }  });
         };
 
         socket.onclose = (event) => {

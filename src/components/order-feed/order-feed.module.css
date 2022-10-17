@@ -8,11 +8,7 @@
   width: 100%;
   height: calc(100vh - 205px);
   overflow-x: auto;
-  /* background-color: pink; */
-  border: 1px solid blue;
-
   color: red;
-
 }
 
 .scrollbarContainer::-webkit-scrollbar {

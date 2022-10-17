@@ -1,0 +1,48 @@
+
+.rewContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #131316;
+  border-radius: 50%;
+  width: 64px;
+  height: 64px;
+  border: 2px solid #4c4cff;
+  background-position: center;
+  background-size: cover;
+}
+
+.priceContainer {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.scrollbarContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 68px;
+  max-height: calc(100vh - 583px);
+  overflow-x: auto;
+}
+
+.scrollbarContainer::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scrollbarContainer::-webkit-scrollbar-track {
+  background-color: #2f2f37;
+}
+
+.scrollbarContainer::-webkit-scrollbar-thumb {
+  background-color: #8585ad;
+}

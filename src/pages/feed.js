@@ -20,14 +20,17 @@ export function FeedPage() {
   // const wsSocket = useRef({});
   const wsRun = useRef(false);
   const connect = useSelector((store) => store.ws.wsConnected);
+  const { itemsCatalog } = useSelector((state) => state.ingredients);
 
   useEffect(() => {
-    dispatch({ type: WS_CONNECTION_START });
+    dispatch({
+      type: WS_CONNECTION_START,
+    });
 
     return () => {
       dispatch({ type: WS_CONNECTION_FINISH });
     };
-  }, []);
+  }, [itemsCatalog]);
 
   return (
     <div className={styles.container}>

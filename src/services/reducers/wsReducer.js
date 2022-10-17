@@ -1,16 +1,15 @@
 import {
-  // WS_USER_NAME_UPDATE,
   WS_CONNECTION_SUCCESS,
   WS_CONNECTION_ERROR,
   WS_CONNECTION_CLOSED,
-  WS_SET_SOCKET,
-  WS_GET_MESSAGE
-} from '../actions/wsActions';
+  WS_GET_MESSAGE,
+} from "../actions/wsActions";
+
+import { getReceipt } from "./order.utils";
 
 const initialState = {
   wsConnected: false,
-  messages: [],
-  // socket:{}
+  message: [],
 };
 
 export const wsReducer = (state = initialState, action) => {
@@ -18,39 +17,35 @@ export const wsReducer = (state = initialState, action) => {
     case WS_CONNECTION_SUCCESS:
       return {
         ...state,
-        wsConnected: true
+        wsConnected: true,
       };
 
     case WS_CONNECTION_ERROR:
       return {
         ...state,
-        wsConnected: false
+        wsConnected: false,
       };
 
     case WS_CONNECTION_CLOSED:
       return {
         ...state,
-        wsConnected: false
+        wsConnected: false,
       };
-
-      // case WS_SET_SOCKET:
-      // return {
-      //   ...state,
-      //   socket: action.payload,
-      // };
 
     case WS_GET_MESSAGE:
+      let newOrders = [...action.payload.data.orders];
+      const catalog = action.payload.catalog;
+
+      newOrders = newOrders.map((value, index) => {
+        const ingredients = value.ingredients;
+        const receipt = getReceipt(ingredients, catalog);
+        return { ...value, receipt: receipt };
+      });
+
       return {
         ...state,
-        messages: {...action.payload},
-          // ? [...state.messages, { ...action.payload, timestamp: new Date().getTime() / 1000 }]
-          // : [{ ...action.payload, timestamp: new Date().getTime() / 1000 }]
+        message: { ...action.payload.data, orders: newOrders },
       };
-    // case WS_USER_NAME_UPDATE:
-    //   return {
-    //     ...state,
-    //     user: action.payload
-    //   };
 
     default:
       return state;

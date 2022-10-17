@@ -8,6 +8,7 @@ import { ForgotPasswordPage } from "../../pages/forgot-password";
 import { ResetPasswordPage } from "../../pages/reset-password";
 import { ProfilePage } from "../../pages/profile";
 import { FeedPage } from "../../pages/feed";
+import { OrderReceiptPage } from "../../pages/order-receipt";
 import { IngredientPage } from "../../pages/ingredient";
 import { NotFound404Page } from "../../pages/not-found-404";
 import { useSelector, useDispatch } from "react-redux";
@@ -119,6 +120,14 @@ function App() {
           </Modal>
         </Route>
       )}
+      {background && (
+        <Route path="/feed/:id">
+          <Modal onClose={back}>
+            <OrderReceiptPage />
+          </Modal>
+        </Route>
+      )}
+
     </div>
   );
 }
