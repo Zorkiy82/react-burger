@@ -104,6 +104,10 @@ function App() {
           <Route path="/ingredients/:id" exact={true}>
             <IngredientPage />
           </Route>
+          <Route path="/feed/:id">
+            <OrderReceiptPage />
+          </Route>
+
           <Route>
             <NotFound404Page />
           </Route>
@@ -127,7 +131,6 @@ function App() {
           </Modal>
         </Route>
       )}
-
     </div>
   );
 }

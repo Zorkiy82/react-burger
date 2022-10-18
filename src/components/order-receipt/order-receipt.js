@@ -7,17 +7,36 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 export function OrderReceipt() {
   const { orders } = useSelector((state) => state.ws.message);
   const { id } = useParams();
+  // const data = new Date();
+  // console.dir(data - 86400000);
+  // const orderStatus = {
+  //   content: "Отменен",
+  //   style: {
+  //     color: "#ff0000",
+  //   },
+  // };
 
   const orderData = useMemo(() => {
     const res = orders.filter((order) => order._id === id)[0];
     return res;
   }, [id, orders]);
 
+  if (!orderData) {
+    return null
+  }
+
   return (
     <div className={`pt-15 pl-10 pb-10 pr-10`}>
       <p className="text text_type_digits-default">{`#0${orderData.number}`}</p>
+      {/* <p className="text text_type_main-default">{`${data.toTimeString()}`}</p> */}
+      {/* <p className="text text_type_main-default">{`${data}`}</p> */}
       <p className="text text_type_main-medium mt-10">{`${orderData.name}`}</p>
-      <p className="text text_type_main-small mt-3">{`${orderData.status}`}</p>
+
+      <p
+        className="text text_type_main-small mt-3"
+        style={orderData.orderStatus.style}
+      >{`${orderData.orderStatus.content}`}</p>
+
       <p className="text text_type_main-medium mt-15">{`Состав:`}</p>
       <div className={`${styles.scrollbarContainer} mt-6`}>
         {orderData.receipt.items.map((item, index, array) => {
@@ -26,10 +45,9 @@ export function OrderReceipt() {
           };
 
           return (
-            <div className={`${styles.rewContainer} mr-6`}>
-              <div className={styles.rewContainer}>
+            <div key={item._id} className={`${styles.rowContainer} mr-6`}>
+              <div className={styles.rowContainer}>
                 <div
-                  key={item._id}
                   className={styles.icon}
                   style={inlineStyle}
                 ></div>
@@ -46,8 +64,8 @@ export function OrderReceipt() {
           );
         })}
       </div>
-      <footer className={`${styles.rewContainer} mt-10`}>
-      <p className="text text_type_main-default text_color_inactive">{`${orderData.createdAt}`}</p>
+      <footer className={`${styles.rowContainer} mt-10`}>
+        <p className="text text_type_main-default text_color_inactive">{`${orderData.createdAt}`}</p>
         <div className={styles.priceContainer}>
           <p className="text text_type_digits-default">
             {orderData.receipt.totalPrice}

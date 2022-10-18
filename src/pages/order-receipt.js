@@ -7,15 +7,24 @@ import { OrderReceipt } from "../components/order-receipt/order-receipt";
 export function OrderReceiptPage() {
   const { orders } = useSelector((state) => state.ws.message);
   const { id } = useParams();
-
+    // TODO исправить баг при переходе по прямой ссылке из браузера
   const isOrder = useMemo(() => {
-    const res = orders.some((order) => order._id === id);
+    let res = false;
+    if (orders) {
+      res = orders.some((order) => order._id === id);
+    }
     return res;
   }, [id, orders]);
 
   return (
     <>
-      {!isOrder && (
+      {!isOrder && !orders && (
+        <p className="text text_type_main-large text_color_inactive mt-10 ml-10">
+          Загружаем данные заказа...
+        </p>
+      )}
+
+      {!isOrder && orders && (
         <p className="text text_type_main-large text_color_inactive mt-10 ml-10">
           У нас нет такого заказа :-)
         </p>

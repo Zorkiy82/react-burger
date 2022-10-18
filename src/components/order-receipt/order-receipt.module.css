@@ -1,5 +1,5 @@
 
-.rewContainer {
+.rowContainer {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -16,6 +16,7 @@
   border: 2px solid #4c4cff;
   background-position: center;
   background-size: cover;
+  /* color:#4c4cff; */
 }
 
 .priceContainer {

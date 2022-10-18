@@ -35,6 +35,36 @@ export function getReceipt(ingredientsArray, ingredientsCatalog) {
     resArr.push(resObj[key]);
   }
 
-  resArr.sort((a,b)=>b.counter - a.counter)
+  resArr.sort((a, b) => b.counter - a.counter);
   return { items: resArr, totalPrice: totalPrice };
+}
+
+export function getOrderStatus(status) {
+  switch (status) {
+    case "pending": {
+      return {
+        content: "Готовится",
+        style: {
+          color: "#F2F2F3",
+        },
+      };
+    }
+    case "done": {
+      return {
+        content: "Выполнен",
+        style: {
+          color: "#00CCCC",
+        },
+      };
+    }
+
+    default: {
+      return {
+        content: "Отменен",
+        style: {
+          color: "#ff0000",
+        },
+      };
+    }
+  }
 }

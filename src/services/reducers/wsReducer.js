@@ -5,7 +5,7 @@ import {
   WS_GET_MESSAGE,
 } from "../actions/wsActions";
 
-import { getReceipt } from "./order.utils";
+import { getReceipt, getOrderStatus } from "./order.utils";
 
 const initialState = {
   wsConnected: false,
@@ -38,8 +38,11 @@ export const wsReducer = (state = initialState, action) => {
 
       newOrders = newOrders.map((value, index) => {
         const ingredients = value.ingredients;
+        const status = value.status;
         const receipt = getReceipt(ingredients, catalog);
-        return { ...value, receipt: receipt };
+        const orderStatus = getOrderStatus(status);
+
+        return { ...value, receipt: receipt, orderStatus: orderStatus };
       });
 
       return {
