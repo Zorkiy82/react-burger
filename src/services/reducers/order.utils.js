@@ -1,3 +1,53 @@
+import { msInDay } from "../../utils/constants";
+
+function getSecondWord(diffOfDay) {
+  let resWord = "";
+  if (diffOfDay === 1) {
+    resWord = "день";
+  }
+  if (diffOfDay >= 2 && diffOfDay <= 4) {
+    resWord = "дня";
+  }
+  if ((diffOfDay >= 5 && diffOfDay <= 19) || diffOfDay <= 0) {
+    resWord = "дней";
+  }
+  if (diffOfDay >= 20 && diffOfDay <= 99) {
+    resWord = getSecondWord(diffOfDay % 10);
+  }
+  if (diffOfDay >= 100 && diffOfDay <= 999) {
+    resWord = getSecondWord(diffOfDay % 100);
+  }
+  if (diffOfDay >= 1000 && diffOfDay <= 999999) {
+    resWord = getSecondWord(diffOfDay % 1000);
+  }
+
+  return resWord;
+}
+
+export function getReadableDate(orderDateStr) {
+  let resStr = "";
+  const od = new Date(orderDateStr);
+  const odStr = od.toString();
+  const odTime = odStr.match(/ \d\d:\d\d/g);
+  const odTimezone = odStr.match(/\w\w\w\+\d\d/g);
+  const cd = new Date();
+  od.setHours(0, 0, 0, 0);
+  cd.setHours(0, 0, 0, 0);
+  const diffOfDay = Math.round((cd - od) / msInDay);
+  if (diffOfDay === 0) {
+    resStr += "Сегодня, ";
+  } else if (diffOfDay === 1) {
+    resStr += "Вчера, ";
+  } else {
+    resStr += diffOfDay + " " + getSecondWord(diffOfDay) + " назад";
+  }
+
+  resStr +=
+    odTime + " i-" + odTimezone[0].slice(0, 4) + Number(odTimezone[0].slice(4));
+
+    return resStr;
+}
+
 export function getReceipt(ingredientsArray, ingredientsCatalog) {
   let resObj = {};
   let newArr = [...ingredientsArray];

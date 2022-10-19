@@ -65,7 +65,7 @@ export function OrderReceipt() {
         })}
       </div>
       <footer className={`${styles.rowContainer} mt-10`}>
-        <p className="text text_type_main-default text_color_inactive">{`${orderData.createdAt}`}</p>
+        <p className="text text_type_main-default text_color_inactive">{`${orderData.readableDate}`}</p>
         <div className={styles.priceContainer}>
           <p className="text text_type_digits-default">
             {orderData.receipt.totalPrice}

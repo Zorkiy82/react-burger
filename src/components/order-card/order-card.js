@@ -29,7 +29,7 @@ export function OrderCard(props) {
         <div className={styles.card}>
           <header className={styles.header}>
             <p className="text text_type_digits-default">{`#0${orderData.number}`}</p>
-            <p className="text text_type_main-default text_color_inactive">{`${orderData.createdAt}`}</p>
+            <p className="text text_type_main-default text_color_inactive">{`${orderData.readableDate}`}</p>
           </header>
 
           <p className="text text_type_main-medium">{`${orderData.name}`}</p>
