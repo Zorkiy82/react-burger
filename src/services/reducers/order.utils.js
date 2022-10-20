@@ -14,11 +14,8 @@ function getSecondWord(diffOfDay) {
   if (diffOfDay >= 20 && diffOfDay <= 99) {
     resWord = getSecondWord(diffOfDay % 10);
   }
-  if (diffOfDay >= 100 && diffOfDay <= 999) {
+  if (diffOfDay >= 100 ) {
     resWord = getSecondWord(diffOfDay % 100);
-  }
-  if (diffOfDay >= 1000 && diffOfDay <= 999999) {
-    resWord = getSecondWord(diffOfDay % 1000);
   }
 
   return resWord;
@@ -50,8 +47,12 @@ export function getReadableDate(orderDateStr) {
 
 export function getReceipt(ingredientsArray, ingredientsCatalog) {
   let resObj = {};
-  let newArr = [...ingredientsArray];
+  let newArr = [...ingredientsArray].filter(value=>value && ingredientsCatalog[value]);
+
   newArr.forEach((value, index) => {
+    if (value) {
+
+    }
     if (!resObj[value]) {
       resObj[value] = {
         _id: ingredientsCatalog[value]._id,
@@ -88,9 +89,18 @@ export function getReceipt(ingredientsArray, ingredientsCatalog) {
   resArr.sort((a, b) => b.counter - a.counter);
   return { items: resArr, totalPrice: totalPrice };
 }
-
+// created
 export function getOrderStatus(status) {
   switch (status) {
+    case "created": {
+      return {
+        content: "Заказ создан",
+        style: {
+          color: "#F2F2F3",
+        },
+      };
+    }
+
     case "pending": {
       return {
         content: "Готовится",
@@ -99,6 +109,7 @@ export function getOrderStatus(status) {
         },
       };
     }
+
     case "done": {
       return {
         content: "Выполнен",
