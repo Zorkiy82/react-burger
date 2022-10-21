@@ -5,7 +5,12 @@ import {
   WS_GET_MESSAGE,
 } from "../actions/wsActions";
 
-import { getReceipt, getOrderStatus, getReadableDate } from "./order.utils";
+import {
+  getReceipt,
+  getOrderStatus,
+  getReadableDate,
+  getFormattedNumber,
+} from "./order.utils";
 
 const initialState = {
   wsConnected: false,
@@ -54,7 +59,12 @@ export const wsReducer = (state = initialState, action) => {
 
       return {
         ...state,
-        message: { ...action.payload.data, orders: newOrders },
+        message: {
+          ...action.payload.data,
+          orders: newOrders,
+          fTotal: getFormattedNumber(action.payload.data.total),
+          fTotalToday: getFormattedNumber(action.payload.data.totalToday),
+        },
       };
 
     default:

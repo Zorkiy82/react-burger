@@ -9,6 +9,7 @@ import {
   CurrencyIcon,
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { getFormattedNumber } from "../../services/reducers/order.utils.js";
 
 function IngredientCard(props) {
   const location = useLocation();
@@ -50,7 +51,7 @@ function IngredientCard(props) {
           <img src={props.image} className={styles.image} alt={props.name} />
 
           <div className={styles.praiceContainer}>
-            <p className="text text_type_digits-default">{props.price}</p>
+            <p className="text text_type_digits-default">{getFormattedNumber(props.price)}</p>
             <CurrencyIcon type="primary" />
           </div>
 

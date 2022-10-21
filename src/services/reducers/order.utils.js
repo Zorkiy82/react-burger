@@ -1,5 +1,16 @@
 import { msInDay } from "../../utils/constants";
 
+export function getFormattedNumber(num) {
+  num = num + "";
+  let newNum = "";
+  let counter = 0;
+  for (let i = num.length - 1; i >= 0; i--) {
+    newNum += counter % 3 === 0 ? " " + num[i] : num[i];
+    counter += 1;
+  }
+  return newNum.split("").reverse().join("").trim();
+}
+
 function getSecondWord(diffOfDay) {
   let resWord = "";
   if (diffOfDay === 1) {
@@ -87,7 +98,7 @@ export function getReceipt(ingredientsArray, ingredientsCatalog) {
   }
 
   resArr.sort((a, b) => b.counter - a.counter);
-  return { items: resArr, totalPrice: totalPrice };
+  return { items: resArr, totalPrice: getFormattedNumber(totalPrice) };
 }
 // created
 export function getOrderStatus(status) {

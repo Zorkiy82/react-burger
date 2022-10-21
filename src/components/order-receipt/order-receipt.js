@@ -3,33 +3,23 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import styles from "./order-receipt.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { getFormattedNumber } from "../../services/reducers/order.utils";
 
 export function OrderReceipt() {
   const { orders } = useSelector((state) => state.ws.message);
   const { id } = useParams();
-  // const data = new Date();
-  // console.dir(data - 86400000);
-  // const orderStatus = {
-  //   content: "Отменен",
-  //   style: {
-  //     color: "#ff0000",
-  //   },
-  // };
-
   const orderData = useMemo(() => {
     const res = orders.filter((order) => order._id === id)[0];
     return res;
   }, [id, orders]);
 
   if (!orderData) {
-    return null
+    return null;
   }
 
   return (
     <div className={`pt-15 pl-10 pb-10 pr-10`}>
-      <p className="text text_type_digits-default">{`#0${orderData.number}`}</p>
-      {/* <p className="text text_type_main-default">{`${data.toTimeString()}`}</p> */}
-      {/* <p className="text text_type_main-default">{`${data}`}</p> */}
+      <p className="text text_type_digits-default">{`#${orderData.number}`}</p>
       <p className="text text_type_main-medium mt-10">{`${orderData.name}`}</p>
 
       <p
@@ -47,10 +37,7 @@ export function OrderReceipt() {
           return (
             <div key={item._id} className={`${styles.rowContainer} mr-6`}>
               <div className={styles.rowContainer}>
-                <div
-                  className={styles.icon}
-                  style={inlineStyle}
-                ></div>
+                <div className={styles.icon} style={inlineStyle}></div>
                 <p className="text text_type_main-default ml-4">{`${item.name}`}</p>
               </div>
 

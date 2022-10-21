@@ -15,6 +15,7 @@ import {
   postOrderData,
   GET_CONSTRUCTOR_LIST_RANDOM,
 } from "../../services/actions/app.js";
+import { getFormattedNumber } from "../../services/reducers/order.utils";
 
 function BurgerConstructor() {
   const dispatch = useDispatch();
@@ -92,7 +93,7 @@ function BurgerConstructor() {
               className="text text_type_digits-medium"
               onClick={updateConstructor}
             >
-              {totalPrice}
+              {getFormattedNumber(totalPrice)}
             </p>
             <CurrencyIcon type="primary" />
           </div>

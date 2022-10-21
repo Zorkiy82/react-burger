@@ -14,6 +14,7 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./feed.module.css";
+import { OrdersTotal } from "../components/orders-total/orders-total";
 
 export function FeedPage() {
   const dispatch = useDispatch();
@@ -36,7 +37,14 @@ export function FeedPage() {
     <div className={styles.container}>
       <p className="text text_type_main-large mb-5">Лента заказов</p>
 
-      <main className={styles.main}>{connect && <OrderFeed />}</main>
+      <main className={styles.main}>
+        {connect && (
+          <>
+            <OrderFeed />
+            <OrdersTotal />
+          </>
+        )}
+      </main>
     </div>
   );
 }
