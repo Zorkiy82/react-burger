@@ -7,7 +7,7 @@ import {
   PATCH_USER_FAILED,
   SET_USER_DATA,
   RESET_USER_DATA,
-  SET_AUTORIZATION_DATA
+  SET_AUTORIZATION_DATA,
 } from "../actions/profile";
 
 const profileInitialState = {

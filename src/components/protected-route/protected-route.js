@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { Route, Redirect } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { isHasTokens } from "../../utils/utils";
 import { checkAuth } from "../../utils/utils";
 
 export function ProtectedRoute({ children, ...rest }) {
@@ -9,13 +8,13 @@ export function ProtectedRoute({ children, ...rest }) {
   const isAuthorized = useSelector((state) => state.profile.isAuthorized);
   useEffect(() => {
     checkAuth(dispatch, isAuthorized);
-  }, [dispatch, isAuthorized]);
+  });
 
   return (
     <Route
       {...rest}
       render={({ location }) =>
-      isAuthorized ? (
+        isAuthorized ? (
           children
         ) : (
           <Redirect

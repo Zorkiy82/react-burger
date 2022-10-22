@@ -1,7 +1,7 @@
-import React, {useEffect} from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { checkAuth } from "../utils/utils";
-import { Link,Redirect, useHistory, useLocation } from "react-router-dom";
+import { Link, Redirect, useHistory, useLocation } from "react-router-dom";
 import {
   Button,
   EmailInput,
@@ -14,7 +14,7 @@ export function ForgotPasswordPage() {
   const isAuthorized = useSelector((state) => state.profile.isAuthorized);
   useEffect(() => {
     checkAuth(dispatch, isAuthorized);
-  }, [dispatch, isAuthorized]);
+  });
 
   const history = useHistory();
   const { pathname, state } = useLocation();
@@ -31,8 +31,6 @@ export function ForgotPasswordPage() {
       },
     });
   }
-
-
 
   function handleSubmit(evt) {
     evt.preventDefault();

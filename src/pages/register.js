@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { checkAuth } from "../utils/utils";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Redirect, useHistory, useLocation } from "react-router-dom";
@@ -16,7 +16,7 @@ export function RegisterPage() {
   const isAuthorized = useSelector((state) => state.profile.isAuthorized);
   useEffect(() => {
     checkAuth(dispatch, isAuthorized);
-  }, [dispatch, isAuthorized]);
+  });
 
   const history = useHistory();
   const { pathname, state } = useLocation();

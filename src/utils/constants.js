@@ -6,6 +6,7 @@ const oneMinute = oneSecond * 60;
 const oneHour = oneMinute * 60;
 const oneDay = oneHour * 24;
 const oneWeek = oneDay * 7;
+export const msInDay = oneDay * 1000;
 
 const accessTokenLifetime = oneMinute * 19;
 const refreshTokenLifetime = oneDay;

@@ -1,13 +1,20 @@
-import React, { useMemo } from "react";
+import { useMemo, useEffect } from "react";
 import { NavLink, Switch, Route, useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import styles from "./profile.module.css";
 import { ProfileEditPage } from "./profile-edit";
-import { ProfileОrderHistoryPage } from "./profile-order-history";
+import { ProfileОrdersPage } from "./profile-orders";
 import { ProfileExitPage } from "./profile-exit";
 import { ProtectedRoute } from "../components/protected-route/protected-route";
+import { checkAuth } from "../utils/utils";
 
 export function ProfilePage() {
+  const dispatch = useDispatch();
   const { pathname } = useLocation();
+  const isAuthorized = useSelector((state) => state.profile.isAuthorized);
+  useEffect(() => {
+    checkAuth(dispatch, isAuthorized);
+  });
 
   const textContent = useMemo(() => {
     switch (pathname) {
@@ -42,7 +49,6 @@ export function ProfilePage() {
           </NavLink>
 
           <NavLink
-            exact
             to="/profile/orders"
             className={`text text_type_main-medium text_color_inactive ${styles.link}`}
             activeStyle={{
@@ -76,8 +82,8 @@ export function ProfilePage() {
           <ProtectedRoute path="/profile" exact={true}>
             <ProfileEditPage />
           </ProtectedRoute>
-          <ProtectedRoute path="/profile/orders" exact={true}>
-            <ProfileОrderHistoryPage />
+          <ProtectedRoute path="/profile/orders">
+            <ProfileОrdersPage />
           </ProtectedRoute>
           <ProtectedRoute path="/profile/exit" exact={true}>
             <ProfileExitPage />

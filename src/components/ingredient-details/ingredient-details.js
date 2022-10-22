@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./ingredient-details.module.css";
 import { IngredientPropTypes } from "../../utils/constants.js";
 

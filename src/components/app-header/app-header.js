@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { checkAuth } from "../../utils/utils";
 import { NavLink, Link, useLocation } from "react-router-dom";
@@ -15,7 +15,7 @@ function AppHeader() {
   const isAuthorized = useSelector((state) => state.profile.isAuthorized);
   useEffect(() => {
     checkAuth(dispatch, isAuthorized);
-  }, [dispatch, isAuthorized]);
+  });
 
   const { pathname } = useLocation();
   const { name } = useSelector((state) => state.profile.userData);
@@ -36,14 +36,14 @@ function AppHeader() {
         </NavLink>
 
         <NavLink
-          to="/order-list"
+          to="/feed"
           className={`text text_type_main-default text_color_inactive ${styles.link}`}
           activeStyle={{
             color: "#F2F2F3",
           }}
         >
           <ListIcon
-            type={pathname === "/order-list" ? "primary" : "secondary"}
+            type={pathname.includes("/feed") ? "primary" : "secondary"}
           />
           <p className="ml-2">Лента заказов</p>
         </NavLink>

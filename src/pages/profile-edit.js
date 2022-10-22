@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import { checkAuth } from "../utils/utils";
@@ -19,7 +19,7 @@ export function ProfileEditPage() {
   const isAuthorized = useSelector((state) => state.profile.isAuthorized);
   useEffect(() => {
     checkAuth(dispatch, isAuthorized);
-  }, [dispatch, isAuthorized]);
+  });
   const history = useHistory();
   const { pathname, state } = useLocation();
   const { name, email } = useSelector((storege) => storege.profile.userData);

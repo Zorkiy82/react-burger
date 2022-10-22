@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-
+import { useEffect } from "react";
 import { checkAuth } from "../utils/utils";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Redirect, useHistory, useLocation } from "react-router-dom";
@@ -16,7 +15,7 @@ export function LoginPage() {
   const isAuthorized = useSelector((state) => state.profile.isAuthorized);
   useEffect(() => {
     checkAuth(dispatch, isAuthorized);
-  }, [dispatch, isAuthorized]);
+  });
 
   const history = useHistory();
   const { pathname, state } = useLocation();
@@ -40,11 +39,7 @@ export function LoginPage() {
   }
 
   if (isAuthorized) {
-    return (
-      <Redirect
-        to={state?.from || "/"}
-      />
-    );
+    return <Redirect to={state?.from || "/"} />;
   }
 
   return (

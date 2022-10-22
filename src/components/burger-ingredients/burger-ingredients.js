@@ -1,4 +1,4 @@
-import React, { useRef, useMemo } from "react";
+import { useRef, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { TabBar } from "../tab-bar/tab-bar.js";
 import { CardList } from "../card-list/card-list.js";

@@ -20,10 +20,16 @@ export const ingredientsReducer = (state = ingredientsInitialState, action) => {
     }
 
     case GET_INGREDIENTS_SUCCESS: {
+      const itemsCatalog = {};
+      action.items.forEach((item) => {
+        itemsCatalog[item._id] = { ...item };
+      });
+
       return {
         ...state,
         itemsFailed: false,
         items: action.items,
+        itemsCatalog: itemsCatalog,
         itemsRequest: false,
       };
     }

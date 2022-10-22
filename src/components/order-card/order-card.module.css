@@ -1,0 +1,92 @@
+.li {
+  position: relative;
+  background: #1c1c21;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 0px 2px rgba(0, 0, 0, 0.06),
+    0px 0px 1px rgba(0, 0, 0, 0.04);
+  border-radius: 40px;
+  margin-right: 8px;
+}
+
+.card {
+  box-sizing: border-box;
+  padding: 24px;
+  display: flex;
+  position: static;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  gap: 24px;
+  text-align: start;
+}
+
+.header {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.icon {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #131316;
+  border-radius: 50%;
+  width: 64px;
+  height: 64px;
+  border: 2px solid #4c4cff;
+  background-position: center;
+  background-size: cover;
+}
+
+.counter {
+  position: absolute;
+  justify-content: center;
+  padding-left: 3px;
+  padding-right: 3px;
+  top: -12px;
+  right: 9px;
+  height: 20px;
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 50%;
+}
+
+.iconContainer {
+  display: flex;
+  height: 64px;
+  position: relative;
+}
+
+.praiceContainer {
+  display: flex;
+  gap: 8px;
+}
+
+.link {
+  text-decoration: none;
+  color: #f2f2f3;
+}
+
+.priceContainer {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.footer {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.overlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(28, 28, 33, 0.6);
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
