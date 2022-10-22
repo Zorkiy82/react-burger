@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect } from "react";
+import { useMemo, useEffect } from "react";
 import { getCookie } from "../../utils/utils";
 import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -20,9 +20,10 @@ import { getFormattedNumber } from "../../services/reducers/order.utils";
 function BurgerConstructor() {
   const dispatch = useDispatch();
   const isAuthorized = useSelector((state) => state.profile.isAuthorized);
+  const { orderDataRequest } = useSelector((state) => state.orderElement);
   useEffect(() => {
     checkAuth(dispatch, isAuthorized);
-  }, [dispatch, isAuthorized]);
+  });
   const history = useHistory();
   const { bun, main } = useSelector((store) => store.burgerConstructor);
   const { items } = useSelector((state) => state.ingredients);
@@ -39,7 +40,9 @@ function BurgerConstructor() {
     [main, bun]
   );
 
-  function handleClickOrderButton() {
+  function handleClickOrderButton(evt) {
+    evt.preventDefault();
+
     if (getCookie("accessToken")) {
       const ingridientsIdArray = [bun._id, bun._id];
       main.forEach((item) => ingridientsIdArray.push(item._id));
@@ -61,9 +64,18 @@ function BurgerConstructor() {
   return (
     <section className={`pl-4`}>
       <div
-        className={`${styles.main}${isHover ? " " + styles.mainIsHover : ""}`}
+        className={`${styles.main}${isHover ? " " + styles.mainIsHover : ""} ${
+          styles.skeletonLoaderContainer
+        }`}
         ref={dropTarget}
       >
+        {orderDataRequest && (
+          <div className={styles.skeletonLoader}>
+            <p className="text text_type_main-large">
+              Отправляем Ваш заказ
+            </p>
+          </div>
+        )}
         <ConstructorCard
           type="top"
           isLocked={true}
@@ -86,28 +98,31 @@ function BurgerConstructor() {
           ingredientType="bun"
         />
       </div>
-      {bun.uuid && (
-        <div className={`${styles.totalPriceContainer} mr-4`}>
-          <div className={styles.priceContainer}>
-            <p
-              className="text text_type_digits-medium"
-              onClick={updateConstructor}
-            >
-              {getFormattedNumber(totalPrice)}
-            </p>
-            <CurrencyIcon type="primary" />
-          </div>
 
+      <form
+        name="constructorForm"
+        onSubmit={handleClickOrderButton}
+        className={`${styles.totalPriceContainer} mr-4`}
+      >
+        <div className={styles.priceContainer}>
+          <p
+            className="text text_type_digits-medium"
+            onClick={updateConstructor}
+          >
+            {getFormattedNumber(totalPrice)}
+          </p>
+          <CurrencyIcon type="primary" />
+        </div>
+        <div style={!bun.uuid || orderDataRequest ? { opacity: "0.2" } : {}}>
           <Button
             type="primary"
             size="large"
-            onClick={handleClickOrderButton}
-            htmlType="button"
+            htmlType={!bun.uuid || orderDataRequest ? "button" : "submit"}
           >
             Оформить заказ
           </Button>
         </div>
-      )}
+      </form>
     </section>
   );
 }

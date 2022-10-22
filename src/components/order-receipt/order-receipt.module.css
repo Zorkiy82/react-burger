@@ -1,4 +1,3 @@
-
 .rowContainer {
   display: flex;
   align-items: center;
@@ -16,7 +15,6 @@
   border: 2px solid #4c4cff;
   background-position: center;
   background-size: cover;
-  /* color:#ff0000; */
 }
 
 .priceContainer {
@@ -32,7 +30,7 @@
   box-sizing: border-box;
   width: 100%;
   min-height: 68px;
-  max-height: calc(100vh - 583px);
+  max-height: calc(100vh - 613px);
   overflow-x: auto;
 }
 
@@ -46,4 +44,8 @@
 
 .scrollbarContainer::-webkit-scrollbar-thumb {
   background-color: #8585ad;
+}
+
+.main {
+  max-width: 700px;
 }

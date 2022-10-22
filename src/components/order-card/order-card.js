@@ -1,10 +1,9 @@
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import styles from "./order-card.module.css";
 import {
   CurrencyIcon,
-  Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
 export function OrderCard(props) {
@@ -22,7 +21,7 @@ export function OrderCard(props) {
       <Link
         className={styles.link}
         to={{
-          pathname: `/feed/${orderId}`,
+          pathname: `${location.pathname}/${orderId}`,
           state: { background: location },
         }}
       >
@@ -32,7 +31,15 @@ export function OrderCard(props) {
             <p className="text text_type_main-default text_color_inactive">{`${orderData.readableDate}`}</p>
           </header>
 
-          <p className="text text_type_main-medium">{`${orderData.name}`}</p>
+          <div>
+            <p className="text text_type_main-medium">{`${orderData.name}`}</p>
+            {props.status && (
+              <p
+                className="text text_type_main-small mt-2"
+                style={orderData.orderStatus.style}
+              >{`${orderData.orderStatus.content}`}</p>
+            )}
+          </div>
 
           <footer className={styles.footer}>
             <div className={styles.iconContainer}>

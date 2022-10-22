@@ -1,4 +1,3 @@
-import React from "react";
 import PropTypes from "prop-types";
 import { IngredientPropTypes } from "../../utils/constants.js";
 import { ConstructorCard } from "../constructor-card/constructor-card";

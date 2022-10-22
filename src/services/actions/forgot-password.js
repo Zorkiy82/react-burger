@@ -5,7 +5,6 @@ export const POST_FORGOT_PASSWORD_REQUEST = "POST_FORGOT_PASSWORD_REQUEST";
 export const POST_FORGOT_PASSWORD_SUCCESS = "POST_FORGOT_PASSWORD_SUCCESS";
 export const POST_FORGOT_PASSWORD_FAILED = "POST_FORGOT_PASSWORD_FAILED";
 
-
 export function postForgotPasswordData(history, pathname) {
   return function (dispatch) {
     dispatch({
@@ -26,7 +25,7 @@ export function postForgotPasswordData(history, pathname) {
         history.push({
           pathname: "/reset-password",
           state: {},
-        })
+        });
       })
       .catch((res) => {
         const code = res.status;

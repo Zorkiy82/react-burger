@@ -1,9 +1,8 @@
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import styles from "./order-receipt.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { getFormattedNumber } from "../../services/reducers/order.utils";
 
 export function OrderReceipt() {
   const { orders } = useSelector((state) => state.ws.message);
@@ -18,7 +17,7 @@ export function OrderReceipt() {
   }
 
   return (
-    <div className={`pt-15 pl-10 pb-10 pr-10`}>
+    <div className={`pt-15 pl-10 pb-10 pr-10 ${styles.main}`}>
       <p className="text text_type_digits-default">{`#${orderData.number}`}</p>
       <p className="text text_type_main-medium mt-10">{`${orderData.name}`}</p>
 

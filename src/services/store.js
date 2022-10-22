@@ -15,7 +15,7 @@ import {
   WS_SEND_MESSAGE,
 } from "./actions/wsActions";
 
-const wsUrl = "wss://norma.nomoreparties.space/orders/all";
+const wsUrl = "wss://norma.nomoreparties.space/orders";
 
 const wsActions = {
   wsInit: WS_CONNECTION_START,

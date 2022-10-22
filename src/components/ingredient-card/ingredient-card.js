@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { useDrag } from "react-dnd";
 import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -51,7 +51,9 @@ function IngredientCard(props) {
           <img src={props.image} className={styles.image} alt={props.name} />
 
           <div className={styles.praiceContainer}>
-            <p className="text text_type_digits-default">{getFormattedNumber(props.price)}</p>
+            <p className="text text_type_digits-default">
+              {getFormattedNumber(props.price)}
+            </p>
             <CurrencyIcon type="primary" />
           </div>
 

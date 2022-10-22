@@ -1,13 +1,11 @@
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { OrderReceipt } from "../components/order-receipt/order-receipt";
-// import { IngredientDetails } from "../components/ingredient-details/ingredient-details";
 
 export function OrderReceiptPage() {
   const { orders } = useSelector((state) => state.ws.message);
   const { id } = useParams();
-    // TODO исправить баг при переходе по прямой ссылке из браузера
   const isOrder = useMemo(() => {
     let res = false;
     if (orders) {

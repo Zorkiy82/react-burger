@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { checkAuth } from "../../utils/utils";
 import { Switch, Route, useLocation, useHistory } from "react-router-dom";
 import { HomePage } from "../../pages/home";
@@ -28,7 +28,7 @@ function App() {
   const isAuthorized = useSelector((state) => state.profile.isAuthorized);
   useEffect(() => {
     checkAuth(dispatch, isAuthorized);
-  }, [dispatch, isAuthorized]);
+  });
 
   const location = useLocation();
   const history = useHistory();
@@ -71,7 +71,6 @@ function App() {
   }
 
   function back(evt) {
-    // evt.stopPropagation();
     history.goBack();
   }
 
@@ -98,16 +97,12 @@ function App() {
           <Route path="/profile">
             <ProfilePage />
           </Route>
-          <Route path="/feed" exact={true}>
+          <Route path="/feed">
             <FeedPage />
           </Route>
           <Route path="/ingredients/:id" exact={true}>
             <IngredientPage />
           </Route>
-          <Route path="/feed/:id">
-            <OrderReceiptPage />
-          </Route>
-
           <Route>
             <NotFound404Page />
           </Route>
@@ -126,6 +121,13 @@ function App() {
       )}
       {background && (
         <Route path="/feed/:id">
+          <Modal onClose={back}>
+            <OrderReceiptPage />
+          </Modal>
+        </Route>
+      )}
+      {background && (
+        <Route path="/profile/orders/:id">
           <Modal onClose={back}>
             <OrderReceiptPage />
           </Modal>

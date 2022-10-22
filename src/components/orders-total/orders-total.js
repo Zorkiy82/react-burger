@@ -50,13 +50,13 @@ export function OrdersTotal() {
             {ordersPending.map((value) => {
               return (
                 <Link
-                to={{
-                  pathname: `/feed/${value._id}`,
-                  state: { background: location },
-                }}
-                key={value._id}
-                className={`text text_type_digits-default ${styles.link}`}
-                style={value.orderStatus.style}
+                  to={{
+                    pathname: `/feed/${value._id}`,
+                    state: { background: location },
+                  }}
+                  key={value._id}
+                  className={`text text_type_digits-default ${styles.link}`}
+                  style={value.orderStatus.style}
                 >
                   {value.number}
                 </Link>

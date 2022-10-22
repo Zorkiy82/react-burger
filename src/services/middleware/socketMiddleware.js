@@ -8,7 +8,6 @@ export const socketMiddleware = (wsUrl, wsActions) => {
       const { type, payload } = action;
       const {
         wsInit,
-        wsSocket,
         wsClose,
         wsSendMessage,
         onOpen,
@@ -17,27 +16,18 @@ export const socketMiddleware = (wsUrl, wsActions) => {
         onMessage,
       } = wsActions;
 
-      // console.log(itemsCatalog);
-
       if (type === wsClose && socket) {
-        console.log("перед условием закрытия :", socket.readyState);
-
-        socket.close();
-
-        console.log("после условия закрытия :", socket.readyState);
+        if (socket.readyState === 1) {
+          socket.close();
+        }
       }
 
       if (type === wsInit) {
-        // console.log("перед условием открытия :", socket.readyState);
         if (socket === null) {
-          socket = new WebSocket(`${wsUrl}`);
-        } else if (socket.readyState === 3) {
-          socket = new WebSocket(`${wsUrl}`);
-        } else {
-          socket.close();
-          socket = new WebSocket(`${wsUrl}`);
+          socket = new WebSocket(`${wsUrl}${payload.add}`);
+        } else if (socket.readyState === 3 || socket.readyState === 2) {
+          socket = new WebSocket(`${wsUrl}${payload.add}`);
         }
-        // console.log("после условия закрытия :", socket.readyState);
       }
       if (socket) {
         socket.onopen = (event) => {
@@ -53,10 +43,13 @@ export const socketMiddleware = (wsUrl, wsActions) => {
           const parsedData = JSON.parse(data);
           const { success, ...restParsedData } = parsedData;
 
-          dispatch({ type: onMessage, payload: {
-            data: restParsedData,
-            catalog: itemsCatalog,
-          }  });
+          dispatch({
+            type: onMessage,
+            payload: {
+              data: restParsedData,
+              catalog: itemsCatalog,
+            },
+          });
         };
 
         socket.onclose = (event) => {

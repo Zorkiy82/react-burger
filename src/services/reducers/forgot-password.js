@@ -10,7 +10,10 @@ const forgotPasswordInitialState = {
   forgotPasswordFailed: false,
 };
 
-export const forgotPasswordReducer = (state = forgotPasswordInitialState, action) => {
+export const forgotPasswordReducer = (
+  state = forgotPasswordInitialState,
+  action
+) => {
   switch (action.type) {
     case POST_FORGOT_PASSWORD_REQUEST: {
       return {

@@ -38,7 +38,18 @@ export const wsReducer = (state = initialState, action) => {
       };
 
     case WS_GET_MESSAGE:
-      let newOrders = [...action.payload.data.orders];
+      let newOrders = [...action.payload.data.orders]
+        .sort((a, b) => {
+          if (b.updatedAt > a.updatedAt) {
+            return 1;
+          } else if (b.updatedAt < a.updatedAt) {
+            return -1;
+          } else {
+            return 0;
+          }
+        })
+        .filter((value, index) => index <= 49);
+
       const catalog = action.payload.catalog;
 
       newOrders = newOrders.map((value, index) => {

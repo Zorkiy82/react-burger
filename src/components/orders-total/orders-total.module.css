@@ -1,6 +1,5 @@
 .text {
-  color: #F2F2F3;
-  /* border: 1px solid red; */
+  color: #f2f2f3;
 }
 
 .textShadow {
@@ -9,24 +8,19 @@
 }
 
 .statusContainer {
-
   display: grid;
   grid-auto-flow: column;
-  grid-template-rows: repeat(10,auto);
+  grid-template-rows: repeat(10, auto);
   grid-auto-columns: min-content;
-
   gap: 8px 10px;
-
 }
 
-.twoColumns{
+.twoColumns {
   display: grid;
-  grid-template-columns: repeat(2,auto);
+  grid-template-columns: repeat(2, auto);
   gap: 36px;
 }
 
 .link {
   text-decoration: none;
-  /* color: #f2f2f3; */
 }
-

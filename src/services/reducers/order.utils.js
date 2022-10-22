@@ -25,7 +25,7 @@ function getSecondWord(diffOfDay) {
   if (diffOfDay >= 20 && diffOfDay <= 99) {
     resWord = getSecondWord(diffOfDay % 10);
   }
-  if (diffOfDay >= 100 ) {
+  if (diffOfDay >= 100) {
     resWord = getSecondWord(diffOfDay % 100);
   }
 
@@ -53,16 +53,17 @@ export function getReadableDate(orderDateStr) {
   resStr +=
     odTime + " i-" + odTimezone[0].slice(0, 4) + Number(odTimezone[0].slice(4));
 
-    return resStr;
+  return resStr;
 }
 
 export function getReceipt(ingredientsArray, ingredientsCatalog) {
   let resObj = {};
-  let newArr = [...ingredientsArray].filter(value=>value && ingredientsCatalog[value]);
+  let newArr = [...ingredientsArray].filter(
+    (value) => value && ingredientsCatalog[value]
+  );
 
   newArr.forEach((value, index) => {
     if (value) {
-
     }
     if (!resObj[value]) {
       resObj[value] = {

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Redirect, useHistory, useLocation } from "react-router-dom";
 import { checkAuth } from "../utils/utils";
@@ -15,10 +15,14 @@ export function ResetPasswordPage() {
   const isAuthorized = useSelector((state) => state.profile.isAuthorized);
   useEffect(() => {
     checkAuth(dispatch, isAuthorized);
-  }, [dispatch, isAuthorized]);
+  });
 
-  const forgotSuccess = useSelector((state) => state.forgotPassword.forgotPasswordData.success);
-  const resetSuccess = useSelector((state) => state.resetPassword.resetPasswordData.success);
+  const forgotSuccess = useSelector(
+    (state) => state.forgotPassword.forgotPasswordData.success
+  );
+  const resetSuccess = useSelector(
+    (state) => state.resetPassword.resetPasswordData.success
+  );
   const history = useHistory();
   const { pathname, state } = useLocation();
 
@@ -51,7 +55,6 @@ export function ResetPasswordPage() {
   if (resetSuccess) {
     return <Redirect to={"/login"} />;
   }
-
 
   return (
     <div className={styles.container}>

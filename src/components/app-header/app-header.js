@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { checkAuth } from "../../utils/utils";
 import { NavLink, Link, useLocation } from "react-router-dom";
@@ -15,7 +15,7 @@ function AppHeader() {
   const isAuthorized = useSelector((state) => state.profile.isAuthorized);
   useEffect(() => {
     checkAuth(dispatch, isAuthorized);
-  }, [dispatch, isAuthorized]);
+  });
 
   const { pathname } = useLocation();
   const { name } = useSelector((state) => state.profile.userData);
@@ -43,7 +43,7 @@ function AppHeader() {
           }}
         >
           <ListIcon
-            type={pathname === "/feed" ? "primary" : "secondary"}
+            type={pathname.includes("/feed") ? "primary" : "secondary"}
           />
           <p className="ml-2">Лента заказов</p>
         </NavLink>
