@@ -19,7 +19,7 @@ function getSecondWord(diffOfDay) {
   if (diffOfDay >= 2 && diffOfDay <= 4) {
     resWord = "дня";
   }
-  if ((diffOfDay >= 5 && diffOfDay <= 19) || diffOfDay <= 0) {
+  if ((diffOfDay >= 5 && diffOfDay <= 19) || diffOfDay === 0) {
     resWord = "дней";
   }
   if (diffOfDay >= 20 && diffOfDay <= 99) {

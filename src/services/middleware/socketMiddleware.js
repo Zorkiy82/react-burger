@@ -23,16 +23,22 @@ export const socketMiddleware = (wsUrl, wsActions) => {
       }
 
       if (type === wsInit) {
-        if (socket === null) {
-          socket = new WebSocket(`${wsUrl}${payload.add}`);
-        } else if (socket.readyState === 3 || socket.readyState === 2) {
+        if (
+          socket === null ||
+          socket.readyState === 3 ||
+          socket.readyState === 2
+        ) {
           socket = new WebSocket(`${wsUrl}${payload.add}`);
         }
       }
+
       if (socket) {
         socket.onopen = (event) => {
           dispatch({ type: onOpen, payload: event });
         };
+
+        // TODO Можно лучше: было бы круто переподключать сокет
+        // если он закрылся не по евенту и при необходимости обновить accessToken
 
         socket.onerror = (event) => {
           dispatch({ type: onError, payload: event });

@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { OrderReceipt } from "../components/order-receipt/order-receipt";
+import { OrderReceipt } from "../../components/order-receipt/order-receipt";
 
 export function OrderReceiptPage() {
   const { orders } = useSelector((state) => state.ws.message);

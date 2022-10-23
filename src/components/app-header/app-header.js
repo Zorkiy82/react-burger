@@ -43,7 +43,11 @@ function AppHeader() {
           }}
         >
           <ListIcon
-            type={pathname.includes("/feed") ? "primary" : "secondary"}
+            type={
+              pathname.includes("/feed/") || pathname.endsWith("/feed")
+                ? "primary"
+                : "secondary"
+            }
           />
           <p className="ml-2">Лента заказов</p>
         </NavLink>

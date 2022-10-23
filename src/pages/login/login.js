@@ -1,15 +1,16 @@
 import { useEffect } from "react";
+import { checkAuth } from "../../utils/utils";
 import { useDispatch, useSelector } from "react-redux";
-import { checkAuth } from "../utils/utils";
 import { Link, Redirect, useHistory, useLocation } from "react-router-dom";
 import {
   Button,
   EmailInput,
+  PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import styles from "./forgot-password.module.css";
-import { postForgotPasswordData } from "../services/actions/forgot-password";
+import { postLoginData } from "../../services/actions/login";
+import styles from "./login.module.css";
 
-export function ForgotPasswordPage() {
+export function LoginPage() {
   const dispatch = useDispatch();
   const isAuthorized = useSelector((state) => state.profile.isAuthorized);
   useEffect(() => {
@@ -34,7 +35,7 @@ export function ForgotPasswordPage() {
 
   function handleSubmit(evt) {
     evt.preventDefault();
-    dispatch(postForgotPasswordData(history, pathname));
+    dispatch(postLoginData(history, pathname));
   }
 
   if (isAuthorized) {
@@ -43,10 +44,10 @@ export function ForgotPasswordPage() {
 
   return (
     <div className={styles.container}>
-      <p className="text text_type_main-medium mb-6">Восстановление пароля</p>
+      <p className="text text_type_main-medium mb-6">Вход</p>
 
       <form
-        name="forgotPasswordForm"
+        name="registerForm"
         className={styles.form}
         onSubmit={handleSubmit}
         method="POST"
@@ -55,19 +56,32 @@ export function ForgotPasswordPage() {
           onChange={handleOnChange}
           name={"email"}
           value={state && state.email ? state.email : ""}
-          placeholder={"Укажите E-mail"}
           size={"default"}
         />
 
+        <PasswordInput
+          onChange={handleOnChange}
+          name={"password"}
+          value={state && state.password ? state.password : ""}
+          size={"default"}
+          required
+        />
+
         <Button type="primary" size="medium" htmlType="submit">
-          Восстановить
+          Войти
         </Button>
       </form>
 
       <p className="text text_type_main-default text_color_inactive mt-20">
-        Вспомнили пароль?{" "}
-        <Link className={styles.link} to="/login">
-          Войти
+        Вы — новый пользователь?{" "}
+        <Link className={styles.link} to="/register">
+          Зарегистрироваться
+        </Link>
+      </p>
+      <p className="text text_type_main-default text_color_inactive mt-4">
+        Забыли пароль?{" "}
+        <Link className={styles.link} to="/forgot-password">
+          Восстановить пароль
         </Link>
       </p>
     </div>

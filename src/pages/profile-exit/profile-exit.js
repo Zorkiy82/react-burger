@@ -1,13 +1,13 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { getCookie, deleteCookie } from "../utils/utils";
-import { checkAuth } from "../utils/utils";
+import { getCookie, deleteCookie } from "../../utils/utils";
+import { checkAuth } from "../../utils/utils";
 
 import styles from "./profile-exit.module.css";
 import { Redirect } from "react-router-dom";
-import { RESET_USER_DATA } from "../services/actions/profile";
-import { logoutRequest } from "../utils/burger-api";
+import { RESET_USER_DATA } from "../../services/actions/profile";
+import { logoutRequest } from "../../utils/burger-api";
 
 export function ProfileExitPage() {
   const dispatch = useDispatch();

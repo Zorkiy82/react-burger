@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { IngredientDetails } from "../components/ingredient-details/ingredient-details";
+import { IngredientDetails } from "../../components/ingredient-details/ingredient-details";
 
 export function IngredientPage() {
   const { items } = useSelector((state) => state.ingredients);

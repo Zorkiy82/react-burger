@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import styles from "./feed-main.module.css";
-import { OrderFeed } from "../components/order-feed/order-feed";
-import { OrdersTotal } from "../components/orders-total/orders-total";
+import { OrderFeed } from "../../components/order-feed/order-feed";
+import { OrdersTotal } from "../../components/orders-total/orders-total";
 
 export function FeedMainPage() {
   const connect = useSelector((store) => store.ws.wsConnected);

@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory, useLocation } from "react-router-dom";
-import { checkAuth } from "../utils/utils";
+import { checkAuth } from "../../utils/utils";
 
 import {
   Input,
@@ -11,8 +11,8 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from "./profile-edit.module.css";
-import { getCookie } from "../utils/utils";
-import { getUserData, patchUserData } from "../services/actions/profile";
+import { getCookie } from "../../utils/utils";
+import { getUserData, patchUserData } from "../../services/actions/profile";
 
 export function ProfileEditPage() {
   const dispatch = useDispatch();

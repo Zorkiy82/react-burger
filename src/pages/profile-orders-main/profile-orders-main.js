@@ -1,4 +1,4 @@
-import { OrderFeed } from "../components/order-feed/order-feed";
+import { OrderFeed } from "../../components/order-feed/order-feed";
 
 export function ProfileOrdersMainPage() {
   return (

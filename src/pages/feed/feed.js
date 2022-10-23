@@ -1,13 +1,13 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Switch, Route } from "react-router-dom";
-import { FeedMainPage } from "./feed-main";
-import { OrderReceiptPage } from "./order-receipt";
+import { FeedMainPage } from "../feed-main/feed-main";
+import { OrderReceiptPage } from "../order-receipt/order-receipt";
 
 import {
   WS_CONNECTION_START,
   WS_CONNECTION_FINISH,
-} from "../services/actions/wsActions";
+} from "../../services/actions/wsActions";
 
 export function FeedPage() {
   const dispatch = useDispatch();

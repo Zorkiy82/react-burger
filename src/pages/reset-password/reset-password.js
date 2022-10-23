@@ -1,23 +1,28 @@
 import { useEffect } from "react";
-import { checkAuth } from "../utils/utils";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Redirect, useHistory, useLocation } from "react-router-dom";
+import { checkAuth } from "../../utils/utils";
 import {
   Input,
   Button,
-  EmailInput,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import styles from "./register.module.css";
-import { postRegisterData } from "../services/actions/register";
+import styles from "./reset-password.module.css";
+import { postResetPasswordData } from "../../services/actions/reset-password";
 
-export function RegisterPage() {
+export function ResetPasswordPage() {
   const dispatch = useDispatch();
   const isAuthorized = useSelector((state) => state.profile.isAuthorized);
   useEffect(() => {
     checkAuth(dispatch, isAuthorized);
   });
 
+  const forgotSuccess = useSelector(
+    (state) => state.forgotPassword.forgotPasswordData.success
+  );
+  const resetSuccess = useSelector(
+    (state) => state.resetPassword.resetPasswordData.success
+  );
   const history = useHistory();
   const { pathname, state } = useLocation();
 
@@ -36,40 +41,31 @@ export function RegisterPage() {
 
   function handleSubmit(evt) {
     evt.preventDefault();
-    dispatch(postRegisterData(history, pathname));
+    dispatch(postResetPasswordData(history, pathname));
   }
 
   if (isAuthorized) {
     return <Redirect to={state?.from || "/"} />;
   }
 
+  if (!forgotSuccess) {
+    return <Redirect to={"/forgot-password"} />;
+  }
+
+  if (resetSuccess) {
+    return <Redirect to={"/login"} />;
+  }
+
   return (
     <div className={styles.container}>
-      <p className="text text_type_main-medium mb-6">Регистрация</p>
+      <p className="text text_type_main-medium mb-6">Восстановление пароля</p>
 
       <form
-        name="registerForm"
+        name="resetPasswordForm"
         className={styles.form}
         onSubmit={handleSubmit}
         method="POST"
       >
-        <Input
-          type={"text"}
-          placeholder={"Имя"}
-          onChange={handleOnChange}
-          name={"name"}
-          error={false}
-          value={state && state.name ? state.name : ""}
-          size={"default"}
-        />
-
-        <EmailInput
-          onChange={handleOnChange}
-          name={"email"}
-          value={state && state.email ? state.email : ""}
-          size={"default"}
-        />
-
         <PasswordInput
           onChange={handleOnChange}
           name={"password"}
@@ -78,14 +74,24 @@ export function RegisterPage() {
           required
         />
 
+        <Input
+          type={"text"}
+          placeholder={"Введите код из письма"}
+          name={"token"}
+          value={state && state.token ? state.token : ""}
+          error={false}
+          size={"default"}
+          onChange={handleOnChange}
+        />
+
         <Button type="primary" size="medium" htmlType="submit">
-          Зарегистрироваться
+          Сохранить
         </Button>
       </form>
 
       <p className="text text_type_main-default text_color_inactive mt-20">
-        Уже зарегистрированы?{" "}
-        <Link className={styles.link} to="/login">
+        Вспомнили пароль?{" "}
+        <Link className={styles.link} href="/login">
           Войти
         </Link>
       </p>

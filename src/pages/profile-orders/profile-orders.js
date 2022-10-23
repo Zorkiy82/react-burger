@@ -1,15 +1,15 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Route } from "react-router-dom";
-import { getCookie } from "../utils/utils";
-import { ProfileOrdersMainPage } from "./profile-orders-main";
-import { OrderReceiptPage } from "./order-receipt";
+import { getCookie } from "../../utils/utils";
+import { ProfileOrdersMainPage } from "../profile-orders-main/profile-orders-main";
+import { OrderReceiptPage } from "../order-receipt/order-receipt";
 import {
   WS_CONNECTION_START,
   WS_CONNECTION_FINISH,
-} from "../services/actions/wsActions";
+} from "../../services/actions/wsActions";
 
-import { checkAuth } from "../utils/utils";
+import { checkAuth } from "../../utils/utils";
 
 export function ProfileОrdersPage() {
   const dispatch = useDispatch();

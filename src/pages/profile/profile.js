@@ -2,11 +2,11 @@ import { useMemo, useEffect } from "react";
 import { NavLink, Switch, Route, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./profile.module.css";
-import { ProfileEditPage } from "./profile-edit";
-import { ProfileОrdersPage } from "./profile-orders";
-import { ProfileExitPage } from "./profile-exit";
-import { ProtectedRoute } from "../components/protected-route/protected-route";
-import { checkAuth } from "../utils/utils";
+import { ProfileEditPage } from "../profile-edit/profile-edit";
+import { ProfileОrdersPage } from "../profile-orders/profile-orders";
+import { ProfileExitPage } from "../profile-exit/profile-exit";
+import { ProtectedRoute } from "../../components/protected-route/protected-route";
+import { checkAuth } from "../../utils/utils";
 
 export function ProfilePage() {
   const dispatch = useDispatch();
