@@ -1,5 +1,14 @@
 import { ApiUrl } from "./constants.js";
 
+// TODO Можно сделать универсальную функцию запроса с проверкой ответа,
+// чтобы не дублировать эту проверку в каждом запросе:
+
+// function request(url, options) {
+//   // принимает два аргумента: урл и объект опций
+//   return fetch(url, options).then(checkResponse)
+// }
+// И теперь просто нужно заменить все fetch на request. Все остальное будет без изменений. Код станет чище
+
 function checkReponse(res) {
   if (res.ok) {
     return res.json();
