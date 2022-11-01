@@ -15,7 +15,7 @@ import {
 function ConstructorCard(props) {
   const dispatch = useDispatch();
 
-  const [, dragRef] = useDrag({
+  const [{ isDrag }, dragRef] = useDrag({
     type: "ingredient",
     item: {
       data: {},
@@ -23,6 +23,9 @@ function ConstructorCard(props) {
       ingredientType: props.ingredientType,
       dragIndex: props.index,
     },
+    collect: (monitor) => ({
+      isDrag: monitor.isDragging(),
+    }),
   });
 
   const [{ isHover, dragItem }, dropRef] = useDrop({
@@ -63,26 +66,32 @@ function ConstructorCard(props) {
   }
 
   return (
-    <li
-      ref={dropRef}
-      className={`${styles.resetLi} ${
-        props.index === "top" ? "pb-4" : props.index !== 0 ? "pt-4" : ""
-      }`}
-      style={dropPadding}
-    >
-      <div
-        className={`${styles.card} ${!props.isLocked ? "mr-2" : "mr-4"}`}
-        ref={dragRef}
-      >
-        {!props.isLocked ? (
-          <DragIcon type="primary" />
-        ) : (
-          <div className={styles.spacer} />
-        )}
-
-        <ConstructorElement {...props} handleClose={deleteConstructorElement} />
-      </div>
-    </li>
+    <>
+      {!isDrag && (
+        <li
+          ref={dropRef}
+          className={`${styles.resetLi} ${
+            props.index === "top" ? "pb-4" : props.index !== 0 ? "pt-4" : ""
+          }`}
+          style={dropPadding}
+        >
+          <div
+            className={`${styles.card} ${!props.isLocked ? "mr-2" : "mr-4"}`}
+            ref={dragRef}
+          >
+            {!props.isLocked ? (
+              <DragIcon type="primary" />
+            ) : (
+              <div className={styles.spacer} />
+            )}
+            <ConstructorElement
+              {...props}
+              handleClose={deleteConstructorElement}
+            />
+          </div>
+        </li>
+      )}
+    </>
   );
 }
 
