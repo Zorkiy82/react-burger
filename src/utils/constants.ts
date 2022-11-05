@@ -1,5 +1,5 @@
-import PropTypes from "prop-types";
 import plus from "../images/plus-circle-o.svg";
+import { TBurgerConstructorState } from "../services/reducers/constructor";
 
 const oneSecond: number = 1;
 const oneMinute = oneSecond * 60;
@@ -11,33 +11,28 @@ export const msInDay = oneDay * 1000;
 const accessTokenLifetime = oneMinute * 19;
 const refreshTokenLifetime = oneDay;
 
-const defaultConstructorItems = {
+const defaultConstructorItems: TBurgerConstructorState = {
   bun: {
     name: "Пожалуйста, перенесите сюда булку и ингредиенты для создания заказа",
     price: null,
     image_mobile: plus,
+    _id: '',
+    fat: 0,
+    proteins: 0,
+    type: 'bun',
+    carbohydrates: 0,
+    __v: 0,
+    calories: 0,
+    image: '',
+    image_large: ''
   },
   main: [],
 };
 
-const IngredientPropTypes = PropTypes.shape({
-  _id: PropTypes.string,
-  name: PropTypes.string,
-  type: PropTypes.string,
-  proteins: PropTypes.number,
-  fat: PropTypes.number,
-  carbohydrates: PropTypes.number,
-  calories: PropTypes.number,
-  price: PropTypes.number,
-  image: PropTypes.string,
-  image_mobile: PropTypes.string,
-  image_large: PropTypes.string,
-  __v: PropTypes.number,
-});
 
 const ApiUrl = "https://norma.nomoreparties.space/api";
 
-const ModalRoot:any = document.getElementById("react-modals");
+const ModalRoot: any = document.getElementById("react-modals");
 
 const defaultOrderState = {
   name: "",
@@ -48,7 +43,6 @@ const defaultOrderState = {
 };
 
 export {
-  IngredientPropTypes,
   ApiUrl,
   ModalRoot,
   defaultConstructorItems,

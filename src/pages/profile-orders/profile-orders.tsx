@@ -1,5 +1,5 @@
 import { FC, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../services/hooks";
 import { Route } from "react-router-dom";
 import { getCookie } from "../../utils/utils";
 import { ProfileOrdersMainPage } from "../profile-orders-main/profile-orders-main";
@@ -13,7 +13,7 @@ import { checkAuth } from "../../utils/utils";
 
 export const ProfileОrdersPage: FC = () => {
   const dispatch = useDispatch();
-  const isAuthorized = useSelector((state: any) => state.profile.isAuthorized);
+  const isAuthorized = useSelector((state) => state.profile.isAuthorized);
   useEffect(() => {
     checkAuth(dispatch, isAuthorized);
   });

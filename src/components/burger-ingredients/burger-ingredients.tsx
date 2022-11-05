@@ -1,15 +1,15 @@
 import React, { useRef, useMemo, UIEvent } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "../../services/hooks";
 import { TabBar } from "../tab-bar/tab-bar";
 import { CardList } from "../card-list/card-list";
 import styles from "./burger-ingredients.module.css";
 import { UPDATE_TAB_BAR_CURRENT } from "../../services/constants/index";
 
 function BurgerIngredients() {
-  const dispatch: any = useDispatch();
+  const dispatch = useDispatch();
   let templateCurrent = "";
 
-  const { items } = useSelector((state: any) => state.ingredients);
+  const { items } = useSelector((state) => state.ingredients);
 
   const baseRef: any = useRef();
   const idOneRef: any = useRef();

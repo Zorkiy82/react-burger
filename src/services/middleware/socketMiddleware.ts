@@ -1,8 +1,8 @@
-export const socketMiddleware = (wsUrl:string, wsActions:any) => {
-  return (store:any) => {
-    let socket:any = null;
+export const socketMiddleware = (wsUrl: string, wsActions: any) => {
+  return (store: any) => {
+    let socket: any = null;
 
-    return (next:any) => (action:any) => {
+    return (next: any) => (action: any) => {
       const { dispatch, getState } = store;
       const { itemsCatalog } = getState().ingredients;
       const { type, payload } = action;

@@ -11,18 +11,18 @@ import { FeedPage } from "../../pages/feed/feed";
 import { OrderReceiptPage } from "../../pages/order-receipt/order-receipt";
 import { IngredientPage } from "../../pages/ingredient/ingredient";
 import { NotFound404Page } from "../../pages/not-found-404/not-found-404";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "../../services/hooks";
 import { AppHeader } from "../app-header/app-header";
 import { Modal } from "../modal/modal";
 import { ErrorDetails } from "../error-details/error-details";
 import { OrderDetails } from "../order-details/order-details";
-import { getIngredientsData } from "../../services/actions/app.js";
+import { getIngredientsData } from "../../services/actions/app/app";
 import { RESET_MODAL_DATA } from "../../services/constants";
 import styles from "./styles.module.css";
 
 const App = () => {
-  const dispatch: any = useDispatch();
-  const isAuthorized = useSelector((state: any) => state.profile.isAuthorized);
+  const dispatch = useDispatch();
+  const isAuthorized = useSelector((state) => state.profile.isAuthorized);
   useEffect(() => {
     checkAuth(dispatch, isAuthorized);
   });
@@ -31,13 +31,13 @@ const App = () => {
   const history = useHistory();
   const background: any = location.state && location.state.background;
 
-  const { itemsRequest } = useSelector((state: any) => state.ingredients);
+  const { itemsRequest } = useSelector((state) => state.ingredients);
 
   const { modalIsVisible, modalType, errorData } = useSelector(
     (state: any) => state.modal
   );
 
-  const { orderData } = useSelector((state: any) => state.orderElement);
+  const { orderData } = useSelector((state) => state.orderElement);
 
   useEffect(() => {
     if (itemsRequest) {

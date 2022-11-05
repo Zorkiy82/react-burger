@@ -3,13 +3,13 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { OrderReceipt } from "../../components/order-receipt/order-receipt";
 
-export const OrderReceiptPage:FC = () => {
-  const { orders } = useSelector((state:any) => state.ws.message);
+export const OrderReceiptPage: FC = () => {
+  const { orders } = useSelector((state: any) => state.ws.message);
   const { id } = useParams<any>();
   const isOrder = useMemo(() => {
     let res = false;
     if (orders) {
-      res = orders.some((order:any) => order._id === id);
+      res = orders.some((order: any) => order._id === id);
     }
     return res;
   }, [id, orders]);

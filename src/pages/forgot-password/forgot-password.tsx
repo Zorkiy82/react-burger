@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../services/hooks";
 import { checkAuth } from "../../utils/utils";
 import { Link, Redirect, useHistory, useLocation } from "react-router-dom";
 import {
@@ -10,8 +10,8 @@ import styles from "./forgot-password.module.css";
 import { postForgotPasswordData } from "../../services/actions/forgot-password";
 
 export function ForgotPasswordPage() {
-  const dispatch:any = useDispatch();
-  const isAuthorized = useSelector((state:any) => state.profile.isAuthorized);
+  const dispatch = useDispatch();
+  const isAuthorized = useSelector((state) => state.profile.isAuthorized);
   useEffect(() => {
     checkAuth(dispatch, isAuthorized);
   });
@@ -19,7 +19,7 @@ export function ForgotPasswordPage() {
   const history = useHistory();
   const { pathname, state } = useLocation<any>();
 
-  function handleOnChange(evt:any) {
+  function handleOnChange(evt: any) {
     const key = evt.target.name;
     const value = evt.target.value;
 
@@ -32,7 +32,7 @@ export function ForgotPasswordPage() {
     });
   }
 
-  function handleSubmit(evt:any) {
+  function handleSubmit(evt: any) {
     evt.preventDefault();
     dispatch(postForgotPasswordData(history, pathname));
   }

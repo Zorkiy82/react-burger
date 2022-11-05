@@ -1,5 +1,5 @@
 import { FC, FormEvent, useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../services/hooks";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import { checkAuth } from "../../utils/utils";
 
@@ -14,18 +14,18 @@ import styles from "./profile-edit.module.css";
 import { getCookie } from "../../utils/utils";
 import { getUserData, patchUserData } from "../../services/actions/profile";
 
-export const ProfileEditPage:FC = () => {
-  const dispatch:any  = useDispatch();
-  const isAuthorized = useSelector((state:any) => state.profile.isAuthorized);
+export const ProfileEditPage: FC = () => {
+  const dispatch = useDispatch();
+  const isAuthorized = useSelector((state) => state.profile.isAuthorized);
   useEffect(() => {
     checkAuth(dispatch, isAuthorized);
   });
-  const history:any = useHistory();
+  const history: any = useHistory();
   const { pathname, state } = useLocation<any>();
-  const { name, email } = useSelector((storege:any) => storege.profile.userData);
+  const { name, email } = useSelector((storege: any) => storege.profile.userData);
   const fetchRan = useRef(false);
 
-  function handleOnChange(evt:any) {
+  function handleOnChange(evt: any) {
     const key = evt.target.name;
     const value = evt.target.value;
 
@@ -64,7 +64,7 @@ export const ProfileEditPage:FC = () => {
     };
   }, [history, pathname, state]);
 
-  function handleSubmit(evt:FormEvent) {
+  function handleSubmit(evt: FormEvent) {
     evt.preventDefault();
 
     checkAuth(dispatch, isAuthorized);

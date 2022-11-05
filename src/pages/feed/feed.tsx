@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../../services/hooks";
 import { Switch, Route } from "react-router-dom";
 import { FeedMainPage } from "../feed-main/feed-main";
 import { OrderReceiptPage } from "../order-receipt/order-receipt";

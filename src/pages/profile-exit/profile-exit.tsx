@@ -1,5 +1,5 @@
 import { FC, FormEvent, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../services/hooks";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { getCookie, deleteCookie } from "../../utils/utils";
 import { checkAuth } from "../../utils/utils";
@@ -11,7 +11,7 @@ import { logoutRequest } from "../../utils/burger-api";
 
 export const ProfileExitPage: FC = () => {
   const dispatch = useDispatch();
-  const isAuthorized = useSelector((state: any) => state.profile.isAuthorized);
+  const isAuthorized = useSelector((state) => state.profile.isAuthorized);
   useEffect(() => {
     checkAuth(dispatch, isAuthorized);
   });

@@ -1,16 +1,16 @@
 import { FC, useMemo } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../../services/hooks";
 import { useDrag, useDrop } from "react-dnd";
 import styles from "./constructor-card.module.css";
 import {
   ConstructorElement,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { handleDropAction } from "../../services/actions/app";
+import { handleDropAction } from "../../services/actions/app/app";
 import { DELETE_CONSTRUCTOR_LIST_ITEM_MAIN } from "../../services/constants";
 
 const ConstructorCard: FC<any> = (props) => {
-  const dispatch: any = useDispatch();
+  const dispatch = useDispatch();
 
   const [{ isDrag }, dragRef] = useDrag({
     type: "ingredient",

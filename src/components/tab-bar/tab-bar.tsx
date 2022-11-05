@@ -1,4 +1,4 @@
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "../../services/hooks";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./tab-bar.module.css";
 import { SET_TAB_BAR_CURRENT } from "../../services/constants/index";
@@ -7,7 +7,7 @@ import { FC } from "react";
 const TabBar: FC = () => {
   const dispatch = useDispatch();
 
-  const { current } = useSelector((state: any) => state.tabBar);
+  const { current } = useSelector((state) => state.tabBar);
 
   function handlerOnClick(value: string) {
     document.querySelector(`#${value}`)?.scrollIntoView({ behavior: "smooth" });

@@ -1,6 +1,6 @@
 import { FC, FormEvent, useEffect } from "react";
 import { checkAuth } from "../../utils/utils";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../services/hooks";
 import { Link, Redirect, useHistory, useLocation } from "react-router-dom";
 import {
   Input,
@@ -11,9 +11,9 @@ import {
 import styles from "./register.module.css";
 import { postRegisterData } from "../../services/actions/register";
 
-export const RegisterPage:FC = () => {
-  const dispatch:any = useDispatch();
-  const isAuthorized = useSelector((state:any) => state.profile.isAuthorized);
+export const RegisterPage: FC = () => {
+  const dispatch = useDispatch();
+  const isAuthorized = useSelector((state) => state.profile.isAuthorized);
   useEffect(() => {
     checkAuth(dispatch, isAuthorized);
   });
@@ -21,7 +21,7 @@ export const RegisterPage:FC = () => {
   const history = useHistory();
   const { pathname, state } = useLocation<any>();
 
-  function handleOnChange(evt:any) {
+  function handleOnChange(evt: any) {
     const key = evt.target.name;
     const value = evt.target.value;
 

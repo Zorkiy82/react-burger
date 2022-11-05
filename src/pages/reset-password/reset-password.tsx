@@ -1,5 +1,5 @@
 import { FC, FormEvent, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../services/hooks";
 import { Link, Redirect, useHistory, useLocation } from "react-router-dom";
 import { checkAuth } from "../../utils/utils";
 import {
@@ -11,22 +11,22 @@ import styles from "./reset-password.module.css";
 import { postResetPasswordData } from "../../services/actions/reset-password";
 
 export const ResetPasswordPage: FC = () => {
-  const dispatch:any = useDispatch();
-  const isAuthorized = useSelector((state: any) => state.profile.isAuthorized);
+  const dispatch = useDispatch();
+  const isAuthorized = useSelector((state) => state.profile.isAuthorized);
   useEffect(() => {
     checkAuth(dispatch, isAuthorized);
   });
 
   const forgotSuccess = useSelector(
-    (state:any) => state.forgotPassword.forgotPasswordData.success
+    (state: any) => state.forgotPassword.forgotPasswordData.success
   );
   const resetSuccess = useSelector(
-    (state:any) => state.resetPassword.resetPasswordData.success
+    (state: any) => state.resetPassword.resetPasswordData.success
   );
   const history = useHistory();
   const { pathname, state } = useLocation<any>();
 
-  function handleOnChange(evt:any) {
+  function handleOnChange(evt: any) {
     const key = evt.target.name;
     const value = evt.target.value;
 
@@ -39,7 +39,7 @@ export const ResetPasswordPage: FC = () => {
     });
   }
 
-  function handleSubmit(evt:FormEvent) {
+  function handleSubmit(evt: FormEvent) {
     evt.preventDefault();
     dispatch(postResetPasswordData(history, pathname));
   }

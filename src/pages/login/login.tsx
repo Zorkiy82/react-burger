@@ -1,6 +1,6 @@
 import { FormEvent, useEffect } from "react";
 import { checkAuth } from "../../utils/utils";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "../../services/hooks";
 import { Link, Redirect, useHistory, useLocation } from "react-router-dom";
 import {
   Button,
@@ -11,16 +11,16 @@ import { postLoginData } from "../../services/actions/login";
 import styles from "./login.module.css";
 
 export const LoginPage = () => {
-  const dispatch:any = useDispatch();
-  const isAuthorized = useSelector((state:any) => state.profile.isAuthorized);
+  const dispatch = useDispatch();
+  const isAuthorized = useSelector((state) => state.profile.isAuthorized);
   useEffect(() => {
     checkAuth(dispatch, isAuthorized);
   });
 
-  const history:any = useHistory();
+  const history: any = useHistory();
   const { pathname, state } = useLocation<any>();
 
-  function handleOnChange(evt:any) {
+  function handleOnChange(evt: any) {
     const key = evt.target.name;
     const value = evt.target.value;
 
@@ -50,7 +50,7 @@ export const LoginPage = () => {
 
   // И Вам не нужно будет теперь вручную создавать функции обработки инпутов и т д.
   // Все будет в одной строчке кода:
-    // const {values, handleChange, setValues} = useForm({});
+  // const {values, handleChange, setValues} = useForm({});
 
   function handleSubmit(evt: FormEvent) {
     evt.preventDefault();

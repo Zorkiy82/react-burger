@@ -1,7 +1,7 @@
 import React, { useMemo, useEffect } from "react";
 import { getCookie } from "../../utils/utils";
 import { useHistory } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "../../services/hooks";
 import { checkAuth } from "../../utils/utils";
 import { useDrop } from "react-dnd";
 import styles from "./burger-constructor.module.css";
@@ -11,20 +11,20 @@ import {
   CurrencyIcon,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { postOrderData } from "../../services/actions/app.js";
+import { postOrderData } from "../../services/actions/app/app";
 import { GET_CONSTRUCTOR_LIST_RANDOM } from "../../services/constants";
 import { getFormattedNumber } from "../../services/reducers/order.utils";
 
 function BurgerConstructor() {
-  const dispatch: any = useDispatch();
-  const isAuthorized = useSelector((state: any) => state.profile.isAuthorized);
-  const { orderDataRequest } = useSelector((state: any) => state.orderElement);
+  const dispatch = useDispatch();
+  const isAuthorized = useSelector((state) => state.profile.isAuthorized);
+  const { orderDataRequest } = useSelector((state) => state.orderElement);
   useEffect(() => {
     checkAuth(dispatch, isAuthorized);
   });
   const history = useHistory();
-  const { bun, main } = useSelector((store: any) => store.burgerConstructor);
-  const { items } = useSelector((state: any) => state.ingredients);
+  const { bun, main } = useSelector((store) => store.burgerConstructor);
+  const { items } = useSelector((state) => state.ingredients);
 
   const [{ isHover }, dropTarget] = useDrop({
     accept: "ingredient",
@@ -34,7 +34,8 @@ function BurgerConstructor() {
   });
 
   const totalPrice = useMemo(
-    () => main.reduce((summ: number, item: any) => summ + item.price, 0) + bun.price * 2,
+    () => main.reduce((summ, item) => item.price !== null ? summ + item.price : summ
+      , 0) + ((bun.price !== null) ? (bun.price * 2) : 0),
     [main, bun]
   );
 
@@ -43,7 +44,7 @@ function BurgerConstructor() {
 
     if (getCookie("accessToken")) {
       const ingridientsIdArray = [bun._id, bun._id];
-      main.forEach((item: any) => ingridientsIdArray.push(item._id));
+      main.forEach((item) => ingridientsIdArray.push(item._id));
       dispatch(postOrderData(ingridientsIdArray, getCookie("accessToken")));
     } else {
       history.replace({

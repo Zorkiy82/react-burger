@@ -1,7 +1,7 @@
 import { FC, useMemo } from "react";
 import { useDrag } from "react-dnd";
 import { Link, useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector } from "../../services/hooks";
 import { v4 as uuidv4 } from "uuid";
 import styles from "./ingredient-card.module.css";
 import {
@@ -12,7 +12,7 @@ import { getFormattedNumber } from "../../services/reducers/order.utils.js";
 
 const IngredientCard: FC<any> = (props) => {
   const location = useLocation();
-  const { bun, main } = useSelector((store:any) => store.burgerConstructor);
+  const { bun, main } = useSelector((store) => store.burgerConstructor);
   const [, dragRef] = useDrag({
     type: "ingredient",
     item: {
@@ -28,10 +28,10 @@ const IngredientCard: FC<any> = (props) => {
 
   const counter = useMemo(() => {
     const ingridientsIdArray = [bun._id, bun._id];
-    main.forEach((item:any) => ingridientsIdArray.push(item._id));
-    const countObject:any = {};
+    main.forEach((item: any) => ingridientsIdArray.push(item._id));
+    const countObject: any = {};
     ingridientsIdArray.forEach(
-      (item:string) =>
+      (item: string) =>
         (countObject[item] = countObject[item] ? ++countObject[item] : 1)
     );
     return countObject[props._id];

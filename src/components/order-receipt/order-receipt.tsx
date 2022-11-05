@@ -5,10 +5,10 @@ import styles from "./order-receipt.module.css";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
 export const OrderReceipt = () => {
-  const { orders } = useSelector((state:any) => state.ws.message);
+  const { orders } = useSelector((state: any) => state.ws.message);
   const { id } = useParams<any>();
   const orderData = useMemo(() => {
-    const res = orders.filter((order:any) => order._id === id)[0];
+    const res = orders.filter((order: any) => order._id === id)[0];
     return res;
   }, [id, orders]);
 
@@ -28,7 +28,7 @@ export const OrderReceipt = () => {
 
       <p className="text text_type_main-medium mt-15">{`Состав:`}</p>
       <div className={`${styles.scrollbarContainer} mt-6`}>
-        {orderData.receipt.items.map((item:any) => {
+        {orderData.receipt.items.map((item: any) => {
           const inlineStyle = {
             backgroundImage: `url(${item.image_mobile})`,
           };

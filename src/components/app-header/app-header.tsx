@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "../../services/hooks";
 import { checkAuth } from "../../utils/utils";
 import { NavLink, Link, useLocation } from "react-router-dom";
 import styles from "./app-header.module.css";
@@ -12,13 +12,13 @@ import {
 
 function AppHeader() {
   const dispatch = useDispatch();
-  const isAuthorized = useSelector((state: any) => state.profile.isAuthorized);
+  const isAuthorized = useSelector((state) => state.profile.isAuthorized);
   useEffect(() => {
     checkAuth(dispatch, isAuthorized);
   });
 
   const { pathname } = useLocation();
-  const { name } = useSelector((state: any) => state.profile.userData);
+  const { name } = useSelector((state) => state.profile.userData);
 
   return (
     <header className={`pb-4 pt-4 ${styles.header}`}>

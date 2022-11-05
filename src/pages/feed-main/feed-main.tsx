@@ -4,7 +4,7 @@ import { OrderFeed } from "../../components/order-feed/order-feed";
 import { OrdersTotal } from "../../components/orders-total/orders-total";
 
 export function FeedMainPage() {
-  const connect = useSelector((store:any) => store.ws.wsConnected);
+  const connect = useSelector((store: any) => store.ws.wsConnected);
   return (
     <div className={styles.container}>
       <p className="text text_type_main-large mb-5">Лента заказов</p>

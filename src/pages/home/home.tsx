@@ -7,7 +7,7 @@ import styles from "./home.module.css";
 
 export function HomePage() {
   const { itemsRequest, itemsFailed } = useSelector(
-    (state:any) => state.ingredients
+    (state: any) => state.ingredients
   );
   return (
     <>

@@ -5,7 +5,7 @@ import styles from "./ingredients-list.module.css";
 const IngredientsList: FC<any> = (props) => {
   return (
     <ul className={styles.list}>
-      {props.main.map((item:any, index: number) => (
+      {props.main.map((item: any, index: number) => (
         <ConstructorCard
           key={item.uuid}
           text={item.name}
