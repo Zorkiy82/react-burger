@@ -1,11 +1,13 @@
-import { SET_MODAL_DATA } from "./app";
+import {
+  SET_MODAL_DATA,
+  SET_USER_DATA,
+  SET_AUTORIZATION_DATA,
+  POST_REGISTER_REQUEST,
+  POST_REGISTER_SUCCESS,
+  POST_REGISTER_FAILED,
+} from "../constants/index";
 import { setToken } from "../../utils/utils";
 import { postRegister } from "../../utils/burger-api";
-import { SET_USER_DATA, SET_AUTORIZATION_DATA } from "./profile";
-
-export const POST_REGISTER_REQUEST = "POST_REGISTER_REQUEST";
-export const POST_REGISTER_SUCCESS = "POST_REGISTER_SUCCESS";
-export const POST_REGISTER_FAILED = "POST_REGISTER_FAILED";
 
 export function postRegisterData(history, pathname) {
   return function (dispatch) {

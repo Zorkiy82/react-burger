@@ -2,7 +2,7 @@ import {
   POST_FORGOT_PASSWORD_REQUEST,
   POST_FORGOT_PASSWORD_SUCCESS,
   POST_FORGOT_PASSWORD_FAILED,
-} from "../actions/forgot-password";
+} from "../constants/index";
 
 const forgotPasswordInitialState = {
   forgotPasswordData: {},

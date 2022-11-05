@@ -1,5 +1,5 @@
 import { accessTokenLifetime, refreshTokenLifetime } from "./constants";
-import { SET_AUTORIZATION_DATA } from "../services/actions/profile";
+import { SET_AUTORIZATION_DATA } from "../services/constants/index";
 import { postTokenData } from "../services/actions/token";
 
 export function getCookie(name: string): string | undefined {

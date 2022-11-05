@@ -2,7 +2,7 @@ import {
   POST_TOKEN_REQUEST,
   POST_TOKEN_SUCCESS,
   POST_TOKEN_FAILED,
-} from "../actions/token";
+} from "../constants/index";
 
 const tokenInitialState = {
   tokenData: {},

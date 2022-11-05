@@ -2,7 +2,7 @@ import {
   POST_LOGIN_REQUEST,
   POST_LOGIN_SUCCESS,
   POST_LOGIN_FAILED,
-} from "../actions/login";
+} from "../constants/index";
 
 const loginInitialState = {
   loginData: {},

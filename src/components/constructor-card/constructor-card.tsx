@@ -6,13 +6,11 @@ import {
   ConstructorElement,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import {
-  DELETE_CONSTRUCTOR_LIST_ITEM_MAIN,
-  handleDropAction,
-} from "../../services/actions/app";
+import { handleDropAction } from "../../services/actions/app";
+import { DELETE_CONSTRUCTOR_LIST_ITEM_MAIN } from "../../services/constants";
 
 const ConstructorCard: FC<any> = (props) => {
-  const dispatch:any = useDispatch();
+  const dispatch: any = useDispatch();
 
   const [{ isDrag }, dragRef] = useDrag({
     type: "ingredient",
@@ -27,13 +25,13 @@ const ConstructorCard: FC<any> = (props) => {
     }),
   });
 
-  const [{ isHover, dragItem }, dropRef]:any = useDrop({
+  const [{ isHover, dragItem }, dropRef]: any = useDrop({
     accept: "ingredient",
     collect: (monitor) => ({
       isHover: monitor.isOver(),
       dragItem: monitor.getItem(),
     }),
-    drop(itemData:any) {
+    drop(itemData: any) {
       dispatch(
         handleDropAction({
           ...itemData,

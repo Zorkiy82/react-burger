@@ -7,13 +7,13 @@ import { OrderReceiptPage } from "../order-receipt/order-receipt";
 import {
   WS_CONNECTION_START,
   WS_CONNECTION_FINISH,
-} from "../../services/actions/wsActions";
+} from "../../services/constants/index";
 
 import { checkAuth } from "../../utils/utils";
 
-export const ProfileОrdersPage:FC = () => {
+export const ProfileОrdersPage: FC = () => {
   const dispatch = useDispatch();
-  const isAuthorized = useSelector((state:any) => state.profile.isAuthorized);
+  const isAuthorized = useSelector((state: any) => state.profile.isAuthorized);
   useEffect(() => {
     checkAuth(dispatch, isAuthorized);
   });

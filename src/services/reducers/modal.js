@@ -1,4 +1,4 @@
-import { SET_MODAL_DATA, RESET_MODAL_DATA } from "../actions/app";
+import { SET_MODAL_DATA, RESET_MODAL_DATA } from "../constants/index";
 
 const modalInitialState = {
   modalIsVisible: false,

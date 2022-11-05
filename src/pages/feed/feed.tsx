@@ -7,7 +7,7 @@ import { OrderReceiptPage } from "../order-receipt/order-receipt";
 import {
   WS_CONNECTION_START,
   WS_CONNECTION_FINISH,
-} from "../../services/actions/wsActions";
+} from "../../services/constants/index";
 
 export function FeedPage() {
   const dispatch = useDispatch();

@@ -6,7 +6,7 @@ import { checkAuth } from "../../utils/utils";
 
 import styles from "./profile-exit.module.css";
 import { Redirect } from "react-router-dom";
-import { RESET_USER_DATA } from "../../services/actions/profile";
+import { RESET_USER_DATA } from "../../services/constants/index";
 import { logoutRequest } from "../../utils/burger-api";
 
 export const ProfileExitPage: FC = () => {

@@ -1,13 +1,11 @@
 import {
-  GET_CONSTRUCTOR_LIST_DEFAULT,
   GET_CONSTRUCTOR_LIST_RANDOM,
-  SET_CONSTRUCTOR_LIST_COUNTERS,
   SET_CONSTRUCTOR_LIST_BUN,
   RESET_CONSTRUCTOR_LIST,
   ADD_CONSTRUCTOR_LIST_MAIN_TO_INDEX,
   MOVE_CONSTRUCTOR_LIST_MAIN_INDEX_TO_INDEX,
   DELETE_CONSTRUCTOR_LIST_ITEM_MAIN,
-} from "../actions/app";
+} from "../constants/index";
 import { defaultConstructorItems } from "../../utils/constants";
 import { getRandomConstructorList } from "./constructor-get-random-list.utils";
 
@@ -17,19 +15,6 @@ const constructorInitialState = {
 
 export const constructorReducer = (state = constructorInitialState, action) => {
   switch (action.type) {
-    case SET_CONSTRUCTOR_LIST_COUNTERS: {
-      return {
-        ...state,
-        countersObject: action.countersObject,
-      };
-    }
-
-    case GET_CONSTRUCTOR_LIST_DEFAULT: {
-      return {
-        ...state,
-        ...defaultConstructorItems,
-      };
-    }
 
     case GET_CONSTRUCTOR_LIST_RANDOM: {
       const { bunIngredient, otherIngredientsArray } = getRandomConstructorList(

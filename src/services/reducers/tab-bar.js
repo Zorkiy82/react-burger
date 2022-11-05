@@ -1,4 +1,4 @@
-import { SET_TAB_BAR_CURRENT, UPDATE_TAB_BAR_CURRENT } from "../actions/app";
+import { SET_TAB_BAR_CURRENT, UPDATE_TAB_BAR_CURRENT } from "../constants/index";
 
 const tabBarlInitialState = {
   current: "one",

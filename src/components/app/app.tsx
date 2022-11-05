@@ -16,10 +16,8 @@ import { AppHeader } from "../app-header/app-header";
 import { Modal } from "../modal/modal";
 import { ErrorDetails } from "../error-details/error-details";
 import { OrderDetails } from "../order-details/order-details";
-import {
-  getIngredientsData,
-  RESET_MODAL_DATA,
-} from "../../services/actions/app.js";
+import { getIngredientsData } from "../../services/actions/app.js";
+import { RESET_MODAL_DATA } from "../../services/constants";
 import styles from "./styles.module.css";
 
 const App = () => {

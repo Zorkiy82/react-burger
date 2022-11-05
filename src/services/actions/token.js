@@ -1,11 +1,12 @@
-import { SET_MODAL_DATA } from "./app";
+import {
+  SET_MODAL_DATA,
+  SET_AUTORIZATION_DATA,
+  POST_TOKEN_REQUEST,
+  POST_TOKEN_SUCCESS,
+  POST_TOKEN_FAILED,
+} from "../constants/index";
 import { setToken } from "../../utils/utils";
 import { postToken } from "../../utils/burger-api";
-import { SET_AUTORIZATION_DATA } from "./profile";
-
-export const POST_TOKEN_REQUEST = "POST_TOKEN_REQUEST";
-export const POST_TOKEN_SUCCESS = "POST_TOKEN_SUCCESS";
-export const POST_TOKEN_FAILED = "POST_TOKEN_FAILED";
 
 export function postTokenData(refreshToken) {
   return function (dispatch) {

@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { TabBar } from "../tab-bar/tab-bar";
 import { CardList } from "../card-list/card-list";
 import styles from "./burger-ingredients.module.css";
-import { UPDATE_TAB_BAR_CURRENT } from "../../services/actions/app";
+import { UPDATE_TAB_BAR_CURRENT } from "../../services/constants/index";
 
 function BurgerIngredients() {
   const dispatch: any = useDispatch();

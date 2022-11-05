@@ -2,7 +2,7 @@ import {
   POST_ORDER_REQUEST,
   POST_ORDER_SUCCESS,
   POST_ORDER_FAILED,
-} from "../actions/app";
+} from "../constants/index";
 
 const orderElementInitialState = {
   orderData: {},

@@ -2,7 +2,7 @@ import {
   POST_REGISTER_REQUEST,
   POST_REGISTER_SUCCESS,
   POST_REGISTER_FAILED,
-} from "../actions/register";
+} from "../constants/index";
 
 const registerInitialState = {
   registerData: {},

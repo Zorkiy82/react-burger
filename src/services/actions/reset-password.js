@@ -1,9 +1,10 @@
-import { SET_MODAL_DATA } from "./app";
+import {
+  SET_MODAL_DATA,
+  POST_RESET_PASSWORD_REQUEST,
+  POST_RESET_PASSWORD_SUCCESS,
+  POST_RESET_PASSWORD_FAILED,
+} from "../constants/index";
 import { postResetPassword } from "../../utils/burger-api";
-
-export const POST_RESET_PASSWORD_REQUEST = "POST_RESET_PASSWORD_REQUEST";
-export const POST_RESET_PASSWORD_SUCCESS = "POST_RESET_PASSWORD_SUCCESS";
-export const POST_RESET_PASSWORD_FAILED = "POST_RESET_PASSWORD_FAILED";
 
 export function postResetPasswordData(history, pathname) {
   return function (dispatch) {

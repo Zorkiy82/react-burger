@@ -1,19 +1,18 @@
-import { SET_MODAL_DATA } from "./app";
+import {
+  SET_MODAL_DATA,
+  GET_USER_REQUEST,
+  GET_USER_SUCCESS,
+  GET_USER_FAILED,
+  PATCH_USER_REQUEST,
+  PATCH_USER_SUCCESS,
+  PATCH_USER_FAILED,
+  SET_USER_DATA,
+  SET_AUTORIZATION_DATA,
+  RESET_USER_DATA,
+} from "../constants/index";
 import { getCookie } from "../../utils/utils";
 import { getUser, patсhUser } from "../../utils/burger-api";
 import { postTokenData } from "./token";
-
-export const GET_USER_REQUEST = "GET_USER_REQUEST";
-export const GET_USER_SUCCESS = "GET_USER_SUCCESS";
-export const GET_USER_FAILED = "GET_USER_FAILED";
-
-export const PATCH_USER_REQUEST = "PATCH_USER_REQUEST";
-export const PATCH_USER_SUCCESS = "PATCH_USER_SUCCESS";
-export const PATCH_USER_FAILED = "PATCH_USER_FAILED";
-
-export const SET_USER_DATA = "SET_USER_DATA";
-export const SET_AUTORIZATION_DATA = "SET_AUTORIZATION_DATA";
-export const RESET_USER_DATA = "RESET_USER_DATA";
 
 let count = 0;
 

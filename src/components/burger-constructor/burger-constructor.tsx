@@ -11,22 +11,20 @@ import {
   CurrencyIcon,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import {
-  postOrderData,
-  GET_CONSTRUCTOR_LIST_RANDOM,
-} from "../../services/actions/app.js";
+import { postOrderData } from "../../services/actions/app.js";
+import { GET_CONSTRUCTOR_LIST_RANDOM } from "../../services/constants";
 import { getFormattedNumber } from "../../services/reducers/order.utils";
 
 function BurgerConstructor() {
-  const dispatch:any = useDispatch();
-  const isAuthorized = useSelector((state:any) => state.profile.isAuthorized);
-  const { orderDataRequest } = useSelector((state:any) => state.orderElement);
+  const dispatch: any = useDispatch();
+  const isAuthorized = useSelector((state: any) => state.profile.isAuthorized);
+  const { orderDataRequest } = useSelector((state: any) => state.orderElement);
   useEffect(() => {
     checkAuth(dispatch, isAuthorized);
   });
   const history = useHistory();
-  const { bun, main } = useSelector((store:any) => store.burgerConstructor);
-  const { items } = useSelector((state:any) => state.ingredients);
+  const { bun, main } = useSelector((store: any) => store.burgerConstructor);
+  const { items } = useSelector((state: any) => state.ingredients);
 
   const [{ isHover }, dropTarget] = useDrop({
     accept: "ingredient",
@@ -36,7 +34,7 @@ function BurgerConstructor() {
   });
 
   const totalPrice = useMemo(
-    () => main.reduce((summ:number, item:any) => summ + item.price, 0) + bun.price * 2,
+    () => main.reduce((summ: number, item: any) => summ + item.price, 0) + bun.price * 2,
     [main, bun]
   );
 
@@ -45,7 +43,7 @@ function BurgerConstructor() {
 
     if (getCookie("accessToken")) {
       const ingridientsIdArray = [bun._id, bun._id];
-      main.forEach((item:any) => ingridientsIdArray.push(item._id));
+      main.forEach((item: any) => ingridientsIdArray.push(item._id));
       dispatch(postOrderData(ingridientsIdArray, getCookie("accessToken")));
     } else {
       history.replace({
@@ -64,9 +62,8 @@ function BurgerConstructor() {
   return (
     <section className={`pl-4`}>
       <div
-        className={`${styles.main}${isHover ? " " + styles.mainIsHover : ""} ${
-          styles.skeletonLoaderContainer
-        }`}
+        className={`${styles.main}${isHover ? " " + styles.mainIsHover : ""} ${styles.skeletonLoaderContainer
+          }`}
         ref={dropTarget}
       >
         {orderDataRequest && (

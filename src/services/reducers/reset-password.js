@@ -2,7 +2,7 @@ import {
   POST_RESET_PASSWORD_REQUEST,
   POST_RESET_PASSWORD_SUCCESS,
   POST_RESET_PASSWORD_FAILED,
-} from "../actions/reset-password";
+} from "../constants/index";
 
 const resetPasswordInitialState = {
   resetPasswordData: {},

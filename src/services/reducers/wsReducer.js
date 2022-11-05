@@ -3,7 +3,7 @@ import {
   WS_CONNECTION_ERROR,
   WS_CONNECTION_CLOSED,
   WS_GET_MESSAGE,
-} from "../actions/wsActions";
+} from "../constants/index";
 
 import {
   getReceipt,

@@ -12,7 +12,7 @@ import {
   WS_SET_SOCKET,
   WS_GET_MESSAGE,
   WS_SEND_MESSAGE,
-} from "./actions/wsActions";
+} from "./constants/index";
 
 const wsUrl = "wss://norma.nomoreparties.space/orders";
 
