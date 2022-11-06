@@ -8,7 +8,7 @@ import {
   CurrencyIcon,
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { getFormattedNumber } from "../../services/reducers/order.utils.js";
+import { getFormattedNumber } from "../../services/reducers/order.utils";
 
 const IngredientCard: FC<any> = (props) => {
   const location = useLocation();

@@ -1,10 +1,20 @@
+import { TPostForgotPasswordActions } from "../actions/forgot-password";
 import {
   POST_FORGOT_PASSWORD_REQUEST,
   POST_FORGOT_PASSWORD_SUCCESS,
   POST_FORGOT_PASSWORD_FAILED,
 } from "../constants/index";
 
-const forgotPasswordInitialState = {
+export type TForgotPassworState = {
+  forgotPasswordData: {
+    success?: boolean;
+    message?: string;
+  };
+  forgotPasswordRequest: boolean;
+  forgotPasswordFailed: boolean;
+};
+
+const forgotPasswordInitialState: TForgotPassworState = {
   forgotPasswordData: {},
   forgotPasswordRequest: false,
   forgotPasswordFailed: false,
@@ -12,8 +22,8 @@ const forgotPasswordInitialState = {
 
 export const forgotPasswordReducer = (
   state = forgotPasswordInitialState,
-  action
-) => {
+  action: TPostForgotPasswordActions
+): TForgotPassworState => {
   switch (action.type) {
     case POST_FORGOT_PASSWORD_REQUEST: {
       return {

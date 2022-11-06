@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useSelector } from "../../services/hooks";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { BurgerIngredients } from "../../components/burger-ingredients/burger-ingredients";
@@ -6,9 +6,8 @@ import { BurgerConstructor } from "../../components/burger-constructor/burger-co
 import styles from "./home.module.css";
 
 export function HomePage() {
-  const { itemsRequest, itemsFailed } = useSelector(
-    (state: any) => state.ingredients
-  );
+  const { itemsRequest, itemsFailed } = useSelector((state) => state.ingredients);
+
   return (
     <>
       {!itemsRequest && !itemsFailed && (

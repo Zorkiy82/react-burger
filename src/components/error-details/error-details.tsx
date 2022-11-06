@@ -3,7 +3,8 @@ import { FC } from "react";
 type TErrorDetails = {
   code: number,
   url: string,
-  message: string};
+  message: string
+};
 
 const ErrorDetails: FC<TErrorDetails> = ({ code, url, message }) => {
   return (

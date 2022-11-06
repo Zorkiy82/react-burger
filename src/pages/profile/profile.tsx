@@ -8,7 +8,7 @@ import { ProfileExitPage } from "../profile-exit/profile-exit";
 import { ProtectedRoute } from "../../components/protected-route/protected-route";
 import { checkAuth } from "../../utils/utils";
 
-export const ProfilePage:FC = () => {
+export const ProfilePage: FC = () => {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
   const isAuthorized = useSelector((state) => state.profile.isAuthorized);

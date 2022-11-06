@@ -1,16 +1,29 @@
+import { TAppActions } from "../actions/app/app";
 import {
   GET_INGREDIENTS_REQUEST,
   GET_INGREDIENTS_SUCCESS,
   GET_INGREDIENTS_FAILED,
 } from "../constants/index";
+import { TIngredient, TIngredientCatalog } from "../types/data";
 
-const ingredientsInitialState = {
+export type TIngedientsState = {
+  items: ReadonlyArray<TIngredient>;
+  itemsRequest: boolean;
+  itemsFailed: boolean;
+  itemsCatalog: TIngredientCatalog;
+};
+
+const ingredientsInitialState: TIngedientsState = {
   items: [],
   itemsRequest: true,
   itemsFailed: false,
+  itemsCatalog: {},
 };
 
-export const ingredientsReducer = (state = ingredientsInitialState, action) => {
+export const ingredientsReducer = (
+  state = ingredientsInitialState,
+  action: TAppActions
+): TIngedientsState => {
   switch (action.type) {
     case GET_INGREDIENTS_REQUEST: {
       return {
@@ -20,7 +33,7 @@ export const ingredientsReducer = (state = ingredientsInitialState, action) => {
     }
 
     case GET_INGREDIENTS_SUCCESS: {
-      const itemsCatalog = {};
+      const itemsCatalog: TIngredientCatalog = {};
       action.items.forEach((item) => {
         itemsCatalog[item._id] = { ...item };
       });

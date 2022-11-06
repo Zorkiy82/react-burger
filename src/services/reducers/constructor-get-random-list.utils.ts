@@ -1,6 +1,10 @@
 import { v4 as uuidv4 } from "uuid";
+import { TIngredient } from "../types/data";
+import { TBurgerConstructorState } from "./constructor";
 
-export function getRandomConstructorList(ingredientsData) {
+export function getRandomConstructorList(
+  ingredientsData: Array<TIngredient>
+): TBurgerConstructorState {
   const bunIngredientArray = ingredientsData.filter(
     (item) => item.type === "bun"
   );
@@ -25,5 +29,5 @@ export function getRandomConstructorList(ingredientsData) {
     });
   }
 
-  return { bunIngredient, otherIngredientsArray };
+  return { bun: bunIngredient, main: otherIngredientsArray };
 }

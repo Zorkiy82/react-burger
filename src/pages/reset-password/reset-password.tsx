@@ -18,7 +18,7 @@ export const ResetPasswordPage: FC = () => {
   });
 
   const forgotSuccess = useSelector(
-    (state: any) => state.forgotPassword.forgotPasswordData.success
+    (state) => state.forgotPassword.forgotPasswordData.success
   );
   const resetSuccess = useSelector(
     (state: any) => state.resetPassword.resetPasswordData.success

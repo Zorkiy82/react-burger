@@ -24,7 +24,8 @@ const defaultConstructorItems: TBurgerConstructorState = {
     __v: 0,
     calories: 0,
     image: '',
-    image_large: ''
+    image_large: '',
+    uuid:'',
   },
   main: [],
 };

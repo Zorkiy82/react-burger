@@ -19,14 +19,20 @@ import {
   UPDATE_TAB_BAR_CURRENT,
 } from "../../constants";
 
-import { AppDispatch, AppThunk } from '../../types';
-import { TDropIndex, TIngredient, TIngredientTypeAll, TIngredientTypeBun, TIngredientTypeWithoutBun } from "../../types/data";
+import { AppDispatch, AppThunk } from "../../types";
+import {
+  TDropIndex,
+  TIngredient,
+  TIngredientForConstructor,
+  TOrder,
+} from "../../types/data";
 
 export interface IGetIngredientsAction {
   readonly type: typeof GET_INGREDIENTS_REQUEST;
 }
 export interface IGetIngredientsSuccessAction {
   readonly type: typeof GET_INGREDIENTS_SUCCESS;
+  items: Array<TIngredient>;
 }
 export interface IGetIngredientsFailedAction {
   readonly type: typeof GET_INGREDIENTS_FAILED;
@@ -34,13 +40,11 @@ export interface IGetIngredientsFailedAction {
 
 export interface IGetConstructorListRandomAction {
   readonly type: typeof GET_CONSTRUCTOR_LIST_RANDOM;
-  readonly ingredientsData: Array<TIngredient<TIngredientTypeAll>>;
+  readonly ingredientsData: Array<TIngredient>;
 }
 export interface ISetConstructorListBunAction {
   readonly type: typeof SET_CONSTRUCTOR_LIST_BUN;
-  readonly item: TIngredient<TIngredientTypeBun> & {
-    uuid?:string
-  };
+  readonly item: TIngredientForConstructor;
 }
 export interface IResetConstructorListAction {
   readonly type: typeof RESET_CONSTRUCTOR_LIST;
@@ -48,9 +52,7 @@ export interface IResetConstructorListAction {
 export interface IAddConstructorListMainToIndexAction {
   readonly type: typeof ADD_CONSTRUCTOR_LIST_MAIN_TO_INDEX;
   readonly dropIndex: TDropIndex;
-  readonly item: TIngredient<TIngredientTypeWithoutBun> & {
-    uuid:string
-  };
+  readonly item: TIngredientForConstructor;
 }
 export interface IMoveConstructorListMainIndexToIndexAction {
   readonly type: typeof MOVE_CONSTRUCTOR_LIST_MAIN_INDEX_TO_INDEX;
@@ -67,9 +69,25 @@ export interface IPosrOrderAction {
 }
 export interface IPosrOrderSuccessAction {
   readonly type: typeof POST_ORDER_SUCCESS;
+  data: {
+    success: boolean;
+    name: string;
+    order: TOrder;
+  };
 }
 export interface IPosrOrderFailedAction {
   readonly type: typeof POST_ORDER_FAILED;
+}
+
+export interface ISetModalDataAction {
+  readonly type: typeof SET_MODAL_DATA;
+  modalIsVisible: boolean;
+  modalType: "error" | "order" | "";
+  errorData: {
+    mesage: string;
+    code: number | null;
+    url: string;
+  };
 }
 
 export interface IResetModalDataAction {
@@ -84,21 +102,22 @@ export interface IUpdateTabBarCurrentAction {
 }
 
 export type TAppActions =
-  IGetIngredientsAction |
-  IGetIngredientsSuccessAction |
-  IGetIngredientsFailedAction |
-  IGetConstructorListRandomAction |
-  ISetConstructorListBunAction |
-  IResetConstructorListAction |
-  IAddConstructorListMainToIndexAction |
-  IMoveConstructorListMainIndexToIndexAction |
-  IDeleteConstructorListItemMainAction |
-  IPosrOrderAction |
-  IPosrOrderSuccessAction |
-  IPosrOrderFailedAction |
-  IResetModalDataAction |
-  ISetTabBarCurrentAction |
-  IUpdateTabBarCurrentAction;
+  | IGetIngredientsAction
+  | IGetIngredientsSuccessAction
+  | IGetIngredientsFailedAction
+  | IGetConstructorListRandomAction
+  | ISetConstructorListBunAction
+  | IResetConstructorListAction
+  | IAddConstructorListMainToIndexAction
+  | IMoveConstructorListMainIndexToIndexAction
+  | IDeleteConstructorListItemMainAction
+  | IPosrOrderAction
+  | IPosrOrderSuccessAction
+  | IPosrOrderFailedAction
+  | IResetModalDataAction
+  | ISetTabBarCurrentAction
+  | IUpdateTabBarCurrentAction
+  | ISetModalDataAction;
 
 export const getIngredientsData: AppThunk = () => (dispatch: AppDispatch) => {
   dispatch({
@@ -130,8 +149,8 @@ export const getIngredientsData: AppThunk = () => (dispatch: AppDispatch) => {
     });
 };
 
-
-export const postOrderData: AppThunk = (ingridientsIdArray: Array<string>, accessToken: string) =>
+export const postOrderData: AppThunk =
+  (ingridientsIdArray: Array<string>, accessToken: string) =>
   (dispatch: AppDispatch) => {
     dispatch({
       type: POST_ORDER_REQUEST,
@@ -171,33 +190,28 @@ export const postOrderData: AppThunk = (ingridientsIdArray: Array<string>, acces
       });
   };
 
-
-export const handleDropAction: AppThunk = ({
-  action,
-  data,
-  dragIndex,
-  dropIndex,
-  ingredientType,
-}) => (dispatch: AppDispatch) => {
-  if (action === "add") {
-    if (ingredientType === "bun") {
-      dispatch({ type: SET_CONSTRUCTOR_LIST_BUN, item: data });
-    } else {
-      dispatch({
-        type: ADD_CONSTRUCTOR_LIST_MAIN_TO_INDEX,
-        item: data,
-        dropIndex: dropIndex,
-      });
+export const handleDropAction: AppThunk =
+  ({ action, data, dragIndex, dropIndex, ingredientType }) =>
+  (dispatch: AppDispatch) => {
+    if (action === "add") {
+      if (ingredientType === "bun") {
+        dispatch({ type: SET_CONSTRUCTOR_LIST_BUN, item: data });
+      } else {
+        dispatch({
+          type: ADD_CONSTRUCTOR_LIST_MAIN_TO_INDEX,
+          item: data,
+          dropIndex: dropIndex,
+        });
+      }
     }
-  }
 
-  if (action === "move") {
-    if (ingredientType !== "bun") {
-      dispatch({
-        type: MOVE_CONSTRUCTOR_LIST_MAIN_INDEX_TO_INDEX,
-        dragIndex: dragIndex,
-        dropIndex: dropIndex,
-      });
+    if (action === "move") {
+      if (ingredientType !== "bun") {
+        dispatch({
+          type: MOVE_CONSTRUCTOR_LIST_MAIN_INDEX_TO_INDEX,
+          dragIndex: dragIndex,
+          dropIndex: dropIndex,
+        });
+      }
     }
-  }
-};
+  };

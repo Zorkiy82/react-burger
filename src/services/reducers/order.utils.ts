@@ -1,6 +1,12 @@
 import { msInDay } from "../../utils/constants";
+import {
+  TIngredient,
+  TIngredientCatalog,
+  TIngredientTypeAll,
+  TRecript,
+} from "../types/data";
 
-export function getFormattedNumber(num) {
+export function getFormattedNumber(num: number | string): string {
   num = num + "";
   let newNum = "";
   let counter = 0;
@@ -11,7 +17,7 @@ export function getFormattedNumber(num) {
   return newNum.split("").reverse().join("").trim();
 }
 
-function getSecondWord(diffOfDay) {
+function getSecondWord(diffOfDay: number): string {
   let resWord = "";
   if (diffOfDay === 1) {
     resWord = "день";
@@ -32,7 +38,7 @@ function getSecondWord(diffOfDay) {
   return resWord;
 }
 
-export function getReadableDate(orderDateStr) {
+export function getReadableDate(orderDateStr: string): string {
   let resStr = "";
   const od = new Date(orderDateStr);
   const odStr = od.toString();
@@ -41,7 +47,7 @@ export function getReadableDate(orderDateStr) {
   const cd = new Date();
   od.setHours(0, 0, 0, 0);
   cd.setHours(0, 0, 0, 0);
-  const diffOfDay = Math.round((cd - od) / msInDay);
+  const diffOfDay = Math.round((Number(cd) - Number(od)) / msInDay);
   if (diffOfDay === 0) {
     resStr += "Сегодня, ";
   } else if (diffOfDay === 1) {
@@ -49,15 +55,24 @@ export function getReadableDate(orderDateStr) {
   } else {
     resStr += diffOfDay + " " + getSecondWord(diffOfDay) + " назад";
   }
-
-  resStr +=
-    odTime + " i-" + odTimezone[0].slice(0, 4) + Number(odTimezone[0].slice(4));
+  if (odTimezone != null) {
+    resStr +=
+      odTime +
+      " i-" +
+      odTimezone[0].slice(0, 4) +
+      Number(odTimezone[0].slice(4));
+  }
 
   return resStr;
 }
 
-export function getReceipt(ingredientsArray, ingredientsCatalog) {
-  let resObj = {};
+export function getReceipt(
+  ingredientsArray: Array<string>,
+  ingredientsCatalog: TIngredientCatalog
+) {
+  let resObj: {
+    [key: string]: TRecript;
+  } = {};
   let newArr = [...ingredientsArray].filter(
     (value) => value && ingredientsCatalog[value]
   );
@@ -94,7 +109,9 @@ export function getReceipt(ingredientsArray, ingredientsCatalog) {
         counter: 2,
       };
     }
-    totalPrice = totalPrice + resObj[key].price * resObj[key].counter;
+    totalPrice = totalPrice + Number(resObj[key].price) * resObj[key].counter;
+
+
     resArr.push(resObj[key]);
   }
 
@@ -102,7 +119,7 @@ export function getReceipt(ingredientsArray, ingredientsCatalog) {
   return { items: resArr, totalPrice: getFormattedNumber(totalPrice) };
 }
 // created
-export function getOrderStatus(status) {
+export function getOrderStatus(status: string) {
   switch (status) {
     case "created": {
       return {

@@ -17,17 +17,17 @@ function BurgerIngredients() {
   const idThreeRef: any = useRef();
 
   const bunList = useMemo(
-    () => items.filter((item: any) => item.type === "bun"),
+    () => items.filter((item) => item.type === "bun"),
     [items]
   );
 
   const sauceList = useMemo(
-    () => items.filter((item: any) => item.type === "sauce"),
+    () => items.filter((item) => item.type === "sauce"),
     [items]
   );
 
   const mainList = useMemo(
-    () => items.filter((item: any) => item.type === "main"),
+    () => items.filter((item) => item.type === "main"),
     [items]
   );
 

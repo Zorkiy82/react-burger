@@ -74,6 +74,7 @@ function postRegister(registerDataObj: any) {
 
 function postForgotPassword(forgotPasswordDataObj: any) {
   return basePostFetch("/password-reset", forgotPasswordDataObj);
+
 }
 
 function postResetPassword(resetPasswordDataObj: any) {

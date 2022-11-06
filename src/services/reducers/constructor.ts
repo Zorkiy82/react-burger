@@ -9,33 +9,29 @@ import {
 import { defaultConstructorItems } from "../../utils/constants";
 import { getRandomConstructorList } from "./constructor-get-random-list.utils";
 import { TAppActions } from "../actions/app/app";
-import { TIngredient, TIngredientTypeBun, TIngredientTypeWithoutBun } from "../types/data";
+import { TIngredientForConstructor } from "../types/data";
 
 export type TBurgerConstructorState = {
-  bun: TIngredient<TIngredientTypeBun> & {
-    uuid?: string
-  };
-  main: ReadonlyArray<TIngredient<TIngredientTypeWithoutBun> & {
-    uuid: string
-  }>
-}
+  bun: TIngredientForConstructor;
+  main: Array<TIngredientForConstructor>;
+};
 
 const constructorInitialState: TBurgerConstructorState = {
   ...defaultConstructorItems,
 };
 
-export const constructorReducer = (state = constructorInitialState, action: TAppActions): TBurgerConstructorState => {
+export const constructorReducer = (
+  state = constructorInitialState,
+  action: TAppActions
+): TBurgerConstructorState => {
   switch (action.type) {
-
     case GET_CONSTRUCTOR_LIST_RANDOM: {
-      const { bunIngredient, otherIngredientsArray } = getRandomConstructorList(
-        action.ingredientsData
-      );
+      const { bun, main } = getRandomConstructorList(action.ingredientsData);
 
       return {
         ...state,
-        bun: bunIngredient,
-        main: otherIngredientsArray,
+        bun: bun,
+        main: main,
       };
     }
 

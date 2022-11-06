@@ -1,14 +1,14 @@
 import { FC, useMemo } from "react";
-import { useSelector } from "react-redux";
+import { useSelector } from "../../services/hooks";
 import { useParams } from "react-router-dom";
 import { IngredientDetails } from "../../components/ingredient-details/ingredient-details";
 
 export const IngredientPage: FC = () => {
-  const { items } = useSelector((state: any) => state.ingredients);
+  const { items } = useSelector((state) => state.ingredients);
   const { id } = useParams<any>();
 
   const ingredientData = useMemo(() => {
-    const res = items.filter((item: any) => item._id === id)[0];
+    const res = items.filter((item) => item._id === id)[0];
     return res;
   }, [id, items]);
 

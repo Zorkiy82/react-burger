@@ -1,12 +1,10 @@
-import { ThunkAction } from 'redux-thunk';
-import { Action, ActionCreator } from 'redux';
-import { store } from '../store';
-// import { TCountriesActions } from '../actions/countries';
-// import { TLaureatesActions } from '../actions/laureates';
-// import { TUserActions } from '../actions/user';
+import { ThunkAction } from "redux-thunk";
+import { Action, ActionCreator } from "redux";
+import { store } from "../store";
+import { TAppActions } from "../actions/app/app";
+import { TPostForgotPasswordActions } from "../actions/forgot-password";
 
-// type TApplicationActions = TUserActions |  TLaureatesActions | TCountriesActions;
-type TApplicationActions = any;
+type TApplicationActions = TAppActions | TPostForgotPasswordActions;
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 export type AppThunk<ReturnType = void> = ActionCreator<
