@@ -45,11 +45,13 @@ export type TOrder = {
   price: number;
 };
 
-export type TRecript =  {
+export type TRecript = {
   _id: string;
   name: string;
   price: number | null;
   type: TIngredientTypeAll;
   image_mobile: string;
   counter: number;
-}
+};
+
+export type TTabBar = "one" | "two" | "three";

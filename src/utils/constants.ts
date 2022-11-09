@@ -16,20 +16,19 @@ const defaultConstructorItems: TBurgerConstructorState = {
     name: "Пожалуйста, перенесите сюда булку и ингредиенты для создания заказа",
     price: null,
     image_mobile: plus,
-    _id: '',
+    _id: "",
     fat: 0,
     proteins: 0,
-    type: 'bun',
+    type: "bun",
     carbohydrates: 0,
     __v: 0,
     calories: 0,
-    image: '',
-    image_large: '',
-    uuid:'',
+    image: "",
+    image_large: "",
+    uuid: "",
   },
   main: [],
 };
-
 
 const ApiUrl = "https://norma.nomoreparties.space/api";
 

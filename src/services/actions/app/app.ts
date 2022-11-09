@@ -25,6 +25,7 @@ import {
   TIngredient,
   TIngredientForConstructor,
   TOrder,
+  TTabBar,
 } from "../../types/data";
 
 export interface IGetIngredientsAction {
@@ -96,9 +97,11 @@ export interface IResetModalDataAction {
 
 export interface ISetTabBarCurrentAction {
   readonly type: typeof SET_TAB_BAR_CURRENT;
+  current: TTabBar;
 }
 export interface IUpdateTabBarCurrentAction {
   readonly type: typeof UPDATE_TAB_BAR_CURRENT;
+  current: TTabBar;
 }
 
 export type TAppActions =

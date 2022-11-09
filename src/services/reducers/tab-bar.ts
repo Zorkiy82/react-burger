@@ -1,10 +1,22 @@
-import { SET_TAB_BAR_CURRENT, UPDATE_TAB_BAR_CURRENT } from "../constants/index";
+import { TAppActions } from "../actions/app/app";
+import {
+  SET_TAB_BAR_CURRENT,
+  UPDATE_TAB_BAR_CURRENT,
+} from "../constants/index";
+import { TTabBar } from "../types/data";
 
-const tabBarlInitialState = {
+type TTabBarState = {
+  current: TTabBar;
+};
+
+const tabBarlInitialState: TTabBarState = {
   current: "one",
 };
 
-export const tabBarReducer = (state = tabBarlInitialState, action) => {
+export const tabBarReducer = (
+  state = tabBarlInitialState,
+  action: TAppActions
+): TTabBarState => {
   switch (action.type) {
     case SET_TAB_BAR_CURRENT: {
       return {
