@@ -7,15 +7,18 @@ import {
 
 export type TForgotPassworState = {
   forgotPasswordData: {
-    success?: boolean;
-    message?: string;
+    success: boolean;
+    message: string;
   };
   forgotPasswordRequest: boolean;
   forgotPasswordFailed: boolean;
 };
 
 const forgotPasswordInitialState: TForgotPassworState = {
-  forgotPasswordData: {},
+  forgotPasswordData: {
+    success: false,
+    message: "",
+  },
   forgotPasswordRequest: false,
   forgotPasswordFailed: false,
 };

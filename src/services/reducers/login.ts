@@ -1,17 +1,29 @@
+import { TLoginActions } from "../actions/login";
 import {
   POST_LOGIN_REQUEST,
   POST_LOGIN_SUCCESS,
   POST_LOGIN_FAILED,
 } from "../constants/index";
+import { TPostLoginData } from "../types/data";
 
-const loginInitialState = {
+export type TPostLoginState = {
+  loginData: TPostLoginData;
+  loginDataSuccess: boolean;
+  loginDataRequest: boolean;
+  loginDataFailed: boolean;
+};
+
+const loginInitialState: TPostLoginState = {
   loginData: {},
   loginDataSuccess: false,
   loginDataRequest: false,
   loginDataFailed: false,
 };
 
-export const loginReducer = (state = loginInitialState, action) => {
+export const loginReducer = (
+  state = loginInitialState,
+  action: TLoginActions
+): TPostLoginState => {
   switch (action.type) {
     case POST_LOGIN_REQUEST: {
       return {

@@ -43,7 +43,7 @@ export const postTokenData: AppThunk =
             modalIsVisible: true,
             modalType: "error",
             errorData: {
-              mesage: JSON.stringify(res),
+              message: JSON.stringify(res),
               code: code,
               url: url,
             },

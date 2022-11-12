@@ -9,6 +9,26 @@ import {
 import { setToken } from "../../utils/utils";
 import { postLogin } from "../../utils/burger-api";
 import { AppDispatch, AppThunk } from "../types";
+import { TPostLoginData } from "../types/data";
+
+export interface IPostLoginAction {
+  readonly type: typeof POST_LOGIN_REQUEST;
+}
+
+export interface IPostLoginSuccessAction {
+  readonly type: typeof POST_LOGIN_SUCCESS;
+  data: TPostLoginData;
+}
+
+export interface IPostLoginFailedAction {
+  readonly type: typeof POST_LOGIN_FAILED;
+  data: any;
+}
+
+export type TLoginActions =
+  | IPostLoginAction
+  | IPostLoginSuccessAction
+  | IPostLoginFailedAction;
 
 export const postLoginData: AppThunk =
   (history, pathname) => (dispatch: AppDispatch) => {
@@ -55,7 +75,7 @@ export const postLoginData: AppThunk =
             modalIsVisible: true,
             modalType: "error",
             errorData: {
-              mesage: JSON.stringify(res),
+              message: JSON.stringify(res),
               code: code,
               url: url,
             },

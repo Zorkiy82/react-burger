@@ -9,34 +9,34 @@ import {
   WS_SEND_MESSAGE,
 } from "../constants";
 
-export const wsConnectionSuccess = () => {
-  return {
-    type: WS_CONNECTION_SUCCESS,
-  };
-};
+// export const wsConnectionSuccess = () => {
+//   return {
+//     type: WS_CONNECTION_SUCCESS,
+//   };
+// };
 
-export const wsConnectionError = () => {
-  return {
-    type: WS_CONNECTION_ERROR,
-  };
-};
+// export const wsConnectionError = () => {
+//   return {
+//     type: WS_CONNECTION_ERROR,
+//   };
+// };
 
-export const wsConnectionClosed = () => {
-  return {
-    type: WS_CONNECTION_CLOSED,
-  };
-};
+// export const wsConnectionClosed = () => {
+//   return {
+//     type: WS_CONNECTION_CLOSED,
+//   };
+// };
 
-export const wsGetMessage = (message: any) => {
-  return {
-    type: WS_GET_MESSAGE,
-    payload: message,
-  };
-};
+// export const wsGetMessage = (message: any) => {
+//   return {
+//     type: WS_GET_MESSAGE,
+//     payload: message,
+//   };
+// };
 
-export const wsSendMessage = (message: any) => {
-  return {
-    type: WS_SEND_MESSAGE,
-    payload: message,
-  };
-};
+// export const wsSendMessage = (message: any) => {
+//   return {
+//     type: WS_SEND_MESSAGE,
+//     payload: message,
+//   };
+// };

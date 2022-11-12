@@ -14,6 +14,58 @@ import { getCookie } from "../../utils/utils";
 import { getUser, patсhUser } from "../../utils/burger-api";
 import { postTokenData } from "./token";
 import { AppDispatch, AppThunk } from "../types";
+import { TUser } from "../types/data";
+
+export interface IGetUserAction {
+  readonly type: typeof GET_USER_REQUEST;
+}
+export interface IGetUserSuccessAction {
+  readonly type: typeof GET_USER_SUCCESS;
+  data: {
+    success: boolean;
+    user: TUser;
+  };
+}
+export interface IGetUserFailedAction {
+  readonly type: typeof GET_USER_FAILED;
+}
+
+export interface IPatchUserAction {
+  readonly type: typeof PATCH_USER_REQUEST;
+}
+export interface IPatchUserSuccessAction {
+  readonly type: typeof PATCH_USER_SUCCESS;
+  data: {
+    success: boolean;
+    user: TUser;
+  };
+}
+export interface IPatchUserFailedAction {
+  readonly type: typeof PATCH_USER_FAILED;
+}
+
+export interface ISetUserDataAction {
+  readonly type: typeof SET_USER_DATA;
+  user: TUser;
+}
+export interface IResetUserDataAction {
+  readonly type: typeof RESET_USER_DATA;
+}
+export interface ISetAutorizationDataAction {
+  readonly type: typeof SET_AUTORIZATION_DATA;
+  isAuthorized: boolean;
+}
+
+export type TProfileActions =
+  | IGetUserAction
+  | IGetUserSuccessAction
+  | IGetUserFailedAction
+  | IPatchUserAction
+  | IPatchUserSuccessAction
+  | IPatchUserFailedAction
+  | ISetUserDataAction
+  | IResetUserDataAction
+  | ISetAutorizationDataAction;
 
 let count = 0;
 
@@ -62,7 +114,7 @@ export const getUserData: AppThunk =
               modalIsVisible: true,
               modalType: "error",
               errorData: {
-                mesage: JSON.stringify(res),
+                message: JSON.stringify(res),
                 code: code,
                 url: url,
               },
@@ -126,7 +178,7 @@ export const patchUserData: AppThunk =
               modalIsVisible: true,
               modalType: "error",
               errorData: {
-                mesage: JSON.stringify(res),
+                message: JSON.stringify(res),
                 code: code,
                 url: url,
               },

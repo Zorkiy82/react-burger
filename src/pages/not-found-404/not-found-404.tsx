@@ -6,7 +6,7 @@ export function NotFound404Page() {
     <main className={styles.main}>
       <div className={styles.img}></div>
       <p className="text text_type_digits-large mt-10 mb-10">404</p>
-      <p className={`text text_type_main-medium ${styles.mesage}`}>
+      <p className={`text text_type_main-medium ${styles.message}`}>
         Сервер должен отвечать на входящие HTTP-запросы. Например, когда вы
         вводите URL в адресную строку браузера, то отправляете запрос на сервер,
         чтобы тот вернул соответствующую веб-страницу. Если страница была

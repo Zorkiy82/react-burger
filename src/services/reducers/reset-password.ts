@@ -1,18 +1,33 @@
+import { TResetPasswordActions } from "../actions/reset-password";
 import {
   POST_RESET_PASSWORD_REQUEST,
   POST_RESET_PASSWORD_SUCCESS,
   POST_RESET_PASSWORD_FAILED,
 } from "../constants/index";
 
-const resetPasswordInitialState = {
-  resetPasswordData: {},
+export type TResetPasswordState = {
+  resetPasswordData:
+    | Object
+    | {
+        success: boolean;
+        message: string;
+      };
+  resetPasswordRequest: boolean;
+  resetPasswordFailed: boolean;
+};
+
+const resetPasswordInitialState: TResetPasswordState = {
+  resetPasswordData: {
+    success: false,
+    message: "",
+  },
   resetPasswordRequest: false,
   resetPasswordFailed: false,
 };
 
 export const resetPasswordReducer = (
   state = resetPasswordInitialState,
-  action
+  action: TResetPasswordActions
 ) => {
   switch (action.type) {
     case POST_RESET_PASSWORD_REQUEST: {

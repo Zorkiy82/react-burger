@@ -1,16 +1,27 @@
+import { TRegisterActions } from "../actions/register";
 import {
   POST_REGISTER_REQUEST,
   POST_REGISTER_SUCCESS,
   POST_REGISTER_FAILED,
 } from "../constants/index";
+import { TRegisterData } from "../types/data";
 
-const registerInitialState = {
+export type TRegisterState = {
+  registerData: TRegisterData;
+  registerDataRequest: boolean;
+  registerDataFailed: boolean;
+};
+
+const registerInitialState: TRegisterState = {
   registerData: {},
   registerDataRequest: false,
   registerDataFailed: false,
 };
 
-export const registerReducer = (state = registerInitialState, action) => {
+export const registerReducer = (
+  state = registerInitialState,
+  action: TRegisterActions
+): TRegisterState => {
   switch (action.type) {
     case POST_REGISTER_REQUEST: {
       return {

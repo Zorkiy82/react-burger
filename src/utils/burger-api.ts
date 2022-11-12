@@ -9,7 +9,7 @@ import { ApiUrl } from "./constants";
 // }
 // И теперь просто нужно заменить все fetch на request. Все остальное будет без изменений. Код станет чище
 
-function checkReponse<T>(res: any): Promise<T> {
+function checkReponse(res: any): any {
   if (res.ok) {
     return res.json();
   } else {
@@ -74,7 +74,6 @@ function postRegister(registerDataObj: any) {
 
 function postForgotPassword(forgotPasswordDataObj: any) {
   return basePostFetch("/password-reset", forgotPasswordDataObj);
-
 }
 
 function postResetPassword(resetPasswordDataObj: any) {
@@ -86,7 +85,7 @@ function postToken(refreshToken: string) {
     token: refreshToken,
   });
 }
-function logoutRequest(refreshToken: string ) {
+function logoutRequest(refreshToken: string) {
   basePostFetch("/auth/logout", {
     token: refreshToken,
   });

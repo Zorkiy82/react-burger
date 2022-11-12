@@ -5,7 +5,7 @@ type TModalState = {
   modalIsVisible: boolean;
   modalType: "error" | "order" | "";
   errorData: {
-    mesage: string;
+    message: string;
     code: number | null;
     url: string;
   };
@@ -15,7 +15,7 @@ const modalInitialState: TModalState = {
   modalIsVisible: false,
   modalType: "",
   errorData: {
-    mesage: "",
+    message: "",
     code: null,
     url: "",
   },

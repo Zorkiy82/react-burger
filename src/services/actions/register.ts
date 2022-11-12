@@ -9,6 +9,26 @@ import {
 import { setToken } from "../../utils/utils";
 import { postRegister } from "../../utils/burger-api";
 import { AppDispatch, AppThunk } from "../types";
+import { TRegisterData } from "../types/data";
+
+export interface IPostRegisterAction {
+  readonly type: typeof POST_REGISTER_REQUEST;
+}
+
+export interface IPostRegisterSuccessAction {
+  readonly type: typeof POST_REGISTER_SUCCESS;
+  data: TRegisterData;
+}
+
+export interface IPostRegisterFailedAction {
+  readonly type: typeof POST_REGISTER_FAILED;
+  data: any;
+}
+
+export type TRegisterActions =
+  | IPostRegisterAction
+  | IPostRegisterSuccessAction
+  | IPostRegisterFailedAction;
 
 export const postRegisterData: AppThunk =
   (history, pathname) => (dispatch: AppDispatch) => {
@@ -53,7 +73,7 @@ export const postRegisterData: AppThunk =
             modalIsVisible: true,
             modalType: "error",
             errorData: {
-              mesage: JSON.stringify(res),
+              message: JSON.stringify(res),
               code: code,
               url: url,
             },

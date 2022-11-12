@@ -85,7 +85,7 @@ export interface ISetModalDataAction {
   modalIsVisible: boolean;
   modalType: "error" | "order" | "";
   errorData: {
-    mesage: string;
+    message: string;
     code: number | null;
     url: string;
   };
@@ -143,7 +143,7 @@ export const getIngredientsData: AppThunk = () => (dispatch: AppDispatch) => {
           modalIsVisible: true,
           modalType: "error",
           errorData: {
-            mesage: JSON.stringify(res),
+            message: JSON.stringify(res),
             code: code,
             url: url,
           },
@@ -184,7 +184,7 @@ export const postOrderData: AppThunk =
             modalIsVisible: true,
             modalType: "error",
             errorData: {
-              mesage: JSON.stringify(res),
+              message: JSON.stringify(res),
               code: code,
               url: url,
             },

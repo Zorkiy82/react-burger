@@ -1,3 +1,4 @@
+import { TProfileActions } from "../actions/profile";
 import {
   GET_USER_REQUEST,
   GET_USER_SUCCESS,
@@ -9,9 +10,21 @@ import {
   RESET_USER_DATA,
   SET_AUTORIZATION_DATA,
 } from "../constants/index";
+import { TUser } from "../types/data";
 
-const profileInitialState = {
-  userData: {},
+export type TProfileState = {
+  userData: TUser;
+  isAuthorized: boolean;
+  getUserDataSuccess: boolean;
+  getUserDataRequest: boolean;
+  getUserDataFailed: boolean;
+  patchUserDataSuccess: boolean;
+  patchUserDataRequest: boolean;
+  patchUserDataFailed: boolean;
+};
+
+const profileInitialState: TProfileState = {
+  userData: { name: "", email: "" },
   isAuthorized: false,
   getUserDataSuccess: false,
   getUserDataRequest: false,
@@ -21,7 +34,10 @@ const profileInitialState = {
   patchUserDataFailed: false,
 };
 
-export const profileReducer = (state = profileInitialState, action) => {
+export const profileReducer = (
+  state = profileInitialState,
+  action: TProfileActions
+): TProfileState => {
   switch (action.type) {
     case GET_USER_REQUEST: {
       return {

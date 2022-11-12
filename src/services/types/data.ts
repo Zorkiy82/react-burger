@@ -27,12 +27,15 @@ export type TIngredientForConstructor = TIngredient & {
   uuid: string;
 };
 
+export type TUser = {
+  name: string;
+  email: string;
+};
+
 export type TOrder = {
   ingredients: Array<TIngredient> | [];
   _id: String;
-  owner: {
-    name: string;
-    email: string;
+  owner: TUser & {
     createdAt: string;
     updatedAt: string;
   };
@@ -55,3 +58,17 @@ export type TRecript = {
 };
 
 export type TTabBar = "one" | "two" | "three";
+
+export type TPostLoginData =
+  | Object
+  | {
+      accessToken: string;
+      refreshToken: string;
+      user: TUser;
+    };
+
+export type TRegisterData =
+  | Object
+  | (TPostLoginData & {
+      success: boolean;
+    });

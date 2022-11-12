@@ -22,7 +22,7 @@ export const ProfileEditPage: FC = () => {
   });
   const history: any = useHistory();
   const { pathname, state } = useLocation<any>();
-  const { name, email } = useSelector((storege: any) => storege.profile.userData);
+  const { name, email } = useSelector((state) => state.profile.userData);
   const fetchRan = useRef(false);
 
   function handleOnChange(evt: any) {
