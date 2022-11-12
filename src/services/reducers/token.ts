@@ -1,16 +1,33 @@
+import { TTokenActions } from "../actions/token";
 import {
   POST_TOKEN_REQUEST,
   POST_TOKEN_SUCCESS,
   POST_TOKEN_FAILED,
 } from "../constants/index";
+import { TTokenData } from "../types/data";
 
-const tokenInitialState = {
-  tokenData: {},
+type TTokenState = {
+  tokenData: TTokenData & {
+    success: boolean;
+  };
+  tokenDataRequest: boolean;
+  tokenDataFailed: boolean;
+};
+
+const tokenInitialState: TTokenState = {
+  tokenData: {
+    success: false,
+    accessToken: "",
+    refreshToken: "",
+  },
   tokenDataRequest: false,
   tokenDataFailed: false,
 };
 
-export const tokenReducer = (state = tokenInitialState, action) => {
+export const tokenReducer = (
+  state = tokenInitialState,
+  action: TTokenActions
+): TTokenState => {
   switch (action.type) {
     case POST_TOKEN_REQUEST: {
       return {

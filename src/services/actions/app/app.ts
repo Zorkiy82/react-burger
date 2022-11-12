@@ -169,7 +169,11 @@ export const postOrderData: AppThunk =
           type: SET_MODAL_DATA,
           modalIsVisible: true,
           modalType: "order",
-          errorData: {},
+          errorData: {
+            message: "",
+            code: null,
+            url: "",
+          },
         });
         dispatch({
           type: RESET_CONSTRUCTOR_LIST,

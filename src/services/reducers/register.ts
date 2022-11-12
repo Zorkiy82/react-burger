@@ -13,7 +13,15 @@ export type TRegisterState = {
 };
 
 const registerInitialState: TRegisterState = {
-  registerData: {},
+  registerData: {
+    success: false,
+    user: {
+      name: "",
+      email: "",
+    },
+    accessToken: "",
+    refreshToken: "",
+  },
   registerDataRequest: false,
   registerDataFailed: false,
 };

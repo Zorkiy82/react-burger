@@ -27,6 +27,8 @@ const wsActions = {
   wsSocket: WS_SET_SOCKET,
 };
 
+export type TMiddlewareWSActions = typeof wsActions;
+
 declare global {
   interface Window {
     __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;

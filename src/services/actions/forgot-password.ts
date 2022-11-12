@@ -24,7 +24,7 @@ export interface IPostForgotPasswordFailedAction {
   data: any;
 }
 
-export type TPostForgotPasswordActions =
+export type TForgotPasswordActions =
   | IPostForgotPasswordAction
   | IPostForgotPasswordSuccessAction
   | IPostForgotPasswordFailedAction;

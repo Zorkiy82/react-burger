@@ -8,6 +8,26 @@ import {
 import { setToken } from "../../utils/utils";
 import { postToken } from "../../utils/burger-api";
 import { AppDispatch, AppThunk } from "../types";
+import { TTokenData } from "../types/data";
+
+export interface IPostTokenAction {
+  readonly type: typeof POST_TOKEN_REQUEST;
+}
+
+export interface IPostTokenSuccessAction {
+  readonly type: typeof POST_TOKEN_SUCCESS;
+  data: TTokenData & { success: boolean };
+}
+
+export interface IPostTokenFailedAction {
+  readonly type: typeof POST_TOKEN_FAILED;
+  data: any;
+}
+
+export type TTokenActions =
+  | IPostTokenAction
+  | IPostTokenSuccessAction
+  | IPostTokenFailedAction;
 
 export const postTokenData: AppThunk =
   (refreshToken) => (dispatch: AppDispatch) => {

@@ -14,7 +14,14 @@ export type TPostLoginState = {
 };
 
 const loginInitialState: TPostLoginState = {
-  loginData: {},
+  loginData: {
+    accessToken: "",
+    refreshToken: "",
+    user: {
+      name: "",
+      email: "",
+    },
+  },
   loginDataSuccess: false,
   loginDataRequest: false,
   loginDataFailed: false,

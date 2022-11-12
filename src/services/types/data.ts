@@ -59,16 +59,15 @@ export type TRecript = {
 
 export type TTabBar = "one" | "two" | "three";
 
-export type TPostLoginData =
-  | Object
-  | {
-      accessToken: string;
-      refreshToken: string;
-      user: TUser;
-    };
+export type TTokenData = {
+  accessToken: string;
+  refreshToken: string;
+};
 
-export type TRegisterData =
-  | Object
-  | (TPostLoginData & {
-      success: boolean;
-    });
+export type TPostLoginData = TTokenData & {
+  user: TUser;
+};
+
+export type TRegisterData = TPostLoginData & {
+  success: boolean;
+};

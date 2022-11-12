@@ -99,14 +99,12 @@ export const getUserData: AppThunk =
             if (!count) {
               count += 1;
               const refreshToken = getCookie("refreshToken");
-              Promise.all([dispatch(postTokenData(refreshToken))]).then(
-                (data) => {
-                  setTimeout(() => {
-                    const accessToken = getCookie("accessToken");
-                    dispatch(getUserData(history, pathname, accessToken));
-                  }, 1000);
-                }
-              );
+              Promise.all([postTokenData(refreshToken)]).then((data) => {
+                setTimeout(() => {
+                  const accessToken = getCookie("accessToken");
+                  getUserData(history, pathname, accessToken);
+                }, 1000);
+              });
             }
           } else {
             dispatch({
@@ -161,13 +159,11 @@ export const patchUserData: AppThunk =
             if (!count) {
               count += 1;
               const refreshToken = getCookie("refreshToken");
-              Promise.all([dispatch(postTokenData(refreshToken))]).then(
+              Promise.all([postTokenData(refreshToken)]).then(
                 (data) => {
                   setTimeout(() => {
                     const accessToken = getCookie("accessToken");
-                    dispatch(
-                      patchUserData(history, pathname, accessToken, userDataObj)
-                    );
+                    patchUserData(history, pathname, accessToken, userDataObj);
                   }, 1000);
                 }
               );
