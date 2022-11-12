@@ -24,7 +24,7 @@ import {
   TDropIndex,
   TIngredient,
   TIngredientForConstructor,
-  TOrder,
+  TOrderFetch,
   TTabBar,
 } from "../../types/data";
 
@@ -73,7 +73,7 @@ export interface IPosrOrderSuccessAction {
   data: {
     success: boolean;
     name: string;
-    order: TOrder;
+    order: TOrderFetch;
   };
 }
 export interface IPosrOrderFailedAction {

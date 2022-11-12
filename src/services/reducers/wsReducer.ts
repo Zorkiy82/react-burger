@@ -5,6 +5,7 @@ import {
   WS_CONNECTION_CLOSED,
   WS_GET_MESSAGE,
 } from "../constants/index";
+import { TOrderBase, TRecript } from "../types/data";
 
 import {
   getReceipt,
@@ -13,12 +14,53 @@ import {
   getFormattedNumber,
 } from "./order.utils";
 
-const initialState = {
-  wsConnected: false,
-  message: [],
+type TWSOrdersArray = Array<
+  TOrderBase & {
+    ingredients: Array<string>;
+
+    receipt: {
+      items: Array<TRecript>;
+      totalPrice: string;
+    };
+
+    orderStatus: {
+      content: string;
+      style: {
+        color: string;
+      };
+    };
+
+    readableDate: string;
+  }
+>;
+
+type TWSState = {
+  message: {
+    orders: TWSOrdersArray;
+    total: number;
+    totalToday: number;
+    fTotal: string;
+    fTotalToday: string;
+  };
+
+  wsConnected: boolean;
 };
 
-export const wsReducer = (state = initialState, action:TWSActions) => {
+const wsInitialState: TWSState = {
+  wsConnected: false,
+  message: {
+    orders: [],
+    total: 0,
+    totalToday: 0,
+    fTotal: "",
+    fTotalToday: "",
+  },
+};
+
+export const wsReducer = (
+  state = wsInitialState,
+  action: TWSActions
+): TWSState => {
   switch (action.type) {
     case WS_CONNECTION_SUCCESS:
       return {
@@ -53,7 +95,7 @@ export const wsReducer = (state = initialState, action:TWSActions) => {
 
       const catalog = action.payload.catalog;
 
-      newOrders = newOrders.map((value, index) => {
+      const resOrders: TWSOrdersArray = newOrders.map((value) => {
         const ingredients = value.ingredients;
         const status = value.status;
         const createdAt = value.createdAt;
@@ -73,7 +115,7 @@ export const wsReducer = (state = initialState, action:TWSActions) => {
         ...state,
         message: {
           ...action.payload.data,
-          orders: newOrders,
+          orders: resOrders,
           fTotal: getFormattedNumber(action.payload.data.total),
           fTotalToday: getFormattedNumber(action.payload.data.totalToday),
         },

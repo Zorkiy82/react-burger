@@ -1,3 +1,5 @@
+import { number } from "prop-types";
+
 export type TDropIndex = "bottom" | "top" | number;
 
 export type TIngredientTypeBun = "bun";
@@ -32,20 +34,33 @@ export type TUser = {
   email: string;
 };
 
-export type TOrder = {
+export type TOrderBase = {
+  _id: string;
+  createdAt: string;
+  updatedAt: string;
+  name: string;
+  number: number;
+  status: "done" | "created" | "pending" | "";
+};
+
+export type TOrderFetch = TOrderBase & {
   ingredients: Array<TIngredient> | [];
-  _id: String;
   owner: TUser & {
     createdAt: string;
     updatedAt: string;
   };
-
-  status: "done" | "created" | "pending" | "";
-  name: string;
-  createdAt: string;
-  updatedAt: string;
-  number: number;
   price: number;
+};
+
+export type TOrderWS = {
+  orders: Array<
+    TOrderBase & {
+      ingredients: Array<string>;
+    }
+  >;
+  success: boolean;
+  total: number;
+  totalToday: number;
 };
 
 export type TRecript = {

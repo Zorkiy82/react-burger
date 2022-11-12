@@ -13,7 +13,7 @@ export function ForgotPasswordPage() {
   const dispatch = useDispatch();
   const isAuthorized = useSelector((state) => state.profile.isAuthorized);
   useEffect(() => {
-    checkAuth(dispatch, isAuthorized);
+    checkAuth(isAuthorized);
   });
 
   const history = useHistory();

@@ -24,7 +24,7 @@ const App = () => {
   const dispatch = useDispatch();
   const isAuthorized = useSelector((state) => state.profile.isAuthorized);
   useEffect(() => {
-    checkAuth(dispatch, isAuthorized);
+    checkAuth(isAuthorized);
   });
 
   const location: any = useLocation();
@@ -34,7 +34,7 @@ const App = () => {
   const { itemsRequest } = useSelector((state) => state.ingredients);
 
   const { modalIsVisible, modalType, errorData } = useSelector(
-    (state: any) => state.modal
+    (state) => state.modal
   );
 
   const { orderData } = useSelector((state) => state.orderElement);

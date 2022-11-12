@@ -1,7 +1,7 @@
 import { FC } from "react";
 
 type TErrorDetails = {
-  code: number,
+  code: number | null,
   url: string,
   message: string
 };

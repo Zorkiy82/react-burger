@@ -9,8 +9,9 @@ import {
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { getFormattedNumber } from "../../services/reducers/order.utils";
+import { TIngredient } from "../../services/types/data";
 
-const IngredientCard: FC<any> = (props) => {
+const IngredientCard: FC<TIngredient> = (props) => {
   const location = useLocation();
   const { bun, main } = useSelector((store) => store.burgerConstructor);
   const [, dragRef] = useDrag({
@@ -28,7 +29,7 @@ const IngredientCard: FC<any> = (props) => {
 
   const counter = useMemo(() => {
     const ingridientsIdArray = [bun._id, bun._id];
-    main.forEach((item: any) => ingridientsIdArray.push(item._id));
+    main.forEach((item: TIngredient) => ingridientsIdArray.push(item._id));
     const countObject: any = {};
     ingridientsIdArray.forEach(
       (item: string) =>
@@ -51,7 +52,7 @@ const IngredientCard: FC<any> = (props) => {
 
           <div className={styles.praiceContainer}>
             <p className="text text_type_digits-default">
-              {getFormattedNumber(props.price)}
+              {getFormattedNumber(Number(props.price))}
             </p>
             <CurrencyIcon type="primary" />
           </div>

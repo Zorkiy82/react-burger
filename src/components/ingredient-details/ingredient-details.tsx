@@ -1,7 +1,8 @@
 import styles from "./ingredient-details.module.css";
 import { FC } from "react";
+import { TIngredient } from "../../services/types/data";
 
-const IngredientDetails: FC<any> = (props) => {
+const IngredientDetails: FC<TIngredient> = (props) => {
   return (
     <div className={`${styles.ingredientDetails} pt-10 pl-10 pb-15 pr-10`}>
       <p className="text text_type_main-large mt-3 mb-3">Детали ингредиента</p>

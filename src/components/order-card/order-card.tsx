@@ -1,5 +1,5 @@
 import { FC, useMemo } from "react";
-import { useSelector } from "react-redux";
+import { useSelector } from "../../services/hooks";
 import { Link, useLocation } from "react-router-dom";
 import styles from "./order-card.module.css";
 import {
@@ -9,11 +9,11 @@ import {
 export const OrderCard: FC<any> = (props) => {
   const orderId = props.id;
   const location = useLocation();
-  const { orders } = useSelector((state: any) => state.ws.message);
+  const { orders } = useSelector((state) => state.ws.message);
 
   const orderData = useMemo(() => {
     if (orders) {
-      return orders.filter((value: any) => value._id === orderId)[0];
+      return orders.filter((value) => value._id === orderId)[0];
     }
   }, []);
   return (
@@ -27,23 +27,23 @@ export const OrderCard: FC<any> = (props) => {
       >
         <div className={styles.card}>
           <header className={styles.header}>
-            <p className="text text_type_digits-default">{`#${orderData.number}`}</p>
-            <p className="text text_type_main-default text_color_inactive">{`${orderData.readableDate}`}</p>
+            <p className="text text_type_digits-default">{`#${orderData?.number}`}</p>
+            <p className="text text_type_main-default text_color_inactive">{`${orderData?.readableDate}`}</p>
           </header>
 
           <div>
-            <p className="text text_type_main-medium">{`${orderData.name}`}</p>
+            <p className="text text_type_main-medium">{`${orderData?.name}`}</p>
             {props.status && (
               <p
                 className="text text_type_main-small mt-2"
-                style={orderData.orderStatus.style}
-              >{`${orderData.orderStatus.content}`}</p>
+                style={orderData?.orderStatus.style}
+              >{`${orderData?.orderStatus.content}`}</p>
             )}
           </div>
 
           <footer className={styles.footer}>
             <div className={styles.iconContainer}>
-              {orderData.receipt.items.map((item: any, index: number, array: Array<any>) => {
+              {orderData?.receipt.items.map((item, index, array) => {
                 const inlineStyle = {
                   left:
                     index <= 5
@@ -82,7 +82,7 @@ export const OrderCard: FC<any> = (props) => {
 
             <div className={styles.priceContainer}>
               <p className="text text_type_digits-medium">
-                {orderData.receipt.totalPrice}
+                {orderData?.receipt.totalPrice}
               </p>
               <CurrencyIcon type="primary" />
             </div>

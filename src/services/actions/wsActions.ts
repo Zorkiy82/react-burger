@@ -7,9 +7,13 @@ import {
   WS_GET_MESSAGE,
   WS_SEND_MESSAGE,
 } from "../constants";
+import { TIngredientCatalog, TOrderWS } from "../types/data";
 
 export interface IWSConnectionStartAction {
   readonly type: typeof WS_CONNECTION_START;
+  payload: {
+    add: string;
+  };
 }
 export interface IWSConnectionFinishAction {
   readonly type: typeof WS_CONNECTION_FINISH;
@@ -25,7 +29,10 @@ export interface IWSConnectionClosedAction {
 }
 export interface IWSGetMessageAction {
   readonly type: typeof WS_GET_MESSAGE;
-  payload: any;
+  payload: {
+    data: TOrderWS;
+    catalog: TIngredientCatalog;
+  };
 }
 export interface IWSSendMessageAction {
   readonly type: typeof WS_SEND_MESSAGE;
@@ -53,16 +60,22 @@ export const wsConnectionError = (): IWSConnectionErrorAction => {
   };
 };
 
-export const wsConnectionClosed = ():IWSConnectionClosedAction => {
+export const wsConnectionClosed = (): IWSConnectionClosedAction => {
   return {
     type: WS_CONNECTION_CLOSED,
   };
 };
 
-export const wsGetMessage = (message: any ):IWSGetMessageAction => {
+export const wsGetMessage = (
+  message: TOrderWS,
+  catalog: TIngredientCatalog
+): IWSGetMessageAction => {
   return {
     type: WS_GET_MESSAGE,
-    payload: message,
+    payload: {
+      data: message,
+      catalog: catalog
+    },
   };
 };
 

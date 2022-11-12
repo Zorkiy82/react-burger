@@ -18,7 +18,7 @@ export const ProfileEditPage: FC = () => {
   const dispatch = useDispatch();
   const isAuthorized = useSelector((state) => state.profile.isAuthorized);
   useEffect(() => {
-    checkAuth(dispatch, isAuthorized);
+    checkAuth(isAuthorized);
   });
   const history: any = useHistory();
   const { pathname, state } = useLocation<any>();
@@ -54,7 +54,7 @@ export const ProfileEditPage: FC = () => {
 
   useEffect(() => {
     if (fetchRan.current === false || state === null) {
-      checkAuth(dispatch, isAuthorized);
+      checkAuth(isAuthorized);
       const accessToken = getCookie("accessToken");
       dispatch(getUserData(history, pathname, accessToken));
     }
@@ -67,7 +67,7 @@ export const ProfileEditPage: FC = () => {
   function handleSubmit(evt: FormEvent) {
     evt.preventDefault();
 
-    checkAuth(dispatch, isAuthorized);
+    checkAuth(isAuthorized);
     const accessToken = getCookie("accessToken");
 
     dispatch(patchUserData(history, pathname, accessToken, state));

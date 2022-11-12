@@ -4,7 +4,7 @@ import {
   POST_ORDER_SUCCESS,
   POST_ORDER_FAILED,
 } from "../constants/index";
-import { TOrder } from "../types/data";
+import { TOrderFetch } from "../types/data";
 
 export type TOrderElementState = {
   orderDataRequest: boolean;
@@ -12,7 +12,7 @@ export type TOrderElementState = {
   orderData: {
     success: boolean;
     name: string;
-    order: TOrder;
+    order: TOrderFetch;
   };
 };
 

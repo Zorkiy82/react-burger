@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useSelector, useDispatch } from "../../services/hooks";
+import { useSelector } from "../../services/hooks";
 import { checkAuth } from "../../utils/utils";
 import { NavLink, Link, useLocation } from "react-router-dom";
 import styles from "./app-header.module.css";
@@ -11,10 +11,9 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
 function AppHeader() {
-  const dispatch = useDispatch();
   const isAuthorized = useSelector((state) => state.profile.isAuthorized);
   useEffect(() => {
-    checkAuth(dispatch, isAuthorized);
+    checkAuth(isAuthorized);
   });
 
   const { pathname } = useLocation();

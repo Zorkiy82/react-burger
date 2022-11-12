@@ -1,11 +1,18 @@
-export const socketMiddleware = (wsUrl: string, wsActions: any) => {
-  return (store: any) => {
-    let socket: any = null;
+import { TWSActions } from "../actions/wsActions";
+import { TMiddlewareWSActions } from "../store";
+import { TOrderWS } from "../types/data";
 
-    return (next: any) => (action: any) => {
+export const socketMiddleware = (
+  wsUrl: string,
+  wsActions: TMiddlewareWSActions
+) => {
+  return (store: any) => {
+    let socket: WebSocket | null = null;
+
+    return (next: any) => (action: TWSActions) => {
       const { dispatch, getState } = store;
       const { itemsCatalog } = getState().ingredients;
-      const { type, payload } = action;
+      const { type } = action;
       const {
         wsInit,
         wsClose,
@@ -28,25 +35,25 @@ export const socketMiddleware = (wsUrl: string, wsActions: any) => {
           socket.readyState === 3 ||
           socket.readyState === 2
         ) {
-          socket = new WebSocket(`${wsUrl}${payload.add}`);
+          socket = new WebSocket(`${wsUrl}${action.payload.add}`);
         }
       }
 
       if (socket) {
-        socket.onopen = (event: WebSocketEventMap) => {
+        socket.onopen = (event) => {
           dispatch({ type: onOpen, payload: event });
         };
 
         // TODO Можно лучше: было бы круто переподключать сокет
         // если он закрылся не по евенту и при необходимости обновить accessToken
 
-        socket.onerror = (event: ErrorEvent) => {
+        socket.onerror = (event) => {
           dispatch({ type: onError, payload: event });
         };
 
-        socket.onmessage = (event: MessageEvent) => {
+        socket.onmessage = (event) => {
           const { data } = event;
-          const parsedData = JSON.parse(data);
+          const parsedData: TOrderWS = JSON.parse(data);
           const { success, ...restParsedData } = parsedData;
 
           dispatch({
@@ -58,12 +65,12 @@ export const socketMiddleware = (wsUrl: string, wsActions: any) => {
           });
         };
 
-        socket.onclose = (event: CloseEvent) => {
+        socket.onclose = (event) => {
           dispatch({ type: onClose, payload: event });
         };
 
         if (type === wsSendMessage) {
-          const message = { ...payload };
+          const message = { ...action.payload };
           socket.send(JSON.stringify(message));
         }
       }

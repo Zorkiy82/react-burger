@@ -5,7 +5,7 @@ import { IngredientDetails } from "../../components/ingredient-details/ingredien
 
 export const IngredientPage: FC = () => {
   const { items } = useSelector((state) => state.ingredients);
-  const { id } = useParams<any>();
+  const { id } = useParams<{ id: string }>();
 
   const ingredientData = useMemo(() => {
     const res = items.filter((item) => item._id === id)[0];

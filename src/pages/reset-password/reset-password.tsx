@@ -14,14 +14,14 @@ export const ResetPasswordPage: FC = () => {
   const dispatch = useDispatch();
   const isAuthorized = useSelector((state) => state.profile.isAuthorized);
   useEffect(() => {
-    checkAuth(dispatch, isAuthorized);
+    checkAuth(isAuthorized);
   });
 
   const forgotSuccess = useSelector(
     (state) => state.forgotPassword.forgotPasswordData.success
   );
   const resetSuccess = useSelector(
-    (state: any) => state.resetPassword.resetPasswordData.success
+    (state) => state.resetPassword.resetPasswordData.success
   );
   const history = useHistory();
   const { pathname, state } = useLocation<any>();

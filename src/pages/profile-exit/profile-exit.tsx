@@ -13,7 +13,7 @@ export const ProfileExitPage: FC = () => {
   const dispatch = useDispatch();
   const isAuthorized = useSelector((state) => state.profile.isAuthorized);
   useEffect(() => {
-    checkAuth(dispatch, isAuthorized);
+    checkAuth(isAuthorized);
   });
 
   function handleSubmit(evt: FormEvent) {

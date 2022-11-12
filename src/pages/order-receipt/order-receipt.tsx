@@ -5,7 +5,7 @@ import { OrderReceipt } from "../../components/order-receipt/order-receipt";
 
 export const OrderReceiptPage: FC = () => {
   const { orders } = useSelector((state: any) => state.ws.message);
-  const { id } = useParams<any>();
+  const { id } = useParams<{ id: string }>();
   const isOrder = useMemo(() => {
     let res = false;
     if (orders) {

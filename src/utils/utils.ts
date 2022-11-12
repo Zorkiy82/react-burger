@@ -1,19 +1,25 @@
 import { accessTokenLifetime, refreshTokenLifetime } from "./constants";
 import { SET_AUTORIZATION_DATA } from "../services/constants/index";
 import { postTokenData } from "../services/actions/token";
+import { AppDispatch } from "../services/types";
+import { store } from "../services/store";
 
 export function getCookie(name: string): string | undefined {
   const matches = document.cookie.match(
     new RegExp(
       "(?:^|; )" +
-      name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, "\\$1") +
-      "=([^;]*)"
+        name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, "\\$1") +
+        "=([^;]*)"
     )
   );
   return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 
-export function setCookie(name: string, value: any, props: { [key: string]: any } = {}): void {
+export function setCookie(
+  name: string,
+  value: any,
+  props: { [key: string]: any } = {}
+): void {
   props = {
     path: "/",
     ...props,
@@ -44,15 +50,19 @@ export function deleteCookie(name: string): void {
   setCookie(name, null, { expires: -1 });
 }
 
-export function setToken(res: { accessToken: string, refreshToken: string, [key: string]: any }): void {
+export function setToken(res: {
+  accessToken: string;
+  refreshToken: string;
+  [key: string]: any;
+}): void {
   setCookie("accessToken", res.accessToken, { expires: accessTokenLifetime });
   setCookie("refreshToken", res.refreshToken, {
     expires: refreshTokenLifetime,
   });
 }
 
-
-export const checkAuth = (dispatch: any, state: any): void => {
+export const checkAuth = (state: boolean): void => {
+  const dispatch = store.dispatch;
   const accessToken = getCookie("accessToken");
   const refreshToken = getCookie("refreshToken");
 
@@ -62,7 +72,7 @@ export const checkAuth = (dispatch: any, state: any): void => {
     }
   } else {
     if (refreshToken && !accessToken) {
-      dispatch(postTokenData(refreshToken));
+      postTokenData(refreshToken);
     } else {
       if (state) {
         dispatch({ type: SET_AUTORIZATION_DATA, isAuthorized: false });

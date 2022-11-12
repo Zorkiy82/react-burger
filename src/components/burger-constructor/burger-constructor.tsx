@@ -20,7 +20,7 @@ function BurgerConstructor() {
   const isAuthorized = useSelector((state) => state.profile.isAuthorized);
   const { orderDataRequest } = useSelector((state) => state.orderElement);
   useEffect(() => {
-    checkAuth(dispatch, isAuthorized);
+    checkAuth( isAuthorized);
   });
   const history = useHistory();
   const { bun, main } = useSelector((store) => store.burgerConstructor);
