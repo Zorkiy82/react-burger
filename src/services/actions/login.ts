@@ -37,7 +37,7 @@ export const postLoginData: AppThunk =
     });
 
     postLogin(history.location.state)
-      .then((res: any) => {
+      .then((res) => {
         dispatch({
           type: POST_LOGIN_SUCCESS,
           data: res,
@@ -60,11 +60,11 @@ export const postLoginData: AppThunk =
           state: {},
         });
       })
-      .catch((res) => {
+      .catch((res: Response) => {
         const code = res.status;
         const url = res.url;
 
-        res.json().then((res: any) => {
+        res.json().then((res) => {
           dispatch({
             type: POST_LOGIN_FAILED,
             data: res,

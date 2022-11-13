@@ -128,16 +128,16 @@ export const getIngredientsData: AppThunk = () => (dispatch: AppDispatch) => {
   });
 
   getIngredients()
-    .then((res: any) => {
+    .then((res) => {
       dispatch({
         type: GET_INGREDIENTS_SUCCESS,
         items: res.data,
       });
     })
-    .catch((res) => {
+    .catch((res: Response) => {
       const code = res.status;
       const url = res.url;
-      res.json().then((res: any) => {
+      res.json().then((res) => {
         dispatch({
           type: SET_MODAL_DATA,
           modalIsVisible: true,
@@ -152,8 +152,8 @@ export const getIngredientsData: AppThunk = () => (dispatch: AppDispatch) => {
     });
 };
 
-export const postOrderData: AppThunk =
-  (ingridientsIdArray: Array<string>, accessToken: string) =>
+export const postOrderData =
+  (ingridientsIdArray: Array<string>, accessToken: string | undefined) =>
   (dispatch: AppDispatch) => {
     dispatch({
       type: POST_ORDER_REQUEST,
@@ -179,10 +179,10 @@ export const postOrderData: AppThunk =
           type: RESET_CONSTRUCTOR_LIST,
         });
       })
-      .catch((res) => {
+      .catch((res: Response) => {
         const code = res.status;
         const url = res.url;
-        res.json().then((res: any) => {
+        res.json().then((res) => {
           dispatch({
             type: SET_MODAL_DATA,
             modalIsVisible: true,

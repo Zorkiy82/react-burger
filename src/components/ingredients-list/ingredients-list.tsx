@@ -3,7 +3,7 @@ import { TIngredientForConstructor } from "../../services/types/data";
 import { ConstructorCard } from "../constructor-card/constructor-card";
 import styles from "./ingredients-list.module.css";
 
-const IngredientsList: FC<{main: TIngredientForConstructor[]}> = ({main}) => {
+const IngredientsList: FC<{ main: TIngredientForConstructor[] }> = ({ main }) => {
   return (
     <ul className={styles.list}>
       {main.map((item, index: number) => (

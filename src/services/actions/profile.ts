@@ -70,13 +70,13 @@ export type TProfileActions =
 let count = 0;
 
 export const getUserData: AppThunk =
-  (history, pathname, accessToken) => (dispatch: AppDispatch) => {
+  (history, pathname, accessToken) => (dispatch) => {
     dispatch({
       type: GET_USER_REQUEST,
     });
 
     getUser(accessToken)
-      .then((res: any) => {
+      .then((res) => {
         count = 0;
         dispatch({
           type: GET_USER_SUCCESS,
@@ -90,11 +90,11 @@ export const getUserData: AppThunk =
           },
         });
       })
-      .catch((res) => {
+      .catch((res: Response) => {
         const code = res.status;
         const url = res.url;
 
-        res.json().then((res: any) => {
+        res.json().then((res) => {
           if (res.message === "jwt expired") {
             if (!count) {
               count += 1;
@@ -136,7 +136,7 @@ export const patchUserData: AppThunk =
     });
 
     patсhUser(accessToken, userDataObj)
-      .then((res: any) => {
+      .then((res) => {
         count = 0;
         dispatch({
           type: PATCH_USER_SUCCESS,
@@ -150,23 +150,21 @@ export const patchUserData: AppThunk =
           },
         });
       })
-      .catch((res) => {
+      .catch((res: Response) => {
         const code = res.status;
         const url = res.url;
 
-        res.json().then((res: any) => {
+        res.json().then((res) => {
           if (res.message === "jwt expired") {
             if (!count) {
               count += 1;
               const refreshToken = getCookie("refreshToken");
-              Promise.all([postTokenData(refreshToken)]).then(
-                (data) => {
-                  setTimeout(() => {
-                    const accessToken = getCookie("accessToken");
-                    patchUserData(history, pathname, accessToken, userDataObj);
-                  }, 1000);
-                }
-              );
+              Promise.all([postTokenData(refreshToken)]).then((data) => {
+                setTimeout(() => {
+                  const accessToken = getCookie("accessToken");
+                  patchUserData(history, pathname, accessToken, userDataObj);
+                }, 1000);
+              });
             }
           } else {
             dispatch({

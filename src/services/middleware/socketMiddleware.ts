@@ -9,7 +9,7 @@ export const socketMiddleware = (
   return (store: any) => {
     let socket: WebSocket | null = null;
 
-    return (next: any) => (action: TWSActions) => {
+    return (next: Function) => (action: TWSActions) => {
       const { dispatch, getState } = store;
       const { itemsCatalog } = getState().ingredients;
       const { type } = action;

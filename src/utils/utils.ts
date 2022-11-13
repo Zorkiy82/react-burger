@@ -1,10 +1,7 @@
 import { accessTokenLifetime, refreshTokenLifetime } from "./constants";
 import { SET_AUTORIZATION_DATA } from "../services/constants/index";
 import { postTokenData } from "../services/actions/token";
-// import { AppDispatch, AppThunk } from "../services/types";
 import { store } from "../services/store";
-import { AppDispatch, AppThunk } from "../services/types";
-import { ThunkDispatch } from "redux-thunk";
 
 export function getCookie(name: string): string | undefined {
   const matches = document.cookie.match(

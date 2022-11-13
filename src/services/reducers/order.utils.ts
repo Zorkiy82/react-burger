@@ -111,14 +111,13 @@ export function getReceipt(
     }
     totalPrice = totalPrice + Number(resObj[key].price) * resObj[key].counter;
 
-
     resArr.push(resObj[key]);
   }
 
   resArr.sort((a, b) => b.counter - a.counter);
   return { items: resArr, totalPrice: getFormattedNumber(totalPrice) };
 }
-// created
+
 export function getOrderStatus(status: string) {
   switch (status) {
     case "created": {

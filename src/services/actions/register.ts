@@ -37,7 +37,7 @@ export const postRegisterData: AppThunk =
     });
 
     postRegister(history.location.state)
-      .then((res: any) => {
+      .then((res) => {
         dispatch({
           type: POST_REGISTER_SUCCESS,
           data: res,
@@ -58,11 +58,11 @@ export const postRegisterData: AppThunk =
           isAuthorized: true,
         });
       })
-      .catch((res) => {
+      .catch((res: Response) => {
         const code = res.status;
         const url = res.url;
 
-        res.json().then((res: any) => {
+        res.json().then((res) => {
           dispatch({
             type: POST_REGISTER_FAILED,
             data: res,

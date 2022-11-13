@@ -54,10 +54,10 @@ export const postForgotPasswordData: AppThunk =
           state: {},
         });
       })
-      .catch((res) => {
+      .catch((res: Response) => {
         const code = res.status;
         const url = res.url;
-        res.json().then((res: any) => {
+        res.json().then((res) => {
           dispatch({
             type: POST_FORGOT_PASSWORD_FAILED,
             data: res,

@@ -1,15 +1,34 @@
+import {
+  TIngredient,
+  TOrderFetch,
+  TRegisterData,
+  TTokenData,
+  TUser,
+} from "../services/types/data";
 import { ApiUrl } from "./constants";
 
-// TODO Можно сделать универсальную функцию запроса с проверкой ответа,
-// чтобы не дублировать эту проверку в каждом запросе:
+type TResponseBody<TDataType = {}> = TDataType;
 
-// function request(url, options) {
-//   // принимает два аргумента: урл и объект опций
-//   return fetch(url, options).then(checkResponse)
-// }
-// И теперь просто нужно заменить все fetch на request. Все остальное будет без изменений. Код станет чище
+interface CustomBody<T extends any> extends Body {
+  json(): Promise<T>;
+}
 
-function checkReponse(res: any): any {
+interface CustomResponse<T> extends CustomBody<T> {
+  readonly headers: Headers;
+  readonly ok: boolean;
+  readonly redirected: boolean;
+  readonly status: number;
+  readonly statusText: string;
+  readonly trailer: Promise<Headers>;
+  readonly type: ResponseType;
+  readonly url: string;
+  clone(): Response;
+}
+function request(url: string, options: { [key: string]: any }) {
+  return fetch(url, options).then(checkResponse);
+}
+
+function checkResponse(res: Response) {
   if (res.ok) {
     return res.json();
   } else {
@@ -17,76 +36,124 @@ function checkReponse(res: any): any {
   }
 }
 
-function basePostFetch(addUrl: string, bodyObject: any) {
-  return fetch(`${ApiUrl + addUrl}`, {
+function basePostFetch(addUrl: string, bodyObject: { [key: string]: any }) {
+  return request(`${ApiUrl + addUrl}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(bodyObject),
-  }).then(checkReponse);
+  });
 }
 
-function getIngredients() {
-  return fetch(`${ApiUrl}/ingredients`).then(checkReponse);
+function getIngredients(): Promise<
+  TResponseBody<{
+    success: boolean;
+    data: Array<TIngredient>;
+  }>
+> {
+  return request(`${ApiUrl}/ingredients`, {});
 }
 
-function getUser(accessToken: string) {
-  return fetch(`${ApiUrl}/auth/user`, {
+function getUser(accessToken: string): Promise<
+  TResponseBody<{
+    success: boolean;
+    user: TUser;
+  }>
+> {
+  return request(`${ApiUrl}/auth/user`, {
     method: "GET",
 
     headers: {
       "Content-Type": "application/json",
       authorization: accessToken,
     },
-  }).then(checkReponse);
+  });
 }
 
-function patсhUser(accessToken: string, userDataObj: any) {
-  return fetch(`${ApiUrl}/auth/user`, {
+function patсhUser(
+  accessToken: string,
+  userDataObj: {
+    name: string;
+    email: string;
+    password: string;
+    from: string;
+  }
+): Promise<
+  TResponseBody<{
+    success: boolean;
+    user: TUser;
+  }>
+> {
+  return request(`${ApiUrl}/auth/user`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
       authorization: accessToken,
     },
     body: JSON.stringify(userDataObj),
-  }).then(checkReponse);
+  });
 }
 
-function postOrder(ingridientsIdArray: Array<string>, accessToken: string) {
-  return fetch(`${ApiUrl}/orders`, {
+function postOrder(
+  ingridientsIdArray: Array<string>,
+  accessToken: string | undefined
+): Promise<
+  TResponseBody<{ success: boolean; name: string; order: TOrderFetch }>
+> {
+  return request(`${ApiUrl}/orders`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       authorization: accessToken,
     },
     body: JSON.stringify({ ingredients: ingridientsIdArray }),
-  }).then(checkReponse);
+  });
 }
 
-function postLogin(loginDataObj: any) {
+function postLogin(loginDataObj: {
+  email: string;
+  password: string;
+  from: string;
+}): Promise<TResponseBody<TRegisterData>> {
   return basePostFetch("/auth/login", loginDataObj);
 }
 
-function postRegister(registerDataObj: any) {
+function postRegister(registerDataObj: {
+  name: string;
+  email: string;
+  password: string;
+  from: string;
+}): Promise<TResponseBody<TRegisterData>> {
   return basePostFetch("/auth/register", registerDataObj);
 }
 
-function postForgotPassword(forgotPasswordDataObj: any) {
+function postForgotPassword(forgotPasswordDataObj: {
+  email: string;
+  from: string;
+}): Promise<TResponseBody<{ success: boolean; message: string }>> {
   return basePostFetch("/password-reset", forgotPasswordDataObj);
 }
 
-function postResetPassword(resetPasswordDataObj: any) {
+function postResetPassword(resetPasswordDataObj: {
+  token: string;
+  password: string;
+  from: string;
+}): Promise<TResponseBody<{ success: boolean; message: string }>> {
   return basePostFetch("/password-reset/reset", resetPasswordDataObj);
 }
 
-function postToken(refreshToken: string) {
+function postToken(
+  refreshToken: string
+): Promise<TResponseBody<TTokenData & { success: boolean }>> {
   return basePostFetch("/auth/token", {
     token: refreshToken,
   });
 }
-function logoutRequest(refreshToken: string) {
-  basePostFetch("/auth/logout", {
+function logoutRequest(
+  refreshToken: string
+): Promise<CustomResponse<TResponseBody>> {
+  return basePostFetch("/auth/logout", {
     token: refreshToken,
   });
 }

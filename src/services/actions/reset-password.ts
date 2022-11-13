@@ -21,7 +21,10 @@ export interface IPostResetPasswordSuccessAction {
 
 export interface IPostResetPasswordFailedAction {
   readonly type: typeof POST_RESET_PASSWORD_FAILED;
-  data: any;
+  data: {
+    success: boolean;
+    message: string;
+  };
 }
 
 export type TResetPasswordActions =
@@ -46,10 +49,10 @@ export const postResetPasswordData: AppThunk =
           state: {},
         });
       })
-      .catch((res: any) => {
+      .catch((res: Response) => {
         const code = res.status;
         const url = res.url;
-        res.json().then((res: any) => {
+        res.json().then((res) => {
           dispatch({
             type: POST_RESET_PASSWORD_FAILED,
             data: res,

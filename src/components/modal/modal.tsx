@@ -1,11 +1,11 @@
-import { FC, useEffect, ReactElement } from "react";
+import { FC, useEffect, ReactElement, ReactNode } from "react";
 import ReactDOM from "react-dom";
 import styles from "./modal.module.css";
 import { ModalOverlay } from "../modal-overlay/modal-overlay";
 import { ModalRoot } from "../../utils/constants";
 
 
-const Modal: FC<{ onClose: () => void, children: ReactElement | null }> = (props) => {
+const Modal: FC<{ onClose: () => void, children: ReactNode }> = (props) => {
   useEffect(() => {
     window.addEventListener("keydown", handleKeydownEsc);
 

@@ -1,4 +1,4 @@
-import { ReactElement, useEffect } from "react";
+import { ReactElement, ReactNode, useEffect } from "react";
 import { checkAuth } from "../../utils/utils";
 import { Switch, Route, useLocation, useHistory } from "react-router-dom";
 import { HomePage } from "../../pages/home/home";
@@ -53,7 +53,7 @@ const App = () => {
     }
   }, [itemsRequest, dispatch]);
 
-  const getModalContent = (): ReactElement | null => {
+  const getModalContent = (): ReactNode => {
     switch (modalType) {
       case "error": {
         return <ErrorDetails {...errorData} />;

@@ -6,12 +6,10 @@ import {
 } from "../constants/index";
 
 export type TResetPasswordState = {
-  resetPasswordData:
-    | Object
-    | {
-        success: boolean;
-        message: string;
-      };
+  resetPasswordData: {
+    success: boolean;
+    message: string;
+  };
   resetPasswordRequest: boolean;
   resetPasswordFailed: boolean;
 };

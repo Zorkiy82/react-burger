@@ -58,7 +58,7 @@ export type TOrderWS = {
       ingredients: Array<string>;
     }
   >;
-  success: boolean;
+  success?: boolean;
   total: number;
   totalToday: number;
 };

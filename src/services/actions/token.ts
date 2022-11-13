@@ -31,13 +31,13 @@ export type TTokenActions =
   | IPostTokenFailedAction;
 
 export const postTokenData: AppThunk =
-  (refreshToken:string) => (dispatch:AppDispatch) => {
+  (refreshToken: string) => (dispatch: AppDispatch) => {
     dispatch({
       type: POST_TOKEN_REQUEST,
     });
 
     postToken(refreshToken)
-      .then((res: any) => {
+      .then((res) => {
         setToken(res);
         dispatch({
           type: POST_TOKEN_SUCCESS,
@@ -49,11 +49,11 @@ export const postTokenData: AppThunk =
           isAuthorized: true,
         });
       })
-      .catch((res) => {
+      .catch((res: Response) => {
         const code = res.status;
         const url = res.url;
 
-        res.json().then((res: any) => {
+        res.json().then((res) => {
           dispatch({
             type: POST_TOKEN_FAILED,
             data: res,

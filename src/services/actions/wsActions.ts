@@ -74,12 +74,12 @@ export const wsGetMessage = (
     type: WS_GET_MESSAGE,
     payload: {
       data: message,
-      catalog: catalog
+      catalog: catalog,
     },
   };
 };
 
-export const wsSendMessage = (message: any): IWSSendMessageAction => {
+export const wsSendMessage = (message: JSON): IWSSendMessageAction => {
   return {
     type: WS_SEND_MESSAGE,
     payload: message,
