@@ -14,7 +14,7 @@ import {
   getFormattedNumber,
 } from "./order.utils";
 
-type TWSOrdersArray = Array<
+export type TWSOrdersArray = Array<
   TOrderBase & {
     ingredients: Array<string>;
 

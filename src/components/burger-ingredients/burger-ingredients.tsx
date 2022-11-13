@@ -11,10 +11,10 @@ function BurgerIngredients() {
 
   const { items } = useSelector((state) => state.ingredients);
 
-  const baseRef: any = useRef();
-  const idOneRef: any = useRef();
-  const idTwoRef: any = useRef();
-  const idThreeRef: any = useRef();
+  const baseRef = useRef<HTMLParagraphElement>(null);
+  const idOneRef = useRef<HTMLParagraphElement>(null);
+  const idTwoRef = useRef<HTMLParagraphElement>(null);
+  const idThreeRef = useRef<HTMLParagraphElement>(null);
 
   const bunList = useMemo(
     () => items.filter((item) => item.type === "bun"),
@@ -32,10 +32,10 @@ function BurgerIngredients() {
   );
 
   function handlerOnScroll(evt: UIEvent) {
-    const baseY = baseRef.current.getBoundingClientRect().y;
-    const idOneY = idOneRef.current.getBoundingClientRect().y;
-    const idTwoY = idTwoRef.current.getBoundingClientRect().y;
-    const idThreeY = idThreeRef.current.getBoundingClientRect().y;
+    const baseY = Number(baseRef.current?.getBoundingClientRect().y);
+    const idOneY = Number(idOneRef.current?.getBoundingClientRect().y);
+    const idTwoY = Number(idTwoRef.current?.getBoundingClientRect().y);
+    const idThreeY = Number(idThreeRef.current?.getBoundingClientRect().y);
     const itemArray = [
       {
         name: "one",

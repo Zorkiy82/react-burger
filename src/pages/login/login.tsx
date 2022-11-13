@@ -1,4 +1,4 @@
-import { FormEvent, useEffect } from "react";
+import { ChangeEvent, FormEvent, useEffect } from "react";
 import { checkAuth } from "../../utils/utils";
 import { useDispatch, useSelector } from "../../services/hooks";
 import { Link, Redirect, useHistory, useLocation } from "react-router-dom";
@@ -17,10 +17,10 @@ export const LoginPage = () => {
     checkAuth(isAuthorized);
   });
 
-  const history: any = useHistory();
-  const { pathname, state } = useLocation<any>();
+  const history = useHistory();
+  const { pathname, state } = useLocation<{ email: string, password: string, from: string }>();
 
-  function handleOnChange(evt: any) {
+  function handleOnChange(evt: ChangeEvent<HTMLInputElement>) {
     const key = evt.target.name;
     const value = evt.target.value;
 

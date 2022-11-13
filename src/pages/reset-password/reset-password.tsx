@@ -1,4 +1,4 @@
-import { FC, FormEvent, useEffect } from "react";
+import { ChangeEvent, FC, FormEvent, useEffect } from "react";
 import { useDispatch, useSelector } from "../../services/hooks";
 import { Link, Redirect, useHistory, useLocation } from "react-router-dom";
 import { checkAuth } from "../../utils/utils";
@@ -24,9 +24,9 @@ export const ResetPasswordPage: FC = () => {
     (state) => state.resetPassword.resetPasswordData.success
   );
   const history = useHistory();
-  const { pathname, state } = useLocation<any>();
+  const { pathname, state } = useLocation<{ token: string, password: string, from: string }>();
 
-  function handleOnChange(evt: any) {
+  function handleOnChange(evt: ChangeEvent<HTMLInputElement>) {
     const key = evt.target.name;
     const value = evt.target.value;
 

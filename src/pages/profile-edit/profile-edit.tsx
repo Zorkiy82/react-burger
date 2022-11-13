@@ -1,4 +1,4 @@
-import { FC, FormEvent, useEffect, useRef } from "react";
+import { ChangeEvent, FC, FormEvent, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "../../services/hooks";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import { checkAuth } from "../../utils/utils";
@@ -20,12 +20,12 @@ export const ProfileEditPage: FC = () => {
   useEffect(() => {
     checkAuth(isAuthorized);
   });
-  const history: any = useHistory();
-  const { pathname, state } = useLocation<any>();
+  const history = useHistory<{ name: string, email: string, password: string }>();
+  const { pathname, state } = useLocation<{ name: string, email: string, password: string, from: string }>();
   const { name, email } = useSelector((state) => state.profile.userData);
   const fetchRan = useRef(false);
 
-  function handleOnChange(evt: any) {
+  const handleOnChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const key = evt.target.name;
     const value = evt.target.value;
 

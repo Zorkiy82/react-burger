@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { ChangeEvent, FormEvent, useEffect } from "react";
 import { useDispatch, useSelector } from "../../services/hooks";
 import { checkAuth } from "../../utils/utils";
 import { Link, Redirect, useHistory, useLocation } from "react-router-dom";
@@ -17,9 +17,9 @@ export function ForgotPasswordPage() {
   });
 
   const history = useHistory();
-  const { pathname, state } = useLocation<any>();
+  const { pathname, state } = useLocation<{ email: string, from: string }>();
 
-  function handleOnChange(evt: any) {
+  function handleOnChange(evt: ChangeEvent<HTMLInputElement>) {
     const key = evt.target.name;
     const value = evt.target.value;
 
@@ -32,7 +32,7 @@ export function ForgotPasswordPage() {
     });
   }
 
-  function handleSubmit(evt: any) {
+  function handleSubmit(evt: FormEvent) {
     evt.preventDefault();
     dispatch(postForgotPasswordData(history, pathname));
   }

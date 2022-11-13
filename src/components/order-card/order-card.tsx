@@ -6,7 +6,7 @@ import {
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-export const OrderCard: FC<any> = (props) => {
+export const OrderCard: FC<{ id: string, status?: boolean }> = (props) => {
   const orderId = props.id;
   const location = useLocation();
   const { orders } = useSelector((state) => state.ws.message);

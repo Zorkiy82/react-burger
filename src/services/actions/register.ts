@@ -22,7 +22,7 @@ export interface IPostRegisterSuccessAction {
 
 export interface IPostRegisterFailedAction {
   readonly type: typeof POST_REGISTER_FAILED;
-  data: any;
+  data: TRegisterData;
 }
 
 export type TRegisterActions =

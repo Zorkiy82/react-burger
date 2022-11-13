@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-type TErrorDetails = {
+export type TErrorDetails = {
   code: number | null,
   url: string,
   message: string

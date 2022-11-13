@@ -21,7 +21,10 @@ export interface IPostForgotPasswordSuccessAction {
 
 export interface IPostForgotPasswordFailedAction {
   readonly type: typeof POST_FORGOT_PASSWORD_FAILED;
-  data: any;
+  data: {
+    success: boolean;
+    message: string;
+  };
 }
 
 export type TForgotPasswordActions =

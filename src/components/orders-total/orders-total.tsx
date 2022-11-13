@@ -1,20 +1,20 @@
 import { FC, useMemo } from "react";
-import { useSelector } from "react-redux";
+import { useSelector } from "../../services/hooks";
 import { Link, useLocation } from "react-router-dom";
-import styles from "./orders-total.module.css";
+import styles from "./orders-total.module.css"
 
 export const OrdersTotal: FC = () => {
   const { orders, fTotal, fTotalToday } = useSelector(
-    (state: any) => state.ws.message
+    (state) => state.ws.message
   );
   const location = useLocation();
 
   const ordersDone = useMemo(() => {
-    return orders ? orders.filter((order: any) => order.status === "done") : null;
+    return orders.filter((order) => order.status === "done");
   }, [orders]);
 
   const ordersPending = useMemo(() => {
-    return orders ? orders.filter((order: any) => order.status === "pending") : null;
+    return orders.filter((order) => order.status === "pending");
   }, [orders]);
 
   if (!orders) {
@@ -26,7 +26,7 @@ export const OrdersTotal: FC = () => {
         <div className={`${styles.column}`}>
           <p className="text text_type_main-medium mb-6">{`Готовы:`}</p>
           <div className={`${styles.statusContainer}`}>
-            {ordersDone.map((value: any) => {
+            {ordersDone.map((value) => {
               return (
                 <Link
                   to={{
@@ -47,7 +47,7 @@ export const OrdersTotal: FC = () => {
         <div>
           <p className="text text_type_main-medium mb-6">{`В работе:`}</p>
           <div className={`${styles.statusContainer}`}>
-            {ordersPending.map((value: any) => {
+            {ordersPending.map((value) => {
               return (
                 <Link
                   to={{

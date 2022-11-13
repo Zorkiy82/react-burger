@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { ReactElement, useEffect } from "react";
 import { checkAuth } from "../../utils/utils";
 import { Switch, Route, useLocation, useHistory } from "react-router-dom";
 import { HomePage } from "../../pages/home/home";
@@ -20,6 +20,7 @@ import { getIngredientsData } from "../../services/actions/app/app";
 import { RESET_MODAL_DATA } from "../../services/constants";
 import styles from "./styles.module.css";
 
+
 const App = () => {
   const dispatch = useDispatch();
   const isAuthorized = useSelector((state) => state.profile.isAuthorized);
@@ -27,9 +28,16 @@ const App = () => {
     checkAuth(isAuthorized);
   });
 
-  const location: any = useLocation();
+  const location = useLocation<{
+    background: {
+      state: Object,
+      pathname: string,
+      search: string,
+      hash: string,
+    }
+  }>();
   const history = useHistory();
-  const background: any = location.state && location.state.background;
+  const background = location.state && location.state.background;
 
   const { itemsRequest } = useSelector((state) => state.ingredients);
 
@@ -45,7 +53,7 @@ const App = () => {
     }
   }, [itemsRequest, dispatch]);
 
-  const getModalContent = (): any => {
+  const getModalContent = (): ReactElement | null => {
     switch (modalType) {
       case "error": {
         return <ErrorDetails {...errorData} />;

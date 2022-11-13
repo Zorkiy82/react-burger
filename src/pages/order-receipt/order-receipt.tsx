@@ -1,15 +1,15 @@
 import { FC, useMemo } from "react";
-import { useSelector } from "react-redux";
+import { useSelector } from "../../services/hooks";
 import { useParams } from "react-router-dom";
 import { OrderReceipt } from "../../components/order-receipt/order-receipt";
 
 export const OrderReceiptPage: FC = () => {
-  const { orders } = useSelector((state: any) => state.ws.message);
+  const { orders } = useSelector((state) => state.ws.message);
   const { id } = useParams<{ id: string }>();
   const isOrder = useMemo(() => {
     let res = false;
     if (orders) {
-      res = orders.some((order: any) => order._id === id);
+      res = orders.some((order) => order._id === id);
     }
     return res;
   }, [id, orders]);

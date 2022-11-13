@@ -1,8 +1,10 @@
 import { accessTokenLifetime, refreshTokenLifetime } from "./constants";
 import { SET_AUTORIZATION_DATA } from "../services/constants/index";
 import { postTokenData } from "../services/actions/token";
-import { AppDispatch } from "../services/types";
+// import { AppDispatch, AppThunk } from "../services/types";
 import { store } from "../services/store";
+import { AppDispatch, AppThunk } from "../services/types";
+import { ThunkDispatch } from "redux-thunk";
 
 export function getCookie(name: string): string | undefined {
   const matches = document.cookie.match(
@@ -62,7 +64,7 @@ export function setToken(res: {
 }
 
 export const checkAuth = (state: boolean): void => {
-  const dispatch = store.dispatch;
+  const dispatch: any = store.dispatch;
   const accessToken = getCookie("accessToken");
   const refreshToken = getCookie("refreshToken");
 
@@ -72,7 +74,7 @@ export const checkAuth = (state: boolean): void => {
     }
   } else {
     if (refreshToken && !accessToken) {
-      postTokenData(refreshToken);
+      dispatch(postTokenData(refreshToken));
     } else {
       if (state) {
         dispatch({ type: SET_AUTORIZATION_DATA, isAuthorized: false });

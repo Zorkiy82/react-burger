@@ -1,6 +1,6 @@
 import { FC, useMemo } from "react";
 import { useDispatch } from "../../services/hooks";
-import { useDrag, useDrop } from "react-dnd";
+import { DragSourceMonitor, DropTargetMonitor, useDrag, useDrop } from "react-dnd";
 import styles from "./constructor-card.module.css";
 import {
   ConstructorElement,
@@ -8,8 +8,26 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { handleDropAction } from "../../services/actions/app/app";
 import { DELETE_CONSTRUCTOR_LIST_ITEM_MAIN } from "../../services/constants";
+import { TIngredientTypeAll, TIngredient } from "../../services/types/data";
 
-const ConstructorCard: FC<any> = (props) => {
+type TConstructorCard = {
+  text: string;
+  price: number;
+  index: "top" | "bottom" | number;
+  thumbnail: string;
+  ingredientType: TIngredientTypeAll;
+  type?: "top" | "bottom" | undefined;
+  isLocked?: boolean;
+}
+
+type TItemData = {
+  action: string;
+  data: TIngredient;
+  dragIndex: number | null;
+  ingredientType: TIngredientTypeAll;
+}
+
+const ConstructorCard: FC<TConstructorCard> = (props) => {
   const dispatch = useDispatch();
 
   const [{ isDrag }, dragRef] = useDrag({
@@ -25,16 +43,16 @@ const ConstructorCard: FC<any> = (props) => {
     }),
   });
 
-  const [{ isHover, dragItem }, dropRef]: any = useDrop({
+  const [{ isHover, dragItem }, dropRef]: any = useDrop<TItemData>({
     accept: "ingredient",
     collect: (monitor) => ({
       isHover: monitor.isOver(),
       dragItem: monitor.getItem(),
     }),
-    drop(itemData: any) {
+    drop(item) {
       dispatch(
         handleDropAction({
-          ...itemData,
+          ...item,
           dropIndex: props.index,
         })
       );

@@ -30,7 +30,7 @@ const IngredientCard: FC<TIngredient> = (props) => {
   const counter = useMemo(() => {
     const ingridientsIdArray = [bun._id, bun._id];
     main.forEach((item: TIngredient) => ingridientsIdArray.push(item._id));
-    const countObject: any = {};
+    const countObject: { [key: string]: number } = {};
     ingridientsIdArray.forEach(
       (item: string) =>
         (countObject[item] = countObject[item] ? ++countObject[item] : 1)

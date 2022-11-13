@@ -1,11 +1,11 @@
-import { FC, useEffect } from "react";
+import { FC, useEffect, ReactElement } from "react";
 import ReactDOM from "react-dom";
 import styles from "./modal.module.css";
 import { ModalOverlay } from "../modal-overlay/modal-overlay";
 import { ModalRoot } from "../../utils/constants";
 
 
-const Modal: FC<any> = (props) => {
+const Modal: FC<{ onClose: () => void, children: ReactElement | null }> = (props) => {
   useEffect(() => {
     window.addEventListener("keydown", handleKeydownEsc);
 
@@ -15,13 +15,13 @@ const Modal: FC<any> = (props) => {
   }, []);
 
   function handleMouseDown(evt: any) {
-    const eventId: any = evt.target.id;
+    const eventId = evt.target.id;
     if (eventId === "modalOverlay" || eventId === "modalCloseButton") {
       props.onClose();
     }
   }
 
-  function handleKeydownEsc(evt: any) {
+  function handleKeydownEsc(evt: KeyboardEvent) {
     if (evt.key === "Escape") {
       props.onClose();
     }

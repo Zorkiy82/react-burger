@@ -9,6 +9,7 @@ import { setToken } from "../../utils/utils";
 import { postToken } from "../../utils/burger-api";
 import { AppDispatch, AppThunk } from "../types";
 import { TTokenData } from "../types/data";
+import { ThunkDispatch, ThunkMiddleware } from "redux-thunk";
 
 export interface IPostTokenAction {
   readonly type: typeof POST_TOKEN_REQUEST;
@@ -21,7 +22,7 @@ export interface IPostTokenSuccessAction {
 
 export interface IPostTokenFailedAction {
   readonly type: typeof POST_TOKEN_FAILED;
-  data: any;
+  data: TTokenData & { success: boolean };
 }
 
 export type TTokenActions =
@@ -30,7 +31,7 @@ export type TTokenActions =
   | IPostTokenFailedAction;
 
 export const postTokenData: AppThunk =
-  (refreshToken) => (dispatch: AppDispatch) => {
+  (refreshToken:string) => (dispatch:AppDispatch) => {
     dispatch({
       type: POST_TOKEN_REQUEST,
     });

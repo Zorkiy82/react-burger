@@ -1,9 +1,10 @@
-import { FC, useEffect } from "react";
+import { FC, useEffect, ReactElement } from "react";
 import { Route, Redirect } from "react-router-dom";
-import { useSelector} from "../../services/hooks";
+
+import { useSelector } from "../../services/hooks";
 import { checkAuth } from "../../utils/utils";
 
-export const ProtectedRoute: FC<any> = ({ children, ...rest }) => {
+export const ProtectedRoute: FC<{ children: ReactElement, path: string, exact?: boolean }> = ({ children, ...rest }) => {
   const isAuthorized = useSelector((state) => state.profile.isAuthorized);
   useEffect(() => {
     checkAuth(isAuthorized);

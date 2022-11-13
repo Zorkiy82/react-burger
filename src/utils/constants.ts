@@ -1,11 +1,11 @@
 import plus from "../images/plus-circle-o.svg";
 import { TBurgerConstructorState } from "../services/reducers/constructor";
 
-const oneSecond: number = 1;
-const oneMinute = oneSecond * 60;
-const oneHour = oneMinute * 60;
-const oneDay = oneHour * 24;
-const oneWeek = oneDay * 7;
+export const oneSecond: number = 1;
+export const oneMinute = oneSecond * 60;
+export const oneHour = oneMinute * 60;
+export const oneDay = oneHour * 24;
+export const oneWeek = oneDay * 7;
 export const msInDay = oneDay * 1000;
 
 const accessTokenLifetime = oneMinute * 19;
@@ -14,7 +14,7 @@ const refreshTokenLifetime = oneDay;
 const defaultConstructorItems: TBurgerConstructorState = {
   bun: {
     name: "Пожалуйста, перенесите сюда булку и ингредиенты для создания заказа",
-    price: null,
+    price: 0,
     image_mobile: plus,
     _id: "",
     fat: 0,

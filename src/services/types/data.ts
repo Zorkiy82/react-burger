@@ -14,7 +14,7 @@ export type TIngredient = {
   readonly fat: number;
   readonly carbohydrates: number;
   readonly calories: number;
-  readonly price: number | null;
+  readonly price: number;
   readonly image: string;
   readonly image_mobile: string;
   readonly image_large: string;
@@ -66,7 +66,7 @@ export type TOrderWS = {
 export type TRecript = {
   _id: string;
   name: string;
-  price: number | null;
+  price: number;
   type: TIngredientTypeAll;
   image_mobile: string;
   counter: number;

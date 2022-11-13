@@ -22,7 +22,7 @@ export interface IPostLoginSuccessAction {
 
 export interface IPostLoginFailedAction {
   readonly type: typeof POST_LOGIN_FAILED;
-  data: any;
+  data: TPostLoginData;
 }
 
 export type TLoginActions =
