@@ -13,7 +13,7 @@ const refreshTokenLifetime = oneDay;
 
 const defaultConstructorItems: TBurgerConstructorState = {
   bun: {
-    name: "Пожалуйста, перенесите сюда булку и ингредиенты для создания заказа",
+    name: "Пожалуйста, перенесите сюда булку и ингредиенты для бургера",
     price: 0,
     image_mobile: plus,
     _id: "",

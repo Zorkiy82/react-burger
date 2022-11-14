@@ -14,14 +14,14 @@ const Modal: FC<{ onClose: () => void, children: ReactNode }> = (props) => {
     };
   }, []);
 
-  function handleMouseDown(evt: any) {
+  const  handleMouseDown = (evt: any) => {
     const eventId = evt.target.id;
     if (eventId === "modalOverlay" || eventId === "modalCloseButton") {
       props.onClose();
     }
   }
 
-  function handleKeydownEsc(evt: KeyboardEvent) {
+const handleKeydownEsc = (evt: KeyboardEvent) => {
     if (evt.key === "Escape") {
       props.onClose();
     }
