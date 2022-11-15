@@ -1,15 +1,16 @@
-import { TWSActions } from "../actions/wsActions";
 import { TMiddlewareWSActions } from "../store";
+import { Middleware, MiddlewareAPI } from "redux";
 import { TOrderWS } from "../types/data";
+import { AppDispatch, RootState } from "../types";
 
 export const socketMiddleware = (
   wsUrl: string,
   wsActions: TMiddlewareWSActions
-) => {
-  return (store: any) => {
+): Middleware => {
+  return (store: MiddlewareAPI<AppDispatch, RootState>) => {
     let socket: WebSocket | null = null;
 
-    return (next: Function) => (action: TWSActions) => {
+    return (next) => (action) => {
       const { dispatch, getState } = store;
       const { itemsCatalog } = getState().ingredients;
       const { type } = action;
