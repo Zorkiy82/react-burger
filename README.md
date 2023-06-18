@@ -1,4 +1,4 @@
-# Проектная работа месяц 10 "react-burger"
+#  "Stellar Burgers"
 
 Проект создан в рамках обучения по программе "Веб-разработчик+" Яндекс.Практикум.
 Это приложение космической бургерной - Stellar Burgers.
@@ -8,13 +8,20 @@
 
 ## В процессе разработки использованы технологии:
 
-**1. HTML**
-**2. CSS**
+**1. React**
+**2. TypeScript**
 **3. JavaScript**
-**4. React**
-**5. Redux**
-**6. React-DnD**
-**7. React-Router-Dom**
-**8. TypeScript**
+**4. Redux**
+**5. React-DnD**
+**6. React-Router-Dom**
+**7. HTML**
+**8. CSS**
 
-https://zorkiy82.github.io/react-burger/
+## Демо сайт: 
+
+[https://zorkiy82.github.io/react-burger](https://zorkiy82.github.io/react-burger/)
+
+## Как запустить проект
+- `git clone git@github.com:Zorkiy82/algososh.git`
+- `npm install`
+- `npm run start`
